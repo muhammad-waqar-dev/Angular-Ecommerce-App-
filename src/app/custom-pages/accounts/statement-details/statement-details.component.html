@@ -1,0 +1,69 @@
+<ng-template #loading>
+    <div class="cx-spinner w-100">
+        <cx-spinner></cx-spinner>
+    </div>
+</ng-template>
+
+<ng-container *ngIf="!(isLoading$ | async);else loading">
+    <a [routerLink]="accountConstants.accountsLink" (click)="navigateToOrder()" *ngIf="isMobile" class="m-backArrow"><i class="fa fa-chevron-left"></i></a>
+    <span class="orderBreadCrumb" *ngIf="!isMobile"><a [routerLink]="homeConstants.homeLink">{{homeConstants.homeLabel}}</a> > <a [routerLink]="accountConstants.accountsLink" (click)="navigateToOrder()">Statements</a>> <a> {{account.journalEntryDate ? formateDate(account.journalEntryDate.value) : account.StatementDate}}</a></span>
+
+    <div class="desktop-order-details d-none d-md-block d-lg-block">
+        <div class="details">
+            <table class="table table-borderless">
+                <thead>
+                    <tr>
+                        <th scope="col">Statement Date</th>
+                        <th scope="col">Credit Limit</th>
+                        <th scope="col">Statement Balance</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{account.journalEntryDate ? formateDate(account.journalEntryDate.value) : account.StatementDate}}</td>
+                        <td>$ {{creditLimit | number : '1.2-2'}}</td>
+                        <td>$ {{account.AccumulatedBalAmtInDisplayCrcy ? (account.AccumulatedBalAmtInDisplayCrcy | number : '1.2-2') : account.amount | number : '1.2-2'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="pdf-content d-flex justify-content-end" *ngIf="isStatementGen && !disableIcon">
+            <div class="invoice">
+                <a 
+                class="cursor-pointer text-center" title="Statement PDF" (click)="!disableIcon ? onOpenStatement() : null">
+                    <img class="pdf-icon" src="assets/images/file-pdf-regular.svg" alt="Statement" />
+                    <p>Statement</p>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- mobile view  -->
+    <div class="mobile-order-details d-lg-none d-md-none d-block" *ngIf="account.balance">
+        <div class="purchase-order-info space-border">
+            <div class="head-dark">
+                <p>Statement Date: <strong>{{account.closingDate}}</strong></p>
+            </div>
+
+            <div class="pt-3 d-flex justify-content-start">
+                <p class="left-side">Credit Limit</p>
+                <p class="right-side">$ {{creditLimit}}</p>
+            </div>
+
+            <div class="pt-3 d-flex justify-content-start">
+                <p class="left-side">Statement Balance</p>
+                <p class="right-side">$ {{account.balance}}</p>
+            </div>
+
+            <div class="pt-3 d-flex justify-content-start">
+                <p class="left-side">Statement</p>
+                <a class="right-side">
+                    <img src="assets/images/file-pdf-regular.svg" alt="Upload" />
+                </a>
+            </div>
+        </div>
+
+    </div>
+</ng-container>

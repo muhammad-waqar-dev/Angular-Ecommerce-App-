@@ -1,0 +1,247 @@
+@import "../../../../app/shared/styles/form.scss";
+
+h3 {
+    color: $grey-color;
+    @media screen and (max-width: $mobileScreenPotrait) {
+        padding: 10px 0;
+        font-size: 18px;
+        text-align: left;
+        margin-bottom: 1.3rem;
+    }
+}
+.cartBtn {
+    position: absolute;
+    top: -0.7rem;
+    right: 0;
+    text-transform: uppercase;
+    width: 17rem;
+}
+.section-heading {
+    font-size: 0.95rem;
+    @include font-Arial();
+    p {
+        font-weight: bold;
+        color: $heading-dark-grey;
+        border-bottom: 1px solid $disabled-grey;
+        padding-bottom: 0.4rem;
+        margin-bottom: 1rem;
+    }
+}
+.fulfillmentSection {
+    margin-top: 3rem;
+    @media screen and (max-width: $mobileScreenPotrait) {
+        margin-top: 0;
+    }
+}
+.form-check input + .form-check-label {
+    font-size: 0.9375rem;
+}
+.form-check input[type="radio"]:checked::after {
+    background: $grey-color;
+}
+input[type="radio"]:checked {
+    border-color: $box-shadow-grey !important;
+    outline: none;
+}
+.form-check input[type="checkbox"]:checked {
+    background-color: white;
+    border-width: 2px;
+    border-color: $box-shadow-grey;
+    &::after {
+        border-color: $grey-color;
+    }
+}
+.form-check input[type=radio] {
+    outline: none;
+}
+.deliverySection, .pickupSection{
+    margin-top: 2rem;
+}
+
+.delivery-sec, .pickup-sec {
+    .form-control {
+        margin-bottom: 0.938rem;
+    }
+    label {
+        @media screen and (max-width: $mobileScreenPotrait) {
+            font-size: 0.90rem;
+        }
+    }
+    .submitBtn {
+        font-size: 0.9rem;
+    }
+}
+
+.order-summary-section {
+    margin-top: 3rem;
+    color: $heading-dark-grey;
+    border-left: 1px solid #ccc;
+    padding-left: 1.4rem;
+    @media screen and (max-width: $mobileScreenPotrait) {
+        margin-top: 0.1rem;
+    }
+    .reference {
+        padding-bottom: 20px;
+        p {
+            margin-bottom: 0;
+            padding: 15px 0;
+            border-bottom: 1px solid $disabled-grey;
+        }
+    }
+    .totals {
+        padding-bottom: 0.313rem;
+        margin-bottom: 0.938rem;
+      //  border-bottom: 1px solid $disabled-grey;
+    }
+    .submitBtn {
+        font-size: 0.9rem;
+    }
+}
+
+.itemRef {
+    display: flex;
+    word-break: break-all;
+}
+
+.pickup-store-hours {
+    margin-bottom: 1.25rem;
+    @media screen and (max-width: $mobileScreenPotrait) {
+        margin-bottom: 1.50rem;
+    }
+    p {
+        color: $heading-dark-grey;
+        font-weight: 600;
+        margin-bottom: 0.625rem;
+        @media screen and (max-width: $mobileScreenPotrait) {
+            font-size: 0.875rem;
+            font-weight: 400;
+            margin-bottom: 0.313rem;
+        }
+        &.spacer-p {
+            @media screen and (max-width: $mobileScreenPotrait) {
+                margin-bottom: 0.938rem;
+            }
+        }
+    }
+}
+
+ul {
+    &.cart-preview {
+        padding: 0;
+        list-style: none;
+        li {
+            padding-top: 1.25rem;
+            img {
+                width: 7.5rem;
+                height: 7.5rem;
+                object-fit: cover;
+                object-position: center;
+                border: 1px solid $disabled-grey;
+                padding: 0.625rem;
+            }
+        }
+    }
+}
+
+.review-order, .payment {
+    .submitBtn {
+        @media screen and (max-width: $mobileScreenPotrait) {
+            font-size: 0.9rem;
+        }
+    }
+}
+
+.payment {
+    .searchformfld {
+        @media screen and (max-width: $mobileScreenPotrait) {
+            padding-bottom: 15px;
+        }
+    }
+}
+
+.order-summary-section .reference.subtotalVal p {
+    border-bottom: none;
+    padding: 0;
+    &:first-child {
+        margin-top: 0.7rem;
+    }
+}
+
+//datepicker hover button color change
+.datepicker-control {
+    max-width: 7rem;
+}
+::ng-deep  .datepicker-control {
+    height: 32px !important;
+    cursor: pointer;
+    caret-color: transparent;
+    max-width: 8rem;
+    padding-left: 5px;
+    font-size: 0.82rem;
+}
+::ng-deep .ngb-dp-arrow button:focus{
+    outline: 0 !important;
+    box-shadow: none !important;
+}
+::ng-deep .bg-primary, ::ng-deep .bg-primary:hover {
+    background-color: $grey-color !important;
+}
+::ng-deep .ngb-dp-arrow-btn:hover {
+    color: $grey-color !important;
+}
+::ng-deep .ngb-dp-navigation-chevron {
+    width: .55em !important;
+    height: .55em !important;
+}
+::ng-deep .ngb-dp-navigation-chevron:not(.right) {
+    margin-left: 0 !important;
+    margin-right: 1.15em !important;
+    margin-bottom: 0.55rem !important;
+}
+::ng-deep .right .ngb-dp-navigation-chevron {
+    margin-left: 1.55em !important;
+    margin-right: .25em !important;
+    margin-bottom: 0.6rem !important;
+}
+::ng-deep .orderCalender ngb-datepicker {
+    .ngb-dp-day, .ngb-dp-week-number, .ngb-dp-weekday {
+        width: 2.8rem !important;
+        height: 2.8rem !important;
+    }
+}
+.form-control.orderCalender:disabled, .form-control.orderCalender[readonly], .m-search[readonly] {
+    background-color: #e9ecef !important;
+}
+
+@media screen and (max-width: $mobileScreenPotrait) {
+    .order-summary-section {
+        border-left: none;
+        padding-left: 0;
+    }
+    .plusIcon {
+        position: absolute;
+        font-size: 24px;
+        right: 1rem;
+        bottom: 1rem;
+    }
+    .minusIcon {
+        font-size: 37px;
+        right: -0.2rem;
+        bottom: 1.4rem;
+        display: flex;
+        position: relative;
+        width: 21px;
+        height: 21px;
+    }
+    .cartBtn {
+        position: absolute;
+        top: 0rem;
+        right: 0;
+        width: 9rem;
+        font-size: 0.8rem;
+        max-height: 42px;
+    }
+    .paymentHeading {
+        padding-bottom: 1.5rem !important;
+    }
+}

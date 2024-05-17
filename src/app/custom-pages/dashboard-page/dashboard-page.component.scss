@@ -1,0 +1,50 @@
+@import "../../shared/styles/variables.scss";
+
+.form-wrapper {
+    margin: 0 auto;
+    width: 95%;
+}
+.prodDiv-w-2-col .my-team-card{
+    width: 23.4%;
+    margin: 0 2% 0 0;
+}
+.prodDiv-w-3-col .my-team-card{
+    width: 31.1%;
+    margin: 0 0 0 2%;
+}
+.prodDiv-w-3-col {
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    justify-content: left !important;
+    width: 100%;
+}
+.prodDiv-w-3-col :nth-child(3n + 1) {
+    margin-left: 1rem !important;
+}
+hr {
+    border-color: #979797;
+}
+.navigation-text {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+@media screen and (max-width: $mobileScreenPotrait) { 
+    .prodDiv-w-3-col .my-team-card{
+        width: 100%;
+        margin: 0 0 0 0;
+    }
+    .prodDiv-w-3-col :nth-child(3n + 1) {
+        margin-left: 0 !important;
+    }
+    .listing-container {
+        padding: 0;
+        span {
+            font-size: 0.8rem;
+        }
+    }
+    .page-heading{
+        font-size: 0.94rem;
+        text-align: center;
+    }
+}

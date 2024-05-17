@@ -1,0 +1,25 @@
+@import "../../../shared/styles/variables.scss";
+.addToCartForm {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .quantity {
+        padding-left: 1rem;
+        margin: 0;
+    }
+    .btn-primary:hover {
+        filter: none;
+    }
+}
+@media screen and (max-width: $mobileScreenPotrait) {
+ .addToCartForm {
+     display: block;
+     .quantity {
+         padding-left: 0;
+     }
+     .btn {
+         display: inline;
+         margin-top: 1.4rem;
+     }
+ }
+}

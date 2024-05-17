@@ -1,0 +1,507 @@
+@import "../../shared/styles/variables.scss";
+@import url("https://use.fontawesome.com/releases/v5.13.0/css/all.css");
+.form-wrapper {
+    margin: 0 auto;
+    width: 95%;
+    .main-heading {
+        color: $grey-color;
+        font-size: 1.5rem;
+    }
+    input {
+        width: 14.44rem;
+        height: 1.875rem;
+        border: 1px solid #c8c9c7;
+        border-radius: 0.19rem;
+    }
+    .invert {
+        transform: rotate(180deg);
+        margin-left: 5px;
+    }
+    .search,
+    .reset {
+        padding: 0.32rem;
+        border-radius: 0.19rem;
+    }
+    .reset {
+        background: #ffffff 0% 0% no-repeat padding-box;
+        border: 1px solid #c8c9c7;
+    }
+    .search {
+        background-color: #545859;
+        border: 1px solid #545859;
+    }
+    img {
+        margin-bottom: 3px;
+    }
+    .filter {
+        color: $grey-color;
+        font-size: 0.94rem;
+    }
+    .card {
+        color: $grey-color;
+        box-shadow: 4px 4px 5px #00000041;
+        border-radius: 0.25rem;
+        opacity: 1;
+        border: none;
+        border-left: 1px solid #fbfafa !important;
+        > p {
+            font-size: 0.94rem;
+        }
+        &-title {
+            background-color: #545859;
+            height: 3.94rem;
+            border-radius: 0.25rem;
+            font-size: 1.0625rem;
+        }
+        img {
+            width: 3.875rem;
+            height: 3.82rem;
+        }
+        &-status {
+            border-right: 1px solid #979797;
+        }
+        .searchformfld {
+            position: relative;
+            margin: 5px 0px;
+        }
+
+        .searchformfld label {
+            position: absolute;
+            padding-left: 0.625rem;
+            top: 0.57rem;
+            cursor: text;
+        }
+
+        .searchformfld input:focus + label,
+        .searchformfld input:not(:placeholder-shown) + label {
+            opacity: 1;
+            transform: scale(0.9) translateY(-100%) translateX(9px);
+            color: $grey-color;
+            background-color: $white-color;
+            padding-right: 0.57rem;
+        }
+
+        .searchformfld input:focus {
+            border: 1px solid #c8c9c7;
+            outline-color: $black-color;
+            color: $grey-color;
+            background-color: $white-color;
+        }
+
+        .searchformfld input {
+            width: 100%;
+            height: 3.69rem;
+            padding-left: 0.625rem;
+        }
+
+        .searchformfld label {
+            transition: all 0.2s;
+            transition-timing-function: ease;
+            transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+            opacity: 1;
+            padding-top: 0.625rem;
+        }
+        .form-group {
+            position: relative;
+            margin-bottom: 0.5rem !important;
+            label {
+                position: absolute;
+                font-size: 0.875rem;
+                color: $grey-color;
+                cursor: text;
+                z-index: 0;
+                transition: all 0.15s ease-in-out 0s;
+                &.liftUp {
+                    top: 0.875rem;
+                    left: 0.875rem;
+                    color: $grey-color;
+                    background-color: $white-color;
+                    padding: 0 2px;
+                    font-size: 0.875rem;
+                    transition: all 0.15s ease-in-out 0s;
+                }
+            }
+        }
+        > *p {
+            margin-bottom: 0px;
+            font-size: 1rem;
+            color: $dark-grey;
+        }
+
+        .custom-switch .custom-control-label::before {
+            height: 1.65rem;
+            width: 2.9rem;
+            border: 1px solid #c8c9c7;
+            border-radius: 16px;
+            cursor: pointer;
+        }
+        .custom-switch .custom-control-label::after {
+            width: calc(1.7rem - 4px);
+            height: calc(1.7rem - 4px);
+            left: calc(-2.5rem + 2px);
+            background-color: #adb5bd;
+            border-radius: 14px;
+        }
+        .custom-switch .custom-control-input:checked ~ .custom-control-label::after {
+            background-color: #fff;
+            transform: translateX(1.6rem);
+        }
+        .custom-switch .custom-control-input:checked ~ .custom-control-label::after {
+            background-color: #545859;
+        }
+        .custom-control-input:checked ~ .custom-control-label::before {
+            border-color: grey;
+            background-color: #fff;
+        }
+        .custom-control-input:focus ~ .custom-control-label::before {
+            box-shadow: none;
+        }
+
+        .custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
+            border-color: #adb5bd;
+        }
+        button {
+            background-color: #545859;
+        }
+    }
+
+    .prodDiv-w-2-col {
+        max-width: 100% !important;
+        margin: 0 auto !important;
+        justify-content: left !important;
+        width: 100%;
+    }
+    .prodDiv-w-3-col {
+        width: 80%;
+        justify-content: left !important;
+    }
+    .filter-section-container{
+        width: 20%;
+    }
+    .prodDiv-w-2-col .my-team-card{
+        width: 23.4%;
+        margin: 0 2% 0 0;
+    }
+    .prodDiv-w-3-col .my-team-card{
+        width: 31.1%;
+        margin: 0 0 0 2%;
+    }
+    .ml-08{
+        margin-left: 0.8rem;
+    }
+    .btn-add-team {
+        background-color: #545859;
+        color: #FFF;
+        margin-right: 3rem;
+        font-size: 0.9rem;
+        padding: 0 0.7rem;
+        height: 32px;
+        outline: none;
+        box-shadow: none;
+        width: auto;
+    }
+    
+    
+}
+.productPerPage {
+    max-width: 3.7rem;
+    position: relative;
+    left: 13px;
+    option {
+        font-size: 0.9rem;
+    }
+}
+.dropdown select {
+    min-width: 10rem;
+    height: 30px;
+    border-color: #c8c9c7;
+    cursor: pointer;
+}
+
+.form-control.productPerPage {
+    padding: 0.6875rem 0.1rem !important;
+}
+.pagination-perPage select {
+    font-size: 0.9rem;
+}
+::ng-deep .prodDiv-w-2-col .my-team-card:nth-child(4n) {
+    margin-right: 0 !important;
+}
+
+// Dropdpwn CSS//
+
+.dropdown {
+    
+    width: 11rem;
+    top: 0;
+    font-size: 0.9rem;
+    button {
+        border: 1px solid #c8c9c7;
+        border-radius: 4px;
+        background-color: $white-color;
+        color: #595959;
+        .m-arrow {
+            img {
+                width: 15px;
+                height: 9px;
+                position: relative;
+                bottom: 1px;
+            }
+        }
+    }
+    #navbarDropdownMenuLink2 {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        height: 32.4px;
+        padding: 5px 11px;
+    }
+    
+    .dropdown-menu {
+        padding: 0.4rem 0;
+        transform: translate(0px, 31px) !important;
+        border-top: none;
+        font-size: 0.9rem;
+        color: #595959;
+        li {
+            width: 10.9rem;
+            cursor: pointer;
+            padding: 0.2rem 0;
+            line-height: 23px;
+            &:hover {
+                background-color: $heading-grey;
+            }
+            label {
+                cursor: pointer;
+            }
+        }
+    }
+    .selectedText {
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        text-align: left;
+    }
+    .selected {
+        background-color: #ecebea;
+    }
+}
+
+.m-arrow {
+    img {
+        &.invert {
+            transform: rotate(180deg);
+        }
+    }
+}
+.sortOption label, .sort-button span {
+    text-transform: capitalize;
+}
+
+.icon-container {
+    border: 1px solid #c8c9c7;
+    padding: 3px 7px;
+    margin-right: 2rem;
+    cursor: pointer;
+    height: 31px;
+}
+.grid-list-icons {
+    margin-right: 2rem;
+    display: flex;
+    min-width: 10rem;
+}
+.grid-list-icons span {
+    cursor: pointer;
+}
+.list-view-container{
+    width: 100%;
+    padding: 2%;
+}
+.list-view-container-full-w{
+    width: 100%;
+    padding: 0;
+}
+.list-view-header {
+    border-top: 1px solid #c8c9c7;
+    border-bottom: 1px solid #c8c9c7;
+    padding: 1.2rem 0;
+    line-height: 1;
+    font-weight: 800;
+    display: flex;
+}
+.list-view-header span {
+    width: 24%;
+}
+.list-view-header .address{
+    width: 30% !important;
+    padding-left: 21px;
+}
+.nex-page{
+    width: 5% !important;
+}
+.grid-list-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    span {
+        color: #595959;
+    }
+}
+
+.dropdown {
+    
+    width: 14rem;
+    top: 0;
+    font-size: 0.9rem;
+    button {
+        border: 1px solid #c8c9c7;
+        border-radius: 4px;
+        background-color: $white-color;
+        color: #595959;
+        .m-arrow {
+            img {
+                width: 15px;
+                height: 9px;
+                position: relative;
+                bottom: 1px;
+            }
+        }
+    }
+    #navbarDropdownMenuLink2 {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        height: 32.4px;
+        padding: 5px 11px;
+        width: 13.5rem;
+    }
+    
+    .dropdown-menu {
+        padding: 0.4rem 0;
+        transform: translate(0px, 31px) !important;
+        border-top: none;
+        font-size: 0.9rem;
+        color: #595959;
+        li {
+            width: 13.4rem;
+            cursor: pointer;
+            padding: 0.2rem 0;
+            line-height: 23px;
+            &:hover {
+                background-color: $heading-grey;
+            }
+            label {
+                cursor: pointer;
+            }
+        }
+    }
+    .selectedText {
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        text-align: left;
+    }
+    .selected {
+        background-color: #ecebea;
+    }
+}
+.sort-icon {
+    padding-left: 0.5rem;
+}
+.sort-item .sort-icon {
+    display: block;
+}
+.form-check-label {
+    justify-content: space-between;
+}
+
+
+@media screen and (max-width: $mobileScreenPotrait) {
+    .form-wrapper {
+        #navbarDropdownMenuLink2 {
+            width: 10rem;
+        }
+        .my-team-card{
+            width: 100% !important;
+            margin: 1% !important;
+        }
+        .filter-section-container{
+            width: 100%;
+        }
+        .prodDiv-w-3-col{
+            width: 100%;
+        }
+        .reset img{
+            width: 14px;
+        }
+        .search,
+        .reset {
+            padding: 0rem 0.32rem !important;
+        }
+        .my-team-card{
+            margin-bottom: 2rem !important;
+        }
+        h2{
+            font-size: 0.94rem;
+            text-align: center;
+        }
+        .search-bar{
+            display: flex !important;
+        }
+    
+        .mobile-menu-btn {
+            position: absolute;
+            right: 1rem;
+            bottom: 0.3rem;
+        }
+    }
+    .search-bar{
+        margin-bottom: 1rem;
+    }
+    .btn-add-team {
+        position: absolute;
+        right: 0;
+        bottom: 3.6rem;
+        height: auto;
+        padding: 5px 10px;
+    }
+    .form-wrapper .btn-add-team {
+        position: absolute !important;
+        bottom: 0rem !important;
+        right: -2rem !important;
+    }
+
+    .dropdown {
+        right: unset;
+        top: 0rem;
+    }
+
+    .dropdown .dropdown-menu li:hover {
+        background-color: $heading-grey;
+    }
+    .mobile-teamGrid {
+        width: 90%;
+        display: flex;
+        margin: 0 auto;
+    }
+    .dropdown {
+        width: 10rem !important;
+    }
+    .btn-add-team {
+        width: auto !important;
+    }
+    ::ng-deep .dropdown .dropdown-menu li {
+        width: 9.9rem !important;
+    }
+    .grid-list-icons {
+        margin-right: 0;
+    }
+    .dropdown .dropdown-menu li {
+        font-size: 0.7rem;
+    }
+    .dropdown .form-check-label{
+        width: auto;
+    }
+}

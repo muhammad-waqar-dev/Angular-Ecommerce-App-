@@ -1,0 +1,339 @@
+@import "../../../shared/styles/variables.scss";
+
+
+    .main-heading {
+        color: $grey-color;
+        font-size: 1.5rem;
+    }
+    input {
+        width: 14.44rem;
+        height: 1.875rem;
+        border: 1px solid #c8c9c7;
+        border-radius: 0.19rem;
+    }
+    .invert {
+        transform: rotate(180deg);
+        margin-left: 5px;
+    }
+    .search,
+    .reset {
+        padding: 0.32rem;
+        border-radius: 0.19rem;
+    }
+    .reset {
+        background: #ffffff 0% 0% no-repeat padding-box;
+        border: 1px solid #c8c9c7;
+    }
+    .separator {
+        border-top: 1px solid #c8c9c7;
+        margin: 1rem;
+    }
+    .search {
+        background-color: #545859;
+        border: 1px solid #545859;
+    }
+    img {
+        margin-bottom: 3px;
+    }
+    .filter {
+        color: $grey-color;
+        font-size: 0.94rem;
+    }
+    .card {
+        color: $grey-color;
+        box-shadow: 4px 4px 5px #00000041;
+        border-radius: 0.25rem;
+        opacity: 1;
+        border: none;
+        border-left: 1px solid #fbfafa !important;
+        font-size: 0.95rem;
+        > p {
+            font-size: 0.94rem;
+        }
+        &-title {
+            background-color: #545859;
+            height: 3.7rem;
+            border-radius: 0.25rem;
+            font-size: 1rem;
+        }
+        img {
+            width: 3.7rem;
+            height: auto;
+        }
+        &-status {
+            border-right: 1px solid #979797;
+        }
+        .searchformfld {
+            position: relative;
+            margin: 5px 0px;
+        }
+
+        .searchformfld label {
+            position: absolute;
+            padding-left: 0.625rem;
+            top: 0.57rem;
+            cursor: text;
+        }
+
+        .searchformfld input:focus + label,
+        .searchformfld input:not(:placeholder-shown) + label {
+            opacity: 1;
+            transform: scale(0.9) translateY(-100%) translateX(9px);
+            color: $grey-color;
+            background-color: $white-color;
+            padding-right: 0.57rem;
+        }
+
+        .searchformfld input:focus {
+            border: 1px solid #c8c9c7;
+            outline-color: $black-color;
+            color: $grey-color;
+            background-color: $white-color;
+        }
+
+        .searchformfld input {
+            width: 100%;
+            height: 3.69rem;
+            padding-left: 0.625rem;
+            font-size: 0.95rem;
+        }
+
+        .searchformfld label {
+            transition: all 0.2s;
+            transition-timing-function: ease;
+            transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+            opacity: 1;
+            padding-top: 0.625rem;
+        }
+        .form-group {
+            position: relative;
+            margin-bottom: 0.5rem !important;
+            label {
+                position: absolute;
+                font-size: 0.875rem;
+                color: $grey-color;
+                cursor: text;
+                z-index: 0;
+                transition: all 0.15s ease-in-out 0s;
+                &.liftUp {
+                    top: 0.875rem;
+                    left: 0.875rem;
+                    color: $grey-color;
+                    background-color: $white-color;
+                    padding: 0 2px;
+                    font-size: 0.875rem;
+                    transition: all 0.15s ease-in-out 0s;
+                }
+            }
+        }
+        > *p {
+            margin-bottom: 0px;
+            font-size: 1rem;
+            color: $dark-grey;
+        }
+
+        .custom-switch .custom-control-label::before {
+            height: 1.65rem;
+            width: 2.9rem;
+            border: 1px solid #c8c9c7;
+            border-radius: 16px;
+            cursor: default;
+        }
+        .custom-switch .custom-control-label::after {
+            width: calc(1.7rem - 4px);
+            height: calc(1.7rem - 4px);
+            left: calc(-2.5rem + 2px);
+            background-color: #adb5bd;
+            border-radius: 14px;
+        }
+        .custom-switch .custom-control-input:checked ~ .custom-control-label::after {
+            background-color: #fff;
+            transform: translateX(1.6rem);
+        }
+        .custom-switch .custom-control-input:checked ~ .custom-control-label::after {
+            background-color: #545859;
+        }
+        .custom-control-input:checked ~ .custom-control-label::before {
+            border-color: grey;
+            background-color: #fff;
+        }
+        .custom-control-input:focus ~ .custom-control-label::before {
+            box-shadow: none;
+        }
+
+        .custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
+            border-color: #adb5bd;
+        }
+        button {
+            background-color: #545859;
+        }
+    }
+
+    .prodDiv-w-2-col {
+        max-width: 100% !important;
+        margin: 0 auto !important;
+        justify-content: left !important;
+        width: 100%;
+    }
+    .prodDiv-w-3-col {
+        width: 80%;
+    }
+    .filter-section-container{
+        width: 20%;
+    }
+    .prodDiv-w-2-col .my-team-card{
+        width: 30%;
+        margin: 0 4rem 0 0;
+    }
+    .prodDiv-w-3-col .my-team-card{
+        width: 33%;
+        margin: 0 2rem;
+    }
+
+    .item-container a {
+        cursor: pointer;
+        color: $heading-dark-grey;
+        text-decoration: none;
+        padding: 1rem 0;
+    }
+    ::ng-deep .item-container a:before {
+        content: "✓";
+        color: transparent;
+        flex-shrink: 0;
+        font-size: 1rem;
+        font-weight: 700;
+        width: 1.3rem;
+        height: 1.35rem;
+        border-radius: 0.2rem;
+        border: 1px solid var(--cx-color-light);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-inline-end: 0.5rem;
+    }
+    ::ng-deep .item-container .selected:before {
+        background-color: #fff;
+        border-color: $grey-color;
+        color: $grey-color;
+    }
+    .search-bar{
+        display: initial !important;
+    }
+    .ml-08{
+        margin-left: 0.8rem;
+    }
+    ::ng-deep .to-calendar{
+        bottom: 8.7rem !important
+    }
+    ::ng-deep  .datepicker-control {
+        height: 32px !important;
+        cursor: pointer;
+        caret-color: transparent;
+    }
+    ::ng-deep .bg-primary, ::ng-deep .bg-primary:hover {
+        background-color: $grey-color !important;
+    }
+    ::ng-deep .btn-link {
+        color: $grey-color !important;
+    }
+    ::ng-deep .ngb-dp-navigation-chevron {
+        width: .55em !important;
+        height: .55em !important;
+    }
+    ::ng-deep .ngb-dp-navigation-chevron:not(.right) {
+        margin-left: 0 !important;
+        margin-right: 1.15em !important;
+        margin-bottom: 0.55rem !important;
+    }
+    ::ng-deep .right .ngb-dp-navigation-chevron {
+        margin-left: 1.55em !important;
+        margin-right: .25em !important;
+        margin-bottom: 0.6rem !important;
+    }
+    ::ng-deep .from-calendar {
+        filter: none;
+        margin: 0;
+        position: absolute;
+        z-index: 999;
+        cursor: pointer;
+        width: 15px !important;
+        margin-left: -1.5rem;
+        margin-top: 0.3rem;
+    }
+    ::ng-deep .custom-control-input[disabled] ~ .custom-control-label::before, .custom-control-input:disabled ~ .custom-control-label::before {
+        background-color: #FFF;
+    }
+    .buttons-container button{
+        text-transform: uppercase;
+        font-weight: 400;
+    }
+    ::ng-deep .my-team-card .datepicker-control{
+        max-width: 8rem !important;
+    }
+
+    .noEvents {
+        pointer-events: auto !important;
+    }
+
+    .TeamBtn {
+        font-size: 0.91rem;
+    }
+    
+.cardCal {
+    pointer-events: none;
+}
+
+#orderDeliveries input {
+    cursor: default;
+}
+
+@media screen and (max-width: $mobileScreenPotrait) {
+    .formView {
+        margin-bottom: 1.7rem;
+    }
+    .form-wrapper {
+        .my-team-card{
+            width: 100% !important;
+            margin: 1% !important;
+        }
+        .filter-section-container{
+            width: 100%;
+        }
+        .prodDiv-w-3-col{
+            width: 100%;
+        }
+        .reset img{
+            width: 14px;
+        }
+        .search,
+        .reset {
+            padding: 0rem 0.32rem !important;
+        }
+        .my-team-card{
+            margin-bottom: 2rem !important;
+        }
+        h2{
+            font-size: 1.5rem
+        }
+        .search-bar{
+            display: flex !important;
+        }
+    
+    }
+    .card img {
+        width: 1.875rem;
+        height: auto;
+    }
+    .card .searchformfld input{
+        height: 2.69rem;
+    }
+    .card-title {
+        height: 2.94rem;
+    }
+    ::ng-deep .datepicker-control {
+        max-width: 10.44rem;
+    }
+    .buttons-container button{
+        font-size: 0.85rem;
+    }
+}

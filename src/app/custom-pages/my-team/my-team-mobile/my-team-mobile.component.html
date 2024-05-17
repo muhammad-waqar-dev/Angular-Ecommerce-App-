@@ -1,0 +1,10 @@
+<ng-container>
+  <div infiniteScroll [infiniteScrollDistance]="5" [infiniteScrollThrottle]="50"
+    [infiniteScrollDisabled]="isMaxProducts || isLastPage || isEmpty" (scrolled)="scrollPage(model?.currentPage + 1)">
+    <div>
+      <app-my-team-item-grid *ngFor="let user of users.users;let i = index" [model]="model" [user]="user" [index]="i"
+        [showFilterSection]="showFilterSection" [isMobile]="true"></app-my-team-item-grid>
+    </div>
+   
+  </div>
+</ng-container>

@@ -1,0 +1,14 @@
+<div class="mt-3">
+  <div class="messageDiv" *ngIf="isSuccess">
+    <p class='message'>{{popupThankYouMessage.textThankHeadingMessage}} <br />
+      <span class="d-block mt-3">{{popupThankYouMessage.textThankMessage}}</span>
+    </p>
+    <p class='messageThankYou mt-5 mb-2'>Regards,</p>
+    <p>Fletcher Insulation</p>
+  </div>
+  <div class="errorDiv" *ngIf="!isSuccess">
+    <p class='message'>We were unable to complete your request. Please Retry..</p>
+    <p class='messageThankYou mt-5 mb-2'>Regards,</p>
+    <p>Fletcher Insulation</p>
+  </div>
+</div>

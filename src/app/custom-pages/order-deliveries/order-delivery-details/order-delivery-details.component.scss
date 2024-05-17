@@ -1,0 +1,202 @@
+@import "../../../shared/styles/variables.scss";
+
+.desktop-order-details {
+    @include font-Arial();
+    table {
+        thead {
+            th {
+                text-transform: capitalize;
+                font-size: 16px;
+            }
+        }
+    }
+    .details {
+        table {
+            thead {
+                th {
+                    text-align: left;
+                    width: 12%;
+                    text-align: left;
+                    color: white;
+                    background-color: $background-grey;
+                    vertical-align: middle;
+                    text-transform: capitalize;
+                    font-size: 16px;
+                    &:first-child {
+                        border-radius: 4px 0 0 4px;
+                    }
+                    &:last-child {
+                        border-radius: 0 4px 4px 0;
+                    }
+                }
+            }
+        }
+        .pdf-icon {
+            width: 25px;
+        }
+    }
+    .delivery-info {
+        padding-top: 50px;
+        table {
+            thead {
+                th {
+                    text-align: left;
+                    text-transform: capitalize;
+                    font-size: 16px;
+                    width: 15%;
+                }
+            }
+        }
+    }
+    .order-info {
+        padding: 50px 0;
+        table {
+            thead {
+                th {
+                    text-align: left;
+                    width: 9%;
+                    &.prod-desc {
+                        width: 13%;
+                    }
+                    &.prod-img {
+                        width: 7%;
+                    }
+                    &.prod-uomTh {
+                        width: 5%;
+                    }
+                }
+            }
+            .product-image {
+                float: right;
+                img {
+                    width: 90px;
+                    height: 90px;
+                    object-fit: cover;
+                    object-position: center;
+                }
+            }
+            .product-desc {
+                display: flex;
+                justify-content: start;
+                align-items: center;
+                .content {
+                    p {
+                        margin-bottom: 0;
+                        &:first-child {
+                            font-weight: 600;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .total-row-table {
+        margin-bottom: 5px;
+        p {
+            margin-bottom: 0
+        }
+    }
+}
+
+.mobile-order-details {
+    @include font-Arial();
+    .purchase-order-info {
+        .head-dark {
+            color: white;
+            background-color: $background-grey;
+            height: 63px;
+            padding: 15px;
+            border-radius: 4px;
+            p {
+                line-height: 35px;
+                font-size: 15px;
+            }
+        }
+    }
+    p {
+        margin-bottom: 0;
+    }
+}
+
+.delivery-info, .order-info {
+    color: $heading-dark-grey;
+    table {
+        th, tr, td {
+            color: $heading-dark-grey;
+            strong {
+                color: $heading-dark-grey;
+            }
+        }
+    }
+}
+
+.left-side {
+    width: 35%;
+}
+
+.right-side {
+    text-align: left;
+    width: 65%;
+}
+
+
+img {
+    position: relative;
+    &.status {
+        width: 50px;
+        opacity: 0.3;
+        &.active {
+            opacity: 1;
+        }
+        @media screen and (max-width: $mobileScreenPotrait) {
+            width: 30px;
+        }
+    }
+}
+
+.space-border {
+    padding: 20px 0;
+    border-bottom: 1px solid $medium-gray;
+}
+
+.statuses {
+    .status-img {
+        width: 80px;
+        position: relative;
+        text-align: center;
+        @media screen and (max-width: $mobileScreenPotrait) {
+            width: 60px;
+        }
+        &::after {
+            content: '';
+            position: absolute;
+            top: 25%;
+            right: -15px;
+            width: 30px;
+            height: 2px;
+            background: $disabled-grey;
+        }
+        &:last-child {
+            &::after {
+                width: 0;
+            }
+        }
+        p {
+            color: $heading-dark-grey;
+            font-size: 14px;
+            padding-top: 5px;
+            font-weight: 600;
+            margin-bottom: 0;
+            @media screen and (max-width: $mobileScreenPotrait) {
+                font-size: 11px;
+            }
+        }
+    }
+}
+
+.m-backArrow {
+    position: absolute;
+    left: 0rem;
+    top: -3.3rem;
+    color: inherit;
+}

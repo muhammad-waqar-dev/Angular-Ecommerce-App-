@@ -1,0 +1,28 @@
+<ng-container *ngIf="!showDetailsPage">
+  <div infiniteScroll [infiniteScrollDistance]="5" [infiniteScrollThrottle]="50"
+    [infiniteScrollDisabled]="isMaxProducts || isLastPage || isEmpty" (scrolled)="scrollPage(model?.currentPage + 1)">
+    <div>
+      <ng-container *ngIf="isGridView">
+      
+        <app-order-delivery-item-grid *ngFor="let order of orders;let i = index" [model]="model" [order]="order"
+        [index]="i" [showFilterSection]="showFilterSection" [isMobile]="true" (click)="onCardClick(order)"></app-order-delivery-item-grid>
+      </ng-container>
+
+      <ng-container *ngIf="!isGridView">
+        <div class="list-view-header">
+          <span [class]="heading.id" *ngFor = "let heading of listViewHeading">{{heading.name}}</span>
+        </div>
+        <app-order-delivery-item-list *ngFor="let order of orders; let i = index" [showFilterSection] = "showFilterSection"
+          [order]="order" [index]="i" (click)="onCardClick(order)"></app-order-delivery-item-list>
+      </ng-container>
+
+    </div>
+  </div>
+</ng-container>
+
+<div *ngIf="showDetailsPage">
+  <div class="col form-wrapper mt-4">
+      <app-order-delivery-details [data]="orderDetails" (searchOrderQuery)= "onOrderSearchQuery($event)"
+      (clearOrderSearch) = "onOrderClearSearch()" (navigateOrder)="navigateBackOrder()"></app-order-delivery-details>
+  </div>
+</div>

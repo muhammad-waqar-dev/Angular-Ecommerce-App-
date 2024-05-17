@@ -1,0 +1,36 @@
+<div class="orderDeliveryCardDiv">
+  <div class="card pointer">
+      <div class="card-header">
+          <label class="d-flex">{{quoteConstants.FIQuoteNo}} <span class="pl-1">{{quote?.code}}</span></label>
+      </div>
+      <div class="card-body">
+          <div class="d-flex">
+              <div class="w-50 d-flex mobile-w">
+                  <label *ngIf="quote.state === 'DUETOEXPIRE'" class="d-flex">Status: <span class="ml-1"> {{quoteConstants.dueToExpire}}</span></label>
+                  <label *ngIf="quote.state !== 'DUETOEXPIRE'" class="d-flex quoteStatusText">Status: <span class="ml-1"> {{quote?.state | lowercase}}</span></label>
+                  <div class="statusImgWrapper d-flex">
+                      <img *ngIf="quote.state === 'VALID'" src="./assets/images/status-icons/active/quote-valid.svg" class="mt-3 mb-3"
+                          [ngClass]="isMobile ? 'mt-2 mb-2' : 'mt-3 mb-3'" />
+                      <img *ngIf="quote.state === 'DUETOEXPIRE'" src="./assets/images/status-icons/active/quote-duetoexpire.svg" class="mt-3 mb-3"
+                      [ngClass]="isMobile ? 'mt-2 mb-2' : 'mt-3 mb-3'" />
+                      <img *ngIf="quote.state === 'EXPIRED'" src="./assets/images/status-icons/active/quote-expired.svg" class="mt-3 mb-3"
+                      [ngClass]="isMobile ? 'mt-2 mb-2' : 'mt-3 mb-3'" />
+
+                  </div>
+              </div>
+              <span class="separatorSpan"></span>
+              <div class="w-50">
+                  <label class="mb-0">{{quoteConstants.projectName}}</label>
+                  <p class="mb-0 projectNameText addressText">{{quote?.projectNumber}}</p>
+                  <hr [ngClass]="isMobile ? 'mt-2 mb-2' : 'mt-3 mb-3'">
+                  {{quoteConstants.suburbAddress}}
+                  <br>
+                  <p class="mt-2 mb-0 addressText quoteaddressText">
+                      {{quote?.deliveryAddress?.formattedAddress}}
+                  </p>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+

@@ -1,0 +1,53 @@
+<div class="cartItemList d-flex">
+    <div class="cx-image-container">
+        <a cxModal="dismiss" tabindex="-1">
+            <cx-media *ngIf="!isReviewOrder" [container]="item.product.images?.PRIMARY" format="cartIcon"></cx-media>
+            <cx-media *ngIf="item?.product?.images?.length <= 0 && isReviewOrder" [container]="item?.product?.images?.PRIMARY" format="cartIcon"></cx-media>
+            <img *ngIf="item?.product?.images?.length > 0 && isReviewOrder" [src]="item?.product?.images[0]?.url" class="reviewImg" /> 
+        </a>
+    </div>
+    <div class="content-container justify-content-between d-flex w-100">
+      <div>
+        <p class="bold mb-1 productName">{{ item.product.name }}</p>
+        <span class="productNum"><span>Product No. </span><span>{{ item.product.code }}</span></span>
+      </div>
+      <div class="qty-label">
+        <span>Qty:</span> {{item.quantity}}
+      </div>
+      <div class="quantity-section d-flex">
+        <div class="cx-quantity" [ngClass]="compact ? '' : ' col-3'">
+            <div
+              class="cx-label"
+              [ngClass]="compact ? '' : ' d-block d-md-none d-lg-none d-xl-none'"
+              placement="left"
+              title="{{ 'cartItems.quantityTitle' | cxTranslate }}"
+            >
+              {{ 'cartItems.quantity' | cxTranslate }}
+            </div>
+            <div class="cx-value">
+              <cx-item-counter
+                [control]="quantityControl"
+                [readonly]="
+                  !item.updateable || readonly || options.isSaveForLater
+                "
+                [max]="1000000"
+                [allowZero]="true"
+              >
+              </cx-item-counter>
+            </div>
+          </div>
+          <div class="orderSummaryItemPrice">
+            <ng-container *ngIf="isReviewOrder"><span>Unit Price: <label>{{ item?.basePrice?.formattedValue}}</label></span>
+            <span>Total: <label>{{ item?.totalPrice?.formattedValue}}</label></span></ng-container>
+          </div>
+        <div class="cx-remove-btn">
+            <button
+              class="link cx-action-link remove-link"
+              (click)="removeItemVal(item?.product?.name, item)"
+            >
+              Remove
+            </button>
+        </div>
+      </div>
+    </div>
+</div>

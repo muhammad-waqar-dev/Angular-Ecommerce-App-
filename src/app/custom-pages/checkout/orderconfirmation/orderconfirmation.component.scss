@@ -1,0 +1,84 @@
+@import "../../../shared/styles/variables.scss";
+
+.orderConfirmationDetails {
+    width: 95%;
+    margin: 0 auto;
+    p {
+        font-size: 0.94rem;
+    }
+    .orderRefNum {
+        font-size: 0.94rem;
+    }
+}
+
+.orderThanksText {
+    margin-bottom: 3.1rem;
+}
+
+.transactionFailMessage p {
+    color: $red-color;
+}
+
+.orderCal {
+    width: 37%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.addressValConfirm {
+    width: 21rem;
+}
+
+.termsText {
+    a {
+        color: #545859;
+        text-decoration: underline;
+    }
+}
+.productHeader {
+    p {
+        font-weight: bold;
+        color: #595959;
+        padding: 0.75rem;
+        font-size: 16px;
+        text-transform: capitalize;
+    }
+    hr {
+        width: 92%;
+        height: 0px;
+        background-color: #595959;
+        opacity: 0.2;
+        position: relative;
+        bottom: 22px;
+    }
+}
+.orderProductDesc {
+    cx-media, img {
+        width: 99px;
+        margin-left: -123px;
+    }
+    cx-media {
+        height: 124px;
+        position: relative;
+        bottom: 13px;
+    }
+}
+
+.productItem {
+    border-bottom: 1px solid #d8d9de;
+}
+
+@media screen and (max-width: $mobileScreenPotrait) {
+    .m-productData {
+        display: flex;
+        p:first-child {
+            width: 48%;
+        }
+    }
+    .orderProductDesc {
+        width: 48%;
+        p {
+            width: 100% !important;
+        }
+    }
+}

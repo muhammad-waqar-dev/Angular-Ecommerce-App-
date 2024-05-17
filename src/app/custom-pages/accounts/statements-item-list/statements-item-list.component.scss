@@ -1,0 +1,72 @@
+@import "../../../shared/styles/variables.scss";
+
+.list-row {
+    border-bottom: 1px solid #c8c9c7;
+    padding: 2rem 0
+}
+.list-row span {
+    width: 24%;
+    display: flex;
+    align-items: center;
+}
+.list-row .balance {
+    width: 70%;
+    display: flex;
+    align-items: center;
+}
+.address{
+    width: 30% !important;
+}
+.pendingInfoIcon {
+    position: relative;
+    i {
+        margin-left: 0.7rem;
+        color: #333;
+    }
+    .pendingHoverText {
+        position: absolute;
+        top: 1.3rem;
+        left: 8px;
+        background-color: #e9e9e9;
+        width: 11rem;
+        padding: 0.4rem;
+        font-size: 0.9rem;
+        display: none;
+    }
+    &:hover .pendingHoverText {
+        display: block;
+    }
+}
+.orderNumVal {
+    padding-left: 27px;
+}
+.list-row .nex-page{
+    width: 5% !important;
+    justify-content: flex-end !important;
+    cursor: pointer;
+
+}
+img {
+    margin: 0 !important;
+}
+.list-row span img {
+    width: 3rem;
+    margin-left: 1rem !important;
+}
+.list-row {
+    align-items: center;
+}
+.w-auto {
+    width: auto;
+}
+
+@media screen and (max-width: $mobileScreenPotrait) {
+    .list-row span {
+        width: 32%;
+        font-size: 0.8rem;
+    }
+    .list-row .nex-page{
+        max-width: 4% !important;
+    }
+
+}

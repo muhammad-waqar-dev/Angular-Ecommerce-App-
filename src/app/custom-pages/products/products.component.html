@@ -1,0 +1,206 @@
+<ng-container *ngIf="!(isLoading$ | async); else loading">
+  <div
+    class="col form-wrapper mt-4"
+    *ngIf="permissionAllowed && !isLoading; else permissionDeniedMessage"
+  >
+    <div class="form-wrapper">
+      <div class="row">
+        <div class="col-md-12 mt-4 mb-2 main-heading">
+          <app-product-help-popup></app-product-help-popup>
+          <h2 class="pl-2 mb-4 product-heading">Products</h2>
+          <div class="accordion" id="accordionFilter">
+            <div class="accordion-item">
+              <h5 *ngIf="!isMobile" class="pl-2 mt-4">
+                <span class="pointer">FILTERS</span>
+                <span class="pointer ml-08">
+                  <i
+                    (click)="toggleDivContent()"
+                    class="fa fa-lg fa-chevron-right pl-2 accordion-button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseOne"
+                    aria-expanded="true"
+                    aria-controls="collapseOne"
+                    [ngClass]="{ invert: divContent }"
+                  ></i>
+                </span>
+                <span
+                  ><button
+                    class="btn btn-clear-filter"
+                    (click)="resetFilters = true"
+                  >
+                    Clear Filters
+                  </button></span
+                >
+              </h5>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cx-page" *ngIf="model$ | async as model">
+        <section class="cx-page-section p-0">
+          <div class="container-fluid">
+            <div class="row">
+              <app-productfacets
+                *ngIf="!isMobile && showFilterSection"
+                [model]="model"
+                [accordionData]="hideAccordion"
+                [facetState]="facetState"
+                [resetFilters]="resetFilters"
+                [facetCategoryState]="facetCategoryState"
+                [subFacetState]="subFacetState"
+                (resetFilterFalse)="resetFilterFalse(e)"
+              >
+              </app-productfacets>
+              <div class="mobile-header" *ngIf="isMobile">
+                <h5 class="pl-2 mt-4 pointer" (click)="openFacetPopup(content)">
+                  <i class="fa fa-sliders fa-lg" aria-hidden="true"></i>
+                </h5>
+                <ng-template #content let-modal>
+                  <app-productfacets
+                    [model]="model"
+                    [accordionData]="hideAccordion"
+                    [facetState]="facetState"
+                    [facetCategoryState]="facetCategoryState"
+                    [subFacetState]="subFacetState"
+                    (resetFilterFalse)="resetFilterFalse(e)"
+                  >
+                  </app-productfacets>
+                </ng-template>
+              </div>
+
+              <div
+                class="productPage"
+                *ngIf="viewMode$ | async as viewMode"
+                [ngClass]="showFilterSection ? 'w-3-col' : 'w-4-col'"
+              >
+                <div class="cx-sorting top">
+                  <div class="row">
+                    <div class="col-12 col-lg-4 mr-auto">
+                      <div class="form-group cx-sort-dropdown">
+                        <cx-sorting
+                          [sortOptions]="model.sorts"
+                          (sortListEvent)="sortList($event)"
+                          [selectedOption]="model.pagination.sort"
+                          placeholder="{{
+                            'productList.sortByRelevance' | cxTranslate
+                          }}"
+                        ></cx-sorting>
+                      </div>
+                    </div>
+
+                    <div class="col-auto ml-auto ml-lg-0">
+                      <cx-product-view
+                        (modeChange)="setViewMode($event)"
+                        [mode]="viewMode"
+                      >
+                      </cx-product-view>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="cx-product-container">
+                  <h3
+                    class="mt-4 text-center noResultText"
+                    *ngIf="model?.products.length == 0"
+                  >
+                    No results found
+                  </h3>
+                  <ng-container *ngIf="!isInfiniteScroll; else infiniteScroll">
+                    <ng-container
+                      *ngIf="
+                        viewMode === ViewModes.Grid ||
+                        viewMode === ViewModes.List
+                      "
+                    >
+                      <div class="row">
+                        <app-product-item-grid
+                          *ngFor="let product of model?.products"
+                          [ngClass]="
+                            showFilterSection
+                              ? className
+                              : 'col-12 col-sm-6 col-md-3'
+                          "
+                          [model]="model"
+                          [product]="product"
+                          [showFilterSection]="showFilterSection"
+                          [isMobile]="isMobile"
+                          class="col-grid-sec"
+                        >
+                        </app-product-item-grid>
+                      </div>
+                    </ng-container>
+                  </ng-container>
+                  <ng-template #infiniteScroll>
+                    <app-products-mobile
+                      [model]="model"
+                      [inputViewMode]="viewMode"
+                      [scrollConfig]="scrollConfig"
+                    ></app-products-mobile>
+                  </ng-template>
+                </div>
+                <div class="cx-sorting bottom" *ngIf="!isMobile">
+                  <div class="row col-12 ml-0 mr-0 pl-0 pr-0">
+                    <div
+                      class="col-lg-4 mr-auto d-flex align-items-center pl-0"
+                    >
+                      <div
+                        *ngIf="!isInfiniteScroll"
+                        class="col-auto pl-0"
+                        aria-label="product search pagination"
+                      >
+                        <div class="cx-pagination">
+                          <cx-pagination
+                            [pagination]="model.pagination"
+                            queryParam="currentPage"
+                            [defaultPage]="0"
+                          >
+                          </cx-pagination>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="col-lg-3 ml-auto pr-0 d-flex align-items-center justify-content-end"
+                      *ngIf="model.products.length >= 12"
+                    >
+                      <label class="mt-3 mb-0 productPerPageText"
+                        >Products Per Page</label
+                      >
+                      <div
+                        class="col-lg-4 col-md-4 col-sm-4 col-xs-12 mt-4 text-left pr-0"
+                      >
+                        <select
+                          class="form-control productPerPage"
+                          (change)="
+                            productsPerPageSelectionChange($event.target.value)
+                          "
+                        >
+                          <option>12</option>
+                          <option>24</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <div class="desclimarText">
+        <p class="text-md-left text-center">
+          <b>{{ productDisclaimr.disclaimerHeading }} </b>
+          {{ productDisclaimr.disclaimerText }}
+        </p>
+      </div>
+    </div>
+  </div>
+</ng-container>
+<ng-template #permissionDeniedMessage>
+  <app-accesspermissionmessage></app-accesspermissionmessage>
+</ng-template>
+<ng-template #loading>
+  <div class="cx-spinner">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>

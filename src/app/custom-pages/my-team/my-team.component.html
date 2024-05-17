@@ -1,0 +1,139 @@
+<ng-container *ngIf="!(isLoading$ | async);else loading">
+    <div class="col form-wrapper mt-4" *ngIf="permissionAllowed && !isLoading;else permissionDeniedMessage">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-12 mb-4 mb-md-0">
+                <h2 class="">My Team</h2>
+                <h5 class="pl-2 mt-4 pointer mobile-menu-btn" *ngIf="isMobile" (click)="openFiltersPopup(content)">
+                    <i class="fa fa-sliders fa-lg" aria-hidden="true"></i>
+                </h5>
+            </div>
+            <div
+                class="col-lg-6 col-md-6 search-bar text-md-right text-left col-12 d-flex justify-content-md-end justify-content-start">
+
+                <div class="nav-item dropdown mr-5">
+                    <button class="nav-link sort-button" id="navbarDropdownMenuLink2" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false" (click)="onDropdownClick()">
+                        <span class="mr-2 selectedText">{{selectedSortName.name}}</span>
+                        <div class="m-display-inline m-arrow">
+                            <img src="assets/images/headerIcons/arrow.svg" />
+                        </div>
+                    </button>
+
+                    <ul class="dropdown-menu dropdown-menu-end pageSortDropdown" aria-labelledby="navbarDropdownMenuLink2">
+                        <ng-container *ngFor="let sort of sorts; let i = index">
+                            <li class="pl-3 pr-3" (click)="changeSortOption(i)" [ngClass]="{'selected':sort.selected}">
+                                <div class="sortOption">
+                                    <label class="form-check-label" [name]="i">
+                                        {{sort.name}}
+                                    </label>
+                                </div>
+                            </li>
+                        </ng-container>
+                    </ul>
+                </div>
+
+                <button class="btn btn-add-team" (click)="openAddTeamMemberPopup()">Add Team Member</button>
+                
+                <span *ngIf="!isMobile">
+                    <app-my-team-search
+                    (searchQuery)=onSearchQuery($event)
+                    (clearSearch) = onClearSearch()
+                    ></app-my-team-search>
+                </span>
+
+            </div>
+        </div>
+        <div class="row" *ngIf="!isMobile">
+            <div class="d-flex mt-4 mb-2 container-fluid main-heading">
+                <div class="accordion" id="accordionFilter">
+                    <div class="accordion-item">
+                        <h5 *ngIf="!isMobile" class="pl-2 mt-4"><span class="pointer">FILTERS</span>
+                            <span class="pointer ml-08">
+                                <i (click)="toggleDivContent()" class="fa fa-lg fa-chevron-right pl-2 accordion-button"
+                                    data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
+                                    aria-controls="collapseOne" [ngClass]="{'invert':divContent}"></i>
+                            </span>
+                            <span><button class="btn btn-clear-filter" (click)="resetFilters()">Clear Filters</button></span>
+
+                        </h5>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="row d-flex ml-md-2 m-card">
+            <div class="filter-section-container">
+
+                <app-my-team-filters *ngIf="!isMobile && showFilterSection" [filtersModel]="filtersModel"
+                    [filtersState]="filtersState" (filterSelected)="onFilterSelection($event)"></app-my-team-filters>
+
+                <ng-template #content let-modal>
+                    <app-my-team-filters [filtersModel]="filtersModel" [filtersState]="filtersState"
+                        (clearMobileFilters)="resetFilters()"
+                        (filterSelected)="onFilterSelection($event)">
+                    </app-my-team-filters>
+                </ng-template>
+
+            </div>
+
+            <!-- card section statrs here -->
+            
+            <ng-container *ngIf="!isInfiniteScroll">
+                <div [ngClass]="showFilterSection ? 'prodDiv-w-3-col' : 'prodDiv-w-2-col'"
+                    class="d-flex flex-wrap justify-content-md-start justify-content-center">
+                    <ng-container *ngIf="users.length == 0">
+                        <h3 class="w-100 text-center mt-4">No results found</h3>
+                    </ng-container>
+
+                    <app-my-team-item-grid class="my-team-card mb-4" *ngFor="let user of users; let i = index"
+                        [user]="user" [index]="i"></app-my-team-item-grid>
+
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="users.length == 0 && isMobile">
+                <h3 class="w-100 text-center mt-4">No results found</h3>
+            </ng-container>
+            <div class="mobile-teamGrid" *ngIf="isMobile">
+                <ng-container *ngIf="!(isPaginationModel$ | async)">
+                    <app-my-team-mobile [model]="paginationModel" [scrollConfig]="scrollConfig" [users]="mobileUserData"
+                        [sortOrder]="selectedSortName">
+                    </app-my-team-mobile>
+                </ng-container>
+            </div>
+            <!-- card section ends here -->
+        </div>
+        <!-- card section ends here -->
+        <div class="pagination-perPage d-flex mb-4" *ngIf="!isMobile">
+            <div class="mt-4">
+                <cx-pagination [pagination]="paginationModel" (viewPageEvent)="pageChange($event)"></cx-pagination>
+            </div>
+            <div class="col-lg-3 ml-auto pr-0 d-flex align-items-center justify-content-end" *ngIf="users.length>= 12">
+                <label class="mt-3 mb-0 productPerPageText">Members per page</label>
+                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12 mt-2 text-left pr-0 pl-0">
+                    <select class="form-control productPerPage"
+                        (change)="usersPerPageSelectionChange($event.target.value)">
+                        <option [selected]="pageSize === 12">12</option>
+                        <option [selected]="pageSize === 24">24</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<app-add-team-member></app-add-team-member>
+<app-update-team-member></app-update-team-member>
+
+<ng-template #permissionDeniedMessage>
+    <app-accesspermissionmessage></app-accesspermissionmessage>
+</ng-template>
+<p class="text-center font-weight-bold serverErrorMsgText">{{ ErrorMsgText }}</p>
+<ng-template #loading>
+    <div class="cx-spinner">
+        <cx-spinner></cx-spinner>
+    </div>
+</ng-template>
+

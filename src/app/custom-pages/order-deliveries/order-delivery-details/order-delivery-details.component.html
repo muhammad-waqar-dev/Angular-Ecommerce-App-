@@ -1,0 +1,553 @@
+<ng-template #loading>
+  <div class="cx-spinner w-100">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>
+
+<ng-container *ngIf="!(isLoading$ | async); else loading">
+  <a
+    [routerLink]="orderDetailsConstants.order_deliveriesLink"
+    (click)="navigateToOrder()"
+    *ngIf="isMobile"
+    class="m-backArrow"
+  >
+    <i class="fa fa-chevron-left"></i>
+  </a>
+
+  <span class="orderBreadCrumb" *ngIf="!isMobile">
+    <a [routerLink]="homeConstants.homeLink">{{ homeConstants.homeLabel }}</a> >
+    <a
+      [routerLink]="
+        isFromDashboard
+          ? dashboardPageConstants.dashboardLink
+          : orderDetailsConstants.order_deliveriesLink
+      "
+      (click)="navigateToOrder()"
+      >{{
+        isFromDashboard
+          ? dashboardPageConstants.mydashboardLabel
+          : orderDetailsConstants.order_deliveriesLabel
+      }}</a
+    >
+    >
+    <a>{{ order.code }}</a>
+  </span>
+
+  <div class="float-md-right mb-md-4">
+    <app-change-order-popup
+      [isStatusReceived]="isStatusReceived"
+      [data]="order"
+    ></app-change-order-popup>
+  </div>
+
+  <div
+    class="desktop-order-details d-none d-md-block d-lg-block"
+    *ngIf="order.code"
+  >
+    <div class="details">
+      <table class="table table-borderless">
+        <thead>
+          <tr>
+            <th scope="col">{{ orderDeliveriesConstants.referenceNoTh }}</th>
+            <th scope="col">{{ orderDeliveriesConstants.projectNameTh }}</th>
+            <th scope="col">
+              {{ orderDeliveriesConstants.requestedDeliveryDate }}
+            </th>
+            <th scope="col">
+              {{ orderDeliveriesConstants.deliveryAddressTh }}
+            </th>
+            <th scope="col">{{ orderDeliveriesConstants.siteContactTh }}</th>
+            <th scope="col" *ngIf="order?.status !== 'PENDING'">
+              {{ orderDeliveriesConstants.fIOrderNoTh }}
+            </th>
+            <th scope="col" *ngIf="order?.status == 'PENDING'">
+              {{ orderDeliveriesConstants.orderPendingNoTh }}
+            </th>
+            <th scope="col">{{ orderDeliveriesConstants.statusTh }}</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <strong>{{ order.purchaseOrderNumber }}</strong>
+            </td>
+            <td>{{ order?.projectNumber }}</td>
+            <td>{{ order?.requestedDeliveryDate | date : "mediumDate" }}</td>
+            <td>{{ order?.deliveryAddress?.formattedAddress }}</td>
+            <td>
+              <p class="mb-1">
+                {{ order?.contactFirstName }} {{ order?.contactLastName }}
+              </p>
+              <p>{{ order?.contactPhone }}</p>
+            </td>
+            <td>{{ order?.code }}</td>
+            <td class="statuses d-flex">
+              <div class="status-img">
+                <img
+                  *ngIf="order.status == 'PENDING'"
+                  src="./assets/images/status-icons/active/order-pending.svg"
+                  class="status"
+                  [ngClass]="{ active: order.status == 'PENDING' }"
+                />
+                <img
+                  *ngIf="order.status !== 'PENDING'"
+                  src="./assets/images/status-icons/inactive/order-pending.svg"
+                  class="status"
+                  [ngClass]="{ active: order.status == 'PENDING' }"
+                />
+
+                <p>{{ orderDeliveriesConstants.pending }}</p>
+              </div>
+              <div class="status-img">
+                <img
+                  *ngIf="order.status == 'RECEIVED'"
+                  src="./assets/images/status-icons/active/order-received.svg"
+                  class="status"
+                  [ngClass]="{ active: order.status == 'RECEIVED' }"
+                />
+                <img
+                  *ngIf="order.status !== 'RECEIVED'"
+                  src="./assets/images/status-icons/inactive/order-received.svg"
+                  class="status"
+                  [ngClass]="{ active: order.status == 'RECEIVED' }"
+                />
+
+                <p>{{ orderDeliveriesConstants.received }}</p>
+              </div>
+              <div class="status-img">
+                <img
+                  *ngIf="order.status == 'IN_PROGRESS'"
+                  src="./assets/images/status-icons/active/order-inprogress.svg"
+                  class="status"
+                  [ngClass]="{ active: order.status == 'IN_PROGRESS' }"
+                />
+                <img
+                  *ngIf="order.status !== 'IN_PROGRESS'"
+                  src="./assets/images/status-icons/inactive/order-inprogress.svg"
+                  class="status"
+                  [ngClass]="{ active: order.status == 'IN_PROGRESS' }"
+                />
+                <p>{{ orderDeliveriesConstants.inProgress }}</p>
+              </div>
+              <div class="status-img">
+                <img
+                  *ngIf="order.status == 'INVOICED'"
+                  src="./assets/images/status-icons/active/order-delivered.svg"
+                  class="status"
+                  [ngClass]="{ active: order.status == 'INVOICED' }"
+                />
+                <img
+                  *ngIf="order.status !== 'INVOICED'"
+                  src="./assets/images/status-icons/inactive/order-delivered.svg"
+                  class="status"
+                  [ngClass]="{ active: order.status == 'INVOICED' }"
+                />
+                <p>{{ orderDeliveriesConstants.delivered }}</p>
+              </div>
+            </td>
+            <td class="text-right">
+              <div
+                class="cx-spinner-small d-flex justify-content-end"
+                *ngIf="!isPDFloaded"
+              >
+                <cx-spinner></cx-spinner>
+              </div>
+              <a
+                *ngIf="isPDFloaded && isInvoiceGen && !disableIcon"
+                class="cursor-pointer"
+                title="Order Acknowledgment PDF"
+                (click)="!disableIcon ? onOpenStatement(): null"
+              >
+                <img
+                  class="pl-2 pdf-icon"
+                  src="assets/images/file-pdf-regular.svg"
+                  alt="POD"
+                />
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="delivery-info" *ngIf="order?.consignments?.length > 0">
+      <p class="mb-0 pl-2">
+        <strong>{{ orderDeliveriesConstants.deliveryInfo }}</strong>
+      </p>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">{{ orderDeliveriesConstants.deliveryNoTh }}</th>
+            <th scope="col">{{ orderDeliveriesConstants.deliveryDateTh }}</th>
+            <th scope="col">{{ orderDeliveriesConstants.etaTh }}</th>
+            <th scope="col" class="text-right">
+              <app-request-for-pod-popup
+                [isShow]="true && !isMobile"
+                [data]="order"
+              ></app-request-for-pod-popup>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let delivery of order?.consignments">
+            <th scope="row">{{ delivery?.code }}</th>
+            <td>{{ delivery?.actualDeliveryDate | date : "mediumDate" }}</td>
+            <td>{{ delivery?.estimatedDeliveryTime }}</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="order-info">
+      <p class="mb-0 pl-2">
+        <strong>{{ orderDeliveriesConstants.orderDetails }}</strong>
+      </p>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">{{ orderDeliveriesConstants.productNoTh }}</th>
+            <th scope="col" class="prod-img"></th>
+            <th scope="col" class="prod-desc">
+              {{ orderDeliveriesConstants.productDescriptionTh }}
+            </th>
+            <th scope="col">{{ orderDeliveriesConstants.qtyReqTh }}</th>
+            <th scope="col">{{ orderDeliveriesConstants.qtyShipTh }}</th>
+            <th scope="col">{{ orderDeliveriesConstants.mtoqtyReqTh }}</th>
+            <th scope="col">{{ orderDeliveriesConstants.mtoQtyShipped }}</th>
+            <th scope="col" class="prod-uomTh">
+              {{ orderDeliveriesConstants.uOMTh }}
+            </th>
+            <th scope="col">{{ orderDeliveriesConstants.unitPriceTh }}</th>
+            <th scope="col">{{ orderDeliveriesConstants.priceByM2Th }}</th>
+            <th scope="col">{{ orderDeliveriesConstants.subTotalTh }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let entry of order.entries">
+            <th scope="row">{{ entry?.product?.code }}</th>
+            <td>
+              <div class="product-image">
+                <img
+                  *ngIf="entry?.product?.images"
+                  src="{{ entry?.product?.images[0]?.url }}"
+                  alt="{{ entry.product.code }}"
+                />
+              </div>
+            </td>
+            <td>
+              <div class="product-desc">
+                <div class="content">
+                  <p>{{ entry?.product?.name }}</p>
+                  <p>{{ entry?.product?.description }}</p>
+                </div>
+              </div>
+            </td>
+            <td>{{ entry?.quantity }}</td>
+            <td>{{ entry?.quantityShipped }}</td>
+            <td>{{ entry?.mtoQuantity }}</td>
+            <td>{{ entry?.mtoShippedQty }}</td>
+            <td>{{ entry?.product?.salesUOM }}</td>
+            <td>{{ entry?.product?.price?.formattedValue }}</td>
+            <td>{{ entry?.product?.m2Price?.formattedValue }}</td>
+            <td>{{ entry?.subTotal?.formattedValue }}</td>
+          </tr>
+          <tr
+            class="total-row-table"
+            *ngIf="order?.subTotal !== null && order?.subTotal !== undefined"
+          >
+            <td colspan="10" class="text-right">
+              <p>{{ orderDeliveriesConstants.subTotal }}</p>
+              <p>{{ orderDeliveriesConstants.freight }}</p>
+              <p>{{ orderDeliveriesConstants.gst }}</p>
+              <p>
+                <strong>{{ orderDeliveriesConstants.total }}</strong>
+              </p>
+            </td>
+            <td>
+              <p class="d-flex justify-content-end">
+                {{ order?.subTotal?.formattedValue }}
+              </p>
+              <p class="d-flex justify-content-end">
+                {{ order?.deliveryCost?.formattedValue }}
+              </p>
+              <p class="d-flex justify-content-end">
+                {{ order?.totalTax?.formattedValue }}
+              </p>
+              <p class="d-flex justify-content-end">
+                {{ order?.totalPrice?.formattedValue }}
+              </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- mobile view  -->
+  <div
+    class="mobile-order-details d-lg-none d-md-none d-block"
+    *ngIf="order.code"
+  >
+    <div class="purchase-order-info space-border">
+      <div class="head-dark">
+        <p>
+          {{ orderDeliveriesConstants.myReferenceNo }}
+          {{ order?.purchaseOrderNumber }}
+        </p>
+      </div>
+
+      <div class="pt-3 d-flex justify-content-start">
+        <p class="left-side">{{ orderDeliveriesConstants.projectNameTh }}</p>
+        <p class="right-side">{{ order?.projectNumber }}</p>
+      </div>
+
+      <div class="pt-3 d-flex justify-content-start">
+        <p class="left-side">
+          {{ orderDeliveriesConstants.requestedDeliveryDate }}
+        </p>
+        <p class="right-side">
+          {{ requestedDeliveryDate | date : "mediumDate" }}
+        </p>
+      </div>
+
+      <div class="pt-3 d-flex justify-content-start">
+        <p class="left-side">
+          {{ orderDeliveriesConstants.deliveryAddressTh }}
+        </p>
+        <p class="right-side">{{ order?.deliveryAddress?.formattedAddress }}</p>
+      </div>
+
+      <div class="pt-3 d-flex justify-content-start">
+        <p class="left-side">{{ orderDeliveriesConstants.siteContactTh }}</p>
+        <p class="right-side">
+          {{ order?.contactFirstName }} {{ order?.contactLastName }}
+        </p>
+      </div>
+
+      <div class="pt-3 d-flex justify-content-start">
+        <p class="left-side mr-1" *ngIf="order?.status !== 'PENDING'">
+          {{ orderDeliveriesConstants.fIOrderNoTh }}
+        </p>
+        <p class="left-side mr-1" *ngIf="order?.status == 'PENDING'">
+          {{ orderDeliveriesConstants.orderPendingNoTh }}
+        </p>
+        <p class="right-side">{{ order?.code }}</p>
+      </div>
+
+      <div class="pt-3 d-flex justify-content-start">
+        <p class="left-side">{{ orderDeliveriesConstants.statusTh }}</p>
+        <div class="right-side">
+          <div class="statuses d-flex">
+            <div class="status-img">
+              <img
+                *ngIf="order.status == 'PENDING'"
+                src="./assets/images/status-icons/active/order-pending.svg"
+                class="status"
+                [ngClass]="{ active: order.status == 'PENDING' }"
+              />
+              <img
+                *ngIf="order.status !== 'PENDING'"
+                src="./assets/images/status-icons/active/order-pending.svg"
+                class="status"
+                [ngClass]="{ active: order.status == 'PENDING' }"
+              />
+
+              <p>{{ orderDeliveriesConstants.pending }}</p>
+            </div>
+            <div class="status-img">
+              <img
+                *ngIf="order.status == 'RECEIVED'"
+                src="./assets/images/status-icons/active/order-received.svg"
+                class="status"
+                [ngClass]="{ active: order.status == 'RECEIVED' }"
+              />
+
+              <img
+                *ngIf="order.status !== 'RECEIVED'"
+                src="./assets/images/status-icons/active/order-received.svg"
+                class="status"
+                [ngClass]="{ active: order.status == 'RECEIVED' }"
+              />
+              <p>{{ orderDeliveriesConstants.received }}</p>
+            </div>
+            <div class="status-img">
+              <img
+                *ngIf="order.status == 'IN_PROGRESS'"
+                src="./assets/images/status-icons/active/order-inprogress.svg"
+                class="status"
+                [ngClass]="{ active: order.status == 'IN_PROGRESS' }"
+              />
+
+              <img
+                *ngIf="order.status !== 'IN_PROGRESS'"
+                src="./assets/images/status-icons/active/order-inprogress.svg"
+                class="status"
+                [ngClass]="{ active: order.status == 'IN_PROGRESS' }"
+              />
+              <p>{{ orderDeliveriesConstants.inProgress }}</p>
+            </div>
+            <div class="status-img">
+              <img
+                *ngIf="order.status == 'INVOICED'"
+                src="./assets/images/status-icons/active/order-delivered.svg"
+                class="status"
+                [ngClass]="{ active: order.status == 'INVOICED' }"
+              />
+
+              <img
+                *ngIf="order.status !== 'INVOICED'"
+                src="./assets/images/status-icons/active/order-delivered.svg"
+                class="status"
+                [ngClass]="{ active: order.status == 'INVOICED' }"
+              />
+              <p>{{ orderDeliveriesConstants.delivered }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pt-3">
+        <div
+          class="cx-spinner-small d-flex justify-content-start"
+          *ngIf="!isPDFloaded"
+        >
+          <cx-spinner></cx-spinner>
+        </div>
+        <a 
+        *ngIf="isPDFloaded && isInvoiceGen && !disableIcon" (click)="!disableIcon ? onOpenStatement() : null">
+          <img src="assets/images/file-pdf-regular.svg" alt="Upload" />
+        </a>
+      </div>
+    </div>
+
+    <div
+      class="delivery-info space-border"
+      *ngIf="order?.consignments?.length > 0"
+    >
+      <div class="d-flex justify-content-between align-items-center">
+        <h5>
+          <strong>{{ orderDeliveriesConstants.deliveryInfo }}</strong>
+        </h5>
+      </div>
+
+      <div *ngFor="let delivery of order.consignments">
+        <div class="pt-3 d-flex justify-content-start">
+          <p class="left-side">{{ orderDeliveriesConstants.deliveryNoTh }}</p>
+          <p class="right-side">{{ delivery?.code }}</p>
+        </div>
+
+        <div class="pt-3 d-flex justify-content-start">
+          <p class="left-side">{{ orderDeliveriesConstants.deliveryDateTh }}</p>
+          <p class="right-side">
+            {{ delivery?.actualDeliveryDate | date : "mediumDate" }}
+          </p>
+        </div>
+
+        <div class="pt-3 d-flex justify-content-start">
+          <p class="left-side">{{ orderDeliveriesConstants.etaTh }}</p>
+          <p class="right-side">{{ delivery?.estimatedDeliveryTime }}</p>
+        </div>
+
+        <div class="pt-3">
+          <app-request-for-pod-popup
+            [isShow]="true && isMobile"
+            [data]="order"
+          ></app-request-for-pod-popup>
+        </div>
+      </div>
+    </div>
+
+    <div class="order-info">
+      <div class="pt-3">
+        <h5>
+          <strong>{{ orderDeliveriesConstants.orderDetails }}</strong>
+        </h5>
+      </div>
+
+      <!-- products  -->
+      <div class="space-border" *ngFor="let entry of order.entries">
+        <div class="d-flex justify-content-start">
+          <p class="left-side">{{ orderDeliveriesConstants.productNoTh }}</p>
+          <p class="right-side">{{ entry?.product.code }}</p>
+        </div>
+
+        <div class="pt-3 d-flex justify-content-start">
+          <p class="left-side">
+            {{ orderDeliveriesConstants.productDescriptionTh }}
+          </p>
+          <div class="right-side">
+            <p>
+              <strong>{{ entry?.product?.name }}</strong>
+            </p>
+            <p>{{ entry?.product?.description }}</p>
+          </div>
+        </div>
+
+        <div class="pt-3 d-flex justify-content-start">
+          <p class="left-side">{{ orderDeliveriesConstants.qtyReqTh }}</p>
+          <p class="right-side">{{ entry?.quantity }}</p>
+        </div>
+
+        <div class="pt-3 d-flex justify-content-start">
+          <p class="left-side">{{ orderDeliveriesConstants.qtyShipTh }}</p>
+          <p class="right-side">{{ entry?.quantityShipped }}</p>
+        </div>
+
+        <div class="pt-3 d-flex justify-content-start">
+          <p class="left-side">{{ orderDeliveriesConstants.mtoqtyReqTh }}</p>
+          <p class="right-side">{{ entry?.mtoQuantity }}</p>
+        </div>
+
+        <div class="pt-3 d-flex justify-content-start">
+          <p class="left-side">{{ orderDeliveriesConstants.mtoQtyShipped }}</p>
+          <p class="right-side">{{ entry?.mtoShippedQty }}</p>
+        </div>
+
+        <div class="pt-3 d-flex justify-content-start">
+          <p class="left-side">{{ orderDeliveriesConstants.uOMTh }}</p>
+          <p class="right-side">{{ entry?.product.salesUOM }}</p>
+        </div>
+
+        <div class="pt-3 d-flex justify-content-start">
+          <p class="left-side">{{ orderDeliveriesConstants.unitPriceTh }}</p>
+          <p class="right-side">{{ entry?.product?.price?.formattedValue }}</p>
+        </div>
+
+        <div class="pt-3 d-flex justify-content-start">
+          <p class="left-side">{{ orderDeliveriesConstants.priceByM2Th }}</p>
+          <p class="right-side">
+            {{ entry?.product?.m2Price?.formattedValue }}
+          </p>
+        </div>
+
+        <div class="pt-3 d-flex justify-content-start">
+          <p class="left-side">{{ orderDeliveriesConstants.subTotalTh }}</p>
+          <p class="right-side">${{ entry?.subTotal?.formattedValue }}</p>
+        </div>
+      </div>
+
+      <div
+        class="row py-3"
+        *ngIf="order?.subTotal !== null && order?.subTotal !== undefined"
+      >
+        <div class="col-6">
+          <p>{{ orderDeliveriesConstants.subTotal }}</p>
+          <p>{{ orderDeliveriesConstants.freight }}</p>
+          <p>{{ orderDeliveriesConstants.gst }}</p>
+          <p>
+            <strong>{{ orderDeliveriesConstants.total }}</strong>
+          </p>
+        </div>
+        <div class="col-6 text-right">
+          <p>{{ order?.subTotal?.formattedValue }}</p>
+          <p>{{ order?.deliveryCost?.formattedValue }}</p>
+          <p>{{ order?.totalTax?.formattedValue }}</p>
+          <p>{{ order?.totalPrice?.formattedValue }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

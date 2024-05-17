@@ -1,0 +1,15 @@
+<div class="orderDeliveryCardDiv accountsCard">
+  <div class="card pointer">
+    <div class="card-header d-flex justify-content-between">
+      <label class="">Statement For: <span class="pl-1">{{statement?.StatementDate || statement?.journalEntryDate?.value }}</span></label>
+    </div>
+    <div class="card-body statement-body">
+      <div class="d-flex">
+
+        <div class="w-100 deliveryInfo">
+          <p class="mb-2"><span class="deliveryDate statements-label">Statement Balance: $  {{statement?.AccumulatedBalAmtInDisplayCrcy || statement?.amount | number : '1.2-2'}}</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

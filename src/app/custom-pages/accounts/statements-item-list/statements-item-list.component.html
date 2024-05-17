@@ -1,0 +1,5 @@
+<div class="list-row d-flex accountsCard">
+    <span class="pl-md-0 pl-3">{{statement?.closingDate || statement?.journalEntryDate?.value}}</span>
+    <span class="pl-md-0 pl-3 balance">{{(statement?.balance || statement?.amount) | number : '1.2-2'}}</span>
+    <span class="nex-page"><i (click)="navigateToDetailsPage(statement)" class="fa fa-lg fa-chevron-right"></i></span>
+</div>

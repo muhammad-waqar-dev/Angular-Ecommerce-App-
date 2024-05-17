@@ -1,0 +1,252 @@
+<ng-template #loading>
+    <div class="cx-spinner w-100">
+        <cx-spinner></cx-spinner>
+    </div>
+</ng-template>
+
+<ng-container *ngIf="!(isLoading$ | async);else loading">
+<div class="section-heading">
+    <p>2. Delivery Information</p>
+</div>
+<div class="delivery-sec">
+    <form [formGroup]="deliveryForm" (ngSubmit)="submit()">
+        <div class="row">
+            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                <div class="row">
+                    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                        <label>Requested Delivery Date *</label>
+                        <div class="d-flex orderCalender">
+                            <input class="form-control datepicker-control" placeholder=""
+                                name="dp1" ngbDatepicker #d1="ngbDatepicker"
+                                formControlName="requestedDeliveryDate" (click)="d1.toggle()"
+                                [minDate]="minDate" [markDisabled]="isDisabled"
+                                (dateSelect)="onDateReqSelect($event);">
+                            <span class="input-group-append" (click)="d1.toggle()">
+                                <img class="from-calendar" src="assets/images/calendar-icon.svg">
+                            </span>
+                        </div>
+                        <span *ngIf="!deliveryForm.get('requestedDeliveryDate').valid && deliveryForm.get('requestedDeliveryDate').touched" class="help-block text-danger">Required</span>
+                        <p class="reqDateErrorText"> {{ reqDateErrorMSG | async }} </p>
+                    </div>
+                    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 existingAddress ReqTimeForm">
+                        <label>Requested Delivery Time *</label>
+                        <span class="nav-item dropdown mr-5">
+                            <button class="nav-link sort-button navbarDropdownMenuLink"
+                                id="navbarDropdownMenuLink2" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <span class="mr-2 selectedText">{{ selectedSortName }}</span>
+                                <div class="m-display-inline m-arrow">
+                                    <img src="assets/images/headerIcons/arrow.svg" />
+                                </div>
+                            </button>
+
+                            <ul class="dropdown-menu dropdown-menu-end reqDelTimeVal"
+                                aria-labelledby="navbarDropdownMenuLink2">
+                                <ng-container *ngFor="let sort of reqDeliveryTime; let i = index">
+                                    <li class="pl-3 pr-3" (click)="changeSortOption(sort.code, sort.name)"
+                                        [ngClass]="{'selected':sort.selected}">
+                                        <div class="sortOption">
+                                            <label class="form-check-label" [name]="i">
+                                                {{ sort.name }}
+                                            </label>
+                                        </div>
+                                    </li>
+                                </ng-container>
+                            </ul>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group searchformfld">
+                    <input type="text" class="form-control" id="poNumber" placeholder=" "
+                        [ngClass]="{ error: nameCheck }" formControlName="poNumber" maxlength="35">
+                    <label for="poNumber">Your reference *</label>
+                    <span *ngIf="!deliveryForm.get('poNumber').valid && deliveryForm.get('poNumber').touched" class="help-block text-danger">Required</span>
+                   
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group searchformfld">
+                    <input type="text" class="form-control" id="siteContactName" placeholder=" "
+                        [ngClass]="{ error: nameCheck }" formControlName="siteContactName" maxlength="35">
+                    <label for="siteContactName">Site Contact Name *</label>
+                    <span *ngIf="!deliveryForm.get('siteContactName').valid &&
+                    deliveryForm.get('siteContactName').touched" class="help-block text-danger">Required</span>
+                    
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group searchformfld">
+                    <input type="text" class="form-control" id="siteContactNumber" placeholder=" "
+                        [ngClass]="{ error: nameCheck }" formControlName="siteContactNumber" 
+                        (keypress)="validateChar($event);" onpaste="return false;" maxlength="16">
+                    <label for="siteContactNumber">Site Contact Number *</label>
+                    <span *ngIf="!deliveryForm.get('siteContactNumber').valid &&
+                    deliveryForm.get('siteContactNumber').touched" class="help-block text-danger">Required</span>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 existingAddress">
+                <label>Use Existing Address</label>
+                <span class="nav-item dropdown mr-5">
+                    <button class="nav-link sort-button navbarDropdownMenuLink"
+                        id="navbarDropdownMenuLink3" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <span class="mr-2 selectedText">
+                            {{isNewAddress ? 'Add New Address' : 'Change Address'}}
+                        </span>
+                        <div class="m-display-inline m-arrow">
+                            <img src="assets/images/headerIcons/arrow.svg" />
+                        </div>
+                    </button>
+
+                    <ul class="dropdown-menu dropdown-menu-end deliveryAddressDropdown"
+                        aria-labelledby="navbarDropdownMenuLink3"
+                        [ngClass]="{'address-list-overflow': existingDeliveryOption?.length > 7}">
+                        <li class="pl-3 pr-3" (click)="changeNewAddress()">
+                            <div class="sortOption">
+                                <label class="form-check-label">
+                                    Enter New Address
+                                </label>
+                            </div>
+                        </li>
+                        <ng-container *ngFor="let deliveryData of existingDeliveryOption; let i = index">
+                            <li class="pl-3 pr-3" (click)="changeExistingShipOption(deliveryData)"
+                                [ngClass]="{'selected':deliveryData.defaultAddress1}">
+                                <div class="sortOption">
+                                    <label class="form-check-label" [name]="i">
+                                        {{ deliveryData.formattedAddress }}
+                                    </label>
+                                </div>
+                            </li>
+                        </ng-container>
+                        
+                    </ul>
+                </span>
+            </div>
+        </div>
+        <div class="row">
+           
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 formTextField">
+                <div class="form-group searchformfld">
+                    <input type="text" class="form-control" id="shipToName" placeholder=" "
+                        [ngClass]="{ error: nameCheck }" formControlName="shipToName" maxlength="40">
+                    <label for="shipToName">Project Name</label>
+                   
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 formTextField">
+                <div class="form-group searchformfld">
+                    <input type="text" class="form-control" id="shipToStreet" placeholder=" "
+                        [ngClass]="{ error: nameCheck }" formControlName="shipToStreet" maxlength="60">
+                    <label for="shipToStreet">Street Address *</label>
+                    <span *ngIf="!deliveryForm.get('shipToStreet').valid &&
+                    deliveryForm.get('shipToStreet').touched" class="help-block text-danger">Required</span>
+                    
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 formTextField">
+                <div class="form-group searchformfld">
+                    <input type="text" class="form-control" id="suburb" placeholder=" "
+                        [ngClass]="{ error: nameCheck }" formControlName="suburb" maxlength="40">
+                    <label for="shipToSuburb">Suburb *</label>
+                    <span *ngIf="!deliveryForm.get('suburb').valid &&
+                    deliveryForm.get('suburb').touched" class="help-block text-danger">Required</span>
+                   
+                </div>
+            </div>
+           
+            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mt-2 existingAddress formTextField">
+                <span class="nav-item dropdown mr-5 form-group searchformfld">
+                    <button class="nav-link sort-button navbarDropdownMenuLink selectButton"
+                        id="navbarDropdownMenuLink4" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false" [disabled]="isDataPopulated">
+                        <span class="mr-2 selectedText">{{ selectedStateName?.isocode }}</span>
+                        
+                        <div class="m-display-inline m-arrow">
+                            <img src="assets/images/headerIcons/arrow.svg" />
+                        </div>
+                    </button>
+                    <label>Region</label>
+
+                    <ul class="dropdown-menu dropdown-menu-end stateDropdown"
+                        aria-labelledby="navbarDropdownMenuLink4">
+                       
+                        <ng-container *ngFor="let stateItem of stateList | async; let i = index">
+                            <li class="pl-3 pr-3" (click)="changeStateOption(i)"
+                                [ngClass]="{'selected':stateItem.selected}">
+                                <div class="sortOption">
+                                    <label class="form-check-label" [name]="i">
+                                        {{stateItem.isocode}}
+                                    </label>
+                                </div>
+                            </li>
+                        </ng-container>
+                    </ul>
+                </span>
+            </div>
+            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 formTextField">
+                <div class="form-group searchformfld">
+                    <input type="text" class="form-control" id="postcode" placeholder=" "
+                        [ngClass]="{ error: nameCheck }" formControlName="postcode" maxlength="4" 
+                        (keypress)="validateChar($event);" onpaste="return false;">
+                    <label for="shipToPostCode">Postcode</label>
+                    
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 existingAddress">
+                <span class="nav-item dropdown mr-5 form-group searchformfld">
+                    <button class="nav-link sort-button navbarDropdownMenuLink form-control selectButton"
+                        id="navbarDropdownMenuLink5" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false" [disabled]="isDataPopulated">
+                        <span class="mr-2 selectedText">{{ selectedCountryName?.name }}</span>
+                        <div class="m-display-inline m-arrow">
+                            <img src="assets/images/headerIcons/arrow.svg" />
+                        </div>
+                    </button>
+                    <label>Country</label>
+
+                    <ul class="dropdown-menu dropdown-menu-end countryDropdown"
+                        aria-labelledby="navbarDropdownMenuLink5">
+                        <ng-container *ngFor="let item of countryList | async; let i = index">
+                            <li class="pl-3 pr-3" (click)="changeCountryOption(i, item)"
+                                [ngClass]="{'selected':item.selected}">
+                                <div class="sortOption">
+                                    <label class="form-check-label" [name]="i">
+                                        {{ item.name }}
+                                    </label>
+                                </div>
+                            </li>
+                        </ng-container>
+                    </ul>
+                </span>
+            </div>
+        </div>
+       
+        <div class="row mt-2">
+            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                <label for="specialDelivery" class="queryDescription">Do you have any special
+                    delivery instructions?</label>
+                <textarea class="form-control" rows="5"
+                    formControlName="specialDelivery" maxlength="1024"></textarea>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                <button type="submit" [disabled]="!deliveryForm.valid - reqErrorValid" 
+                class="btn w-100 font-weight-bold text-white submitBtn">
+                    REVIEW MY ORDER
+                </button>
+            </div>
+          
+        </div>
+    </form>
+</div>
+</ng-container>

@@ -1,0 +1,369 @@
+<button
+  *ngIf="!isMakePayment && !isInternalStaff && !isHistoricData"
+  class="btn submitBtn mb-0 float-lg-right float-md-right float-sm-left"
+  (click)="onPopupOpenClick()"
+  [disabled]="!isShow"
+>
+  {{
+    generateBtnName(
+      !isHistoricData
+        ? account?.AccountingDocumentType
+        : account?.journalEntryType
+    )
+  }}
+</button>
+<button
+  *ngIf="isMakePayment && !isInternalStaff"
+  class="btn primary-btn-gray"
+  (click)="onPopupOpenClick()"
+  [disabled]="!isShow"
+>
+  MAKE A PAYMENT
+</button>
+
+<ng-template #payInvoiceServiceModal let-modal>
+  <ng-template #loading>
+    <div class="cx-spinner w-100">
+      <cx-spinner></cx-spinner>
+    </div>
+  </ng-template>
+  <ng-container *ngIf="!(isLoading$ | async); else loading">
+    <div class="modal-header modal-head container row mt-4">
+      <div class="col-lg-8 col-xs-12 col-sm-12 titleBottomStyle">
+        <h3 *ngIf="responseOpen && isMakePayment">Make a Payment</h3>
+        <h3 *ngIf="responseOpen && !isMakePayment">
+          {{
+            generateBtnName(
+              !isHistoricData
+                ? account?.AccountingDocumentType
+                : account?.journalEntryType
+            )
+          }}
+        </h3>
+        <h3 *ngIf="!responseOpen">
+          {{ popupThankYouMessage.textThankHeading }}
+        </h3>
+      </div>
+
+      <span class="closeIcon-popup"
+        ><img
+          src="assets/images/closegrey.svg"
+          (click)="resetAndCloseForm()"
+          alt="Menu Icon"
+      /></span>
+    </div>
+
+    <div class="modal-body">
+      <ng-container *ngIf="responseOpen">
+        <div class="payment-content">
+          <div class="step step-1 pt-4">
+            <h4 class="pb-2"><strong>1. Payment Method</strong></h4>
+
+            <div class="row col-12">
+              <div class="col-12 form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="rd_1"
+                  name="payment_method"
+                  checked
+                  [(ngModel)]="payment_method"
+                  value="credit-card"
+                />
+                <label class="form-check-label" for="rd_1"
+                  >Pay with Credit Card</label
+                >
+              </div>
+            </div>
+          </div>
+          <div class="step step-2 pt-4">
+            <h4 class="pb-2">
+              <strong>2. {{ documentSelectionHeadingText }}</strong>
+            </h4>
+
+            <div class="pt-3 item-container" *ngIf="isMakePayment">
+              <a
+                class="value d-flex"
+                [ngClass]="{ selected: billingDocumentState[0] }"
+                (click)="toggleStateBulk('Overdue')"
+              >
+                <span class="facetValCount"
+                  ><span class="label">Overdue</span></span
+                >
+              </a>
+
+              <a
+                class="value d-flex"
+                [ngClass]="{ selected: billingDocumentState[1] }"
+                (click)="toggleStateBulk('Outstanding')"
+              >
+                <span class="facetValCount"
+                  ><span class="label">Outstanding</span></span
+                >
+              </a>
+              <a
+                class="value d-flex"
+                [ngClass]="{ selected: billingDocumentState[2] }"
+                (click)="toggleStateBulk('Credit')"
+              >
+                <span class="facetValCount"
+                  ><span class="label">Credit</span></span
+                >
+              </a>
+            </div>
+
+            <div class="row">
+              <div class="col-12 billing-doc-section">
+                <!-- For PAY MAKE A PAYMENT -->
+                <table
+                  class="table table-hover table-responsive"
+                  *ngIf="isMakePayment"
+                >
+                  <thead>
+                    <tr>
+                      <th scope="col"></th>
+                      <th scope="col">Billing Doc No</th>
+                      <th scope="col">Doc Date</th>
+                      <th scope="col">Doc Type</th>
+                      <th scope="col">Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of billingNotes; let i = index">
+                      <ng-container *ngIf="item.isShowNote">
+                        <th>
+                          <div class="form-check checkb">
+                            <label class="form-check-label">
+                              <input
+                                (click)="toggleIndividualState(i)"
+                                type="checkbox"
+                                class="form-check-input mt-0"
+                                value=""
+                                [checked]="item.isShowNote"
+                              />
+                            </label>
+                          </div>
+                        </th>
+                        <td>{{ generateStatusTerm(item?.AccountingDocumentType)  == 'Rebate' ? item?.OriginalReferenceDocument : item?.AccountingDocument }}</td>
+                        <td>{{ item?.DocumentDate }}</td>
+                        <td>
+                          {{ generateStatusTerm(item?.AccountingDocumentType) }}
+                        </td>
+                        <td>$ {{ item?.AmountInCompanyCodeCurrency }}</td>
+                      </ng-container>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <!-- For PAY INVOICE -->
+                <table
+                  class="table table-hover table-responsive"
+                  *ngIf="!isMakePayment"
+                >
+                  <!-- {{ accountService | json}} -->
+                  <thead>
+                    <tr>
+                      <th scope="col"></th>
+                      <th
+                        *ngIf="generateBtnName(accountService?.docType, 'status') !== 'Debit'"
+                        scope="col"
+                      >
+                        Credit Note No
+                      </th>
+                      <th
+                        *ngIf="generateBtnName(accountService?.docType, 'status') === 'Debit'"
+                        scope="col"
+                      >
+                        Debit Note No
+                      </th>
+                      <th scope="col">Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of billingNotes; let i = index">
+                      <ng-container *ngIf="item.isShowNote">
+                        <th>
+                          <div class="form-check checkb">
+                            <label class="form-check-label">
+                              <input
+                                (click)="toggleIndividualState(i)"
+                                type="checkbox"
+                                class="form-check-input mt-0"
+                                value=""
+                                [checked]="item.isShowNote"
+                              />
+                            </label>
+                          </div>
+                        </th>
+                        <td>{{ item?.AccountingDocument}}</td>
+                        <td>$ {{ item?.AmountInCompanyCodeCurrency }}</td>
+                      </ng-container>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div
+                class="col-lg-12 col-sm-12 col-xs-12 d-flex justify-content-start mt-4 buttonContainer"
+                [ngClass]="{ 'mb-5': !isMakePayment }"
+              >
+                <button
+                  *ngIf="isMakePayment"
+                  [disabled]="isButtonsDisabled"
+                  (click)="applyBillingNotes()"
+                  type="submit"
+                  class="btn btn-block font-weight-bold text-white submitBtn"
+                >
+                  APPLY
+                </button>
+
+                <button
+                  *ngIf="!isMakePayment"
+                  [disabled]="isButtonsDisabled"
+                  (click)="applyBillingNotes()"
+                  type="submit"
+                  class="btn btn-block font-weight-bold text-white submitBtn"
+                >
+                  APPLY
+                </button>
+              </div>
+            </div>
+          </div>
+          <div
+            class="step step-3 pt-4"
+            *ngIf="
+              this.isMakePayment &&
+              isShowReviewSection &&
+              billingNotesAppliedState.length
+            "
+          >
+            <h4 class="pb-2">
+              <strong>3. Review selected documents for Payment</strong>
+            </h4>
+
+            <div class="col-12 billing-doc-section">
+              <table class="table table-hover table-responsive">
+                <thead>
+                  <tr>
+                    <th scope="col">Billing Doc No</th>
+                    <th scope="col">Doc Date</th>
+                    <th scope="col">Doc Type</th>
+                    <th scope="col">Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of billingNotesAppliedState">
+                    <ng-container
+                      *ngIf="item.isShowNote && item.individualStateShow"
+                    >
+                      <td>{{ generateStatusTerm(item?.AccountingDocumentType)  == 'Rebate' ? item?.OriginalReferenceDocument : item?.AccountingDocument }}</td>
+                      <td>{{ item?.DocumentDate }}</td>
+                      <td>
+                        {{ generateStatusTerm(item?.AccountingDocumentType) }}
+                      </td>
+                      <td>$ {{ item?.AmountInCompanyCodeCurrency }}</td>
+                    </ng-container>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- mobile -->
+          <div class="payment-sec-mobile mt-4" *ngIf="isShowReviewSection">
+            <div class="mt-3">
+              <p class="d-flex justify-content-between mb-1">
+                <span>Sub Total</span>
+                <span>$ {{ subtotal }}</span>
+              </p>
+              <p class="d-flex justify-content-between mb-1">
+                <span>Credit Notes & Rebates</span>
+                <span>$ {{ creditRebate }}</span>
+              </p>
+              <p class="mb-1">
+                <strong class="d-flex justify-content-between">
+                  <span>Total</span>
+                  <span>$ {{ total }}</span>
+                </strong>
+              </p>
+            </div>
+            <div class="btn-area">
+              <button
+                *ngIf="isMakePayment"
+                (click)="payInvoice()"
+                [disabled]="total === 0 || total < 10"
+                type="submit"
+                class="btn btn-block font-weight-bold text-white submitBtn mb-3"
+              >
+                PAY
+              </button>
+              <button
+                *ngIf="!isMakePayment"
+                (click)="payInvoice()"
+                [disabled]="total === 0 || total < 10"
+                type="submit"
+                class="btn btn-block font-weight-bold text-white submitBtn mb-3"
+              >
+                {{ accountConstants.payAnInvoiceBtn }}
+              </button>
+            </div>
+          </div>
+          <!-- mobile -->
+
+          <div class="payment-sec-desktop" *ngIf="isShowReviewSection">
+            <div class="step-total pt-4">
+              <p class="d-flex justify-content-between mb-1">
+                <span>Sub Total</span>
+                <span>$ {{ subtotal }}</span>
+              </p>
+              <p class="d-flex justify-content-between mb-1">
+                <span>Credit Notes & Rebates</span>
+                <span>$ {{ creditRebate }}</span>
+              </p>
+              <p class="mb-1">
+                <strong class="d-flex justify-content-between">
+                  <span>Payment Total</span>
+                  <span>$ {{ total }}</span>
+                </strong>
+              </p>
+            </div>
+            <div class="row pt-3">
+              <div
+                class="col-lg-6 col-sm-12 col-xs-12 d-flex justify-content-start mt-4 mb-4 buttonContainer"
+              >
+                <button
+                  (click)="payInvoice()"
+                  [disabled]="total === 0 || total < 10 || isButtonsDisabled"
+                  type="submit"
+                  class="btn btn-block font-weight-bold text-white submitBtn"
+                >
+                  PAY
+                </button>
+              </div>
+            </div>
+          </div>
+          <div
+            class="text-danger"
+            *ngIf="(total === 0 || total < 10) && isShowReviewSection"
+          >
+            Please ensure Payment Total is at least $10 or more
+          </div>
+
+          <div *ngIf="ErrorMsgText.length > 1" class="text-danger">
+            {{ ErrorMsgText }}
+          </div>
+          <div *ngIf="isShowTimeOutMessage" class="text-danger">
+            {{ timeOutMessage }}
+          </div>
+          <div *ngIf="isShowDebitNoteErrorMsg" class="text-danger">
+            {{ debitNoteErrorMsg }}
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="paymentIframe && !isShowTimeOutMessage"
+        ><app-payment-iframe></app-payment-iframe
+      ></ng-container>
+    </div>
+  </ng-container>
+</ng-template>

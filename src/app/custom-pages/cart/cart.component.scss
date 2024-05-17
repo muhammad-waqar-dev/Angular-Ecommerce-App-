@@ -1,0 +1,101 @@
+@import "../../shared/styles/variables.scss";
+
+.page-wrapper {
+    margin: 0 auto;
+    width: 95%;
+    margin-bottom: 3rem;
+    .continue-shop {
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 1rem;
+        span {
+            cursor: pointer;
+        }
+    }
+    h3 {
+        font-size: 1.5rem;
+    }
+    .buttons-col {
+        border-left: 1px solid $disabled-grey;
+    }
+    .btn {
+        background-color: $grey-color;
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        color: #FFF;
+        min-width: 100%;
+    }
+    .item {
+        border-bottom: 1px solid $disabled-grey;
+        padding: 1.5rem 0;
+        label { 
+            padding-top: 0.3rem;
+            padding-right: 0.5rem;
+        }
+        p{
+            margin-bottom: 0;
+        }
+        img {
+            border: 1px solid $disabled-grey;
+        }
+        input {
+            max-width: 4rem;
+            max-height: 2rem;
+            border: 1px solid #D8D8D8;
+            text-align: center;
+        }
+    }
+   
+    hr {
+        border-top: 1px solid $disabled-grey;
+    }
+    .qty-container {
+        flex-direction: column;
+    }
+    .remove {
+        text-decoration: underline;
+        font-size: 1rem;
+        cursor: pointer;
+    }
+    .qty-label {
+        margin-right: 9rem;
+    }
+    .cx-item-list-items {
+        width: 100%;
+    }
+    .items-container {
+        flex-direction: column;
+    }
+    
+}
+.emptyCart {
+    text-align: center;
+    font-size: 1.4rem;
+    margin-top: 1rem;
+    color: #545859;
+    a {
+        color: #545859;
+        text-decoration: underline;
+    }
+}
+
+@media screen and (max-width: $mobileScreenPotrait) {
+    .page-wrapper {
+        h3{
+            font-size: 1rem;
+        }
+        .btn {
+            min-width: 14rem;
+        }
+    }
+    .custom-container {
+        padding: 0 !important;
+    }
+    .item {
+        img {
+            width: 9rem;
+        }
+    }
+    
+
+}

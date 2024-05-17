@@ -1,0 +1,409 @@
+<ng-container *ngIf="(isLoading$ | async)">
+  <div class="cx-spinner w-100">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="!(isLoading$ | async) && !isHistoricData">
+  <a [routerLink]="accountConstants.accountsLink" (click)="navigateToOrder()" *ngIf="isMobile" class="m-backArrow"><i
+      class="fa fa-chevron-left"></i></a>
+  <span class="orderBreadCrumb" *ngIf="!isMobile">
+    <a [routerLink]="homeConstants.homeLink">{{ homeConstants.homeLabel }}</a> >
+    <a [routerLink]="accountConstants.accountsLink" (click)="navigateToOrder()">Account {{
+      generateName(account?.journalEntryType || account?.AccountingDocumentType) }}s</a>
+    >
+    <a>{{ generateName(account?.journalEntryType || account?.AccountingDocumentType) ? account?.OriginalReferenceDocument : account?.AccountingDocument }}</a>
+  </span>
+
+  <div class="desktop-order-details d-none d-md-block d-lg-block" *ngIf="account?.AccountingDocument">
+    <div class="details">
+      <table class="table table-borderless">
+        <thead>
+          <tr>
+            <th scope="col">{{ generateName(account?.journalEntryType || account?.AccountingDocumentType) }} No</th>
+            <th scope="col" *ngIf="
+                !(getDocType(account?.journalEntryType || this.account?.AccountingDocumentType) === 'REBATE')
+              ">
+              {{ accountConstants.poNumber }}
+            </th>
+            <th scope="col" *ngIf="
+                (getDocType(account?.journalEntryType || this.account?.AccountingDocumentType) === 'INVOICE')
+              ">
+              {{ accountConstants.invoiceDate }}
+            </th>
+            <th scope="col" *ngIf="
+                (getDocType(account?.journalEntryType || this.account?.AccountingDocumentType) === 'CREDITMEMO' )
+              ">
+              Reference Invoice No
+            </th>
+            <th scope="col" *ngIf="
+                !(getDocType(account?.journalEntryType || this.account?.AccountingDocumentType) === 'INVOICE')
+              ">
+              {{ generateName(account?.journalEntryType || account?.AccountingDocumentType) }} Date
+            </th>
+            <th scope="col" *ngIf="
+                (getDocType(account?.journalEntryType || this.account?.AccountingDocumentType) === 'INVOICE') ||
+                (getDocType(account?.journalEntryType || this.account?.AccountingDocumentType) === 'DEBITMEMO')
+              ">
+              Due Date
+            </th>
+            <th scope="col">
+              {{ generateName(account?.journalEntryType || account?.AccountingDocumentType) }} Amount
+            </th>
+            <th scope="col">{{ accountConstants.status }}</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ generateName(account?.journalEntryType || account?.AccountingDocumentType) ? account?.OriginalReferenceDocument : account?.AccountingDocument }}</td>
+            <td *ngIf="
+                !(getDocType(account?.journalEntryType || this.account?.AccountingDocumentType) === 'REBATE')
+              ">
+              {{ account?.AssignmentReference }}
+            </td>
+            <td *ngIf="
+                (getDocType(account?.journalEntryType || this.account?.AccountingDocumentType) === 'INVOICE')
+              ">
+              {{ account?.DocumentDate }}
+            </td>
+            <td *ngIf="
+                (getDocType(account?.journalEntryType || this.account?.AccountingDocumentType) === 'CREDITMEMO' )
+              ">
+              {{ account?.DocumentReferenceID}}
+            </td>
+            <td *ngIf="
+                !(getDocType(account?.journalEntryType || this.account?.AccountingDocumentType) === 'INVOICE')
+              ">
+              {{ account?.DocumentDate }}
+            </td>
+            <td *ngIf="
+                (getDocType(account?.journalEntryType || this.account?.AccountingDocumentType) === 'INVOICE') ||
+                (getDocType(account?.journalEntryType || this.account?.AccountingDocumentType) === 'DEBITMEMO')
+              ">
+              {{ getFormattedDueDate(account?.NetDueDate) | date: "mediumDate" }}
+            </td>
+            <td>$ {{ account?.AmountInCompanyCodeCurrency }}</td>
+            <td class="statuses d-flex">
+              <div class="status-img">
+                <img *ngIf="getCurrentStatus() === 'Outstanding'"
+                  src="./assets/images/status-icons/active/invoice-oustanding.svg" class="status sm-ico active" />
+
+                <img *ngIf="getCurrentStatus() !== 'Outstanding'"
+                  src="./assets/images/status-icons/inactive/invoice-oustanding.svg" class="status sm-ico" />
+                <p>{{ accountConstants.outstandingS }}</p>
+              </div>
+              <div class="status-img">
+                <img *ngIf="getCurrentStatus() === 'Overdue'"
+                  src="./assets/images/status-icons/active/invoice-overdue.svg" class="status active" />
+                <img *ngIf="getCurrentStatus() !== 'Overdue'"
+                  src="./assets/images/status-icons/inactive/invoice-overdue.svg" class="status" />
+
+                <p>{{ accountConstants.overdueS }}</p>
+              </div>
+              <div class="status-img">
+                <img *ngIf="getCurrentStatus() === 'In-Progress'"
+                  src="./assets/images/status-icons/active/invoice-inprogress.svg" class="status active" />
+                <img *ngIf="getCurrentStatus() !== 'In-Progress'"
+                  src="./assets/images/status-icons/inactive/invoice-inprogress.svg" class="status" />
+
+                <p>{{ accountConstants.inProgressS }}</p>
+              </div>
+              <div class="status-img">
+                <img *ngIf="getCurrentStatus() === 'Paid'" src="./assets/images/status-icons/active/invoice-paid.svg"
+                  class="status active" />
+
+                <img *ngIf="getCurrentStatus() !== 'Paid'" src="./assets/images/status-icons/inactive/invoice-paid.svg"
+                  class="status" />
+                <p>{{ accountConstants.paidS }}</p>
+              </div>
+              <div class="status-img">
+                <img *ngIf="getCurrentStatus() === 'Disputed'"
+                  src="./assets/images/status-icons/active/invoice-disputed.svg" class="status active" />
+
+                <img *ngIf="getCurrentStatus() !== 'Disputed'"
+                  src="./assets/images/status-icons/inactive/invoice-disputed.svg" class="status" />
+                <p>{{ accountConstants.disputedS }}</p>
+              </div>
+            </td>
+            <td class="text-right btns-area">
+              <div class="text-center">
+                <app-pay-invoice-popup [isMakePayment]="false" [isShow]="!isMobile
+                  " [data]="account" *ngIf="getCurrentStatus() !== 'In-Progress' && getCurrentStatus() !== 'Paid' && !(getDocType(account?.journalEntryType || this.account?.AccountingDocumentType) === 'CREDITMEMO' ) && !(getDocType(account?.journalEntryType || this.account?.AccountingDocumentType) === 'REBATE')
+                  ">
+                </app-pay-invoice-popup>
+              </div>
+              <div class="text-center">
+                <app-request-for-pod-popup [isShow]="true && !isMobile" [data]="account" *ngIf="
+                    (getDocType(account?.journalEntryType || this.account?.AccountingDocumentType) === 'INVOICE')
+                  ">
+                </app-request-for-pod-popup>
+              </div>
+              <div class="text-center">
+                <app-dispute-invoice-popup [isShow]="!isMobile" [data]="account" *ngIf="
+                  getCurrentStatus() !== 'Paid' && ((getDocType(account?.journalEntryType || this.account?.AccountingDocumentType) === 'INVOICE') ||
+                  (getDocType(account?.journalEntryType || this.account?.AccountingDocumentType) === 'DEBITMEMO'))
+                  ">
+                </app-dispute-invoice-popup>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pdf-content d-flex justify-content-end" *ngIf="isInvoiceGen && !disableIcon">
+      <div class="invoice">
+        <a class="cursor-pointer text-center"
+          title="{{ generateName(account?.journalEntryType || account?.AccountingDocumentType) }} PDF"
+          (click)="!disableIcon ? onOpenStatement() : null">
+          <img class="pdf-icon" src="assets/images/file-pdf-regular.svg"
+            alt="{{ generateName(account?.journalEntryType || account?.AccountingDocumentType) }}" />
+          <p>{{ generateName(account?.journalEntryType || account?.AccountingDocumentType) }} PDF</p>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- mobile view  -->
+  <div class="mobile-order-details d-lg-none d-md-none d-block" *ngIf="account?.BillingDocument">
+    <div class="purchase-order-info space-border">
+      <div class="head-dark">
+        <p>
+          {{ generateName(account?.Description) }} No:
+          <strong>{{ account?.BillingDocument }}</strong>
+        </p>
+      </div>
+
+      <div class="pt-3 d-flex justify-content-start"
+        *ngIf="!(getDocType(account?.journalEntryType || this.account?.AccountingDocumentType) === 'REBATE')">
+        <p class="left-side">{{ accountConstants.poNumber }}</p>
+        <p class="right-side">
+          {{ account?.CustomerContext?.CustomerPOReference }}
+        </p>
+      </div>
+
+      <div class="pt-3 d-flex justify-content-start"
+        *ngIf="(getDocType(account?.journalEntryType || this.account?.AccountingDocumentType) === 'CREDITMEMO' )">
+        <p class="left-side">Reference Invoice No</p>
+        <p class="right-side">{{ account?.DocumentReferenceID }}</p>
+      </div>
+
+      <div class="pt-3 d-flex justify-content-start">
+        <p class="left-side">
+          {{ generateName(account?.journalEntryType || account?.AccountingDocumentType) }} Date
+        </p>
+        <p class="right-side">{{ account?.DocumentDate }}</p>
+      </div>
+
+      <div class="pt-3 d-flex justify-content-start" *ngIf="
+          (getDocType(account?.journalEntryType || this.account?.AccountingDocumentType) === 'INVOICE') ||
+          (getDocType(account?.journalEntryType || this.account?.AccountingDocumentType) === 'DEBITMEMO')
+        ">
+        <p class="left-side">{{ accountConstants.dueDate }}</p>
+        <p class="right-side">{{ account?.dueDate | date: "mediumDate" }}</p>
+      </div>
+
+      <div class="pt-3 d-flex justify-content-start">
+        <p class="left-side">
+          {{ generateName(account?.Description) }} Amount
+        </p>
+        <p class="right-side">$ {{ account?.totalInc }}</p>
+      </div>
+
+      <div class="pt-3 d-flex justify-content-start">
+        <p class="left-side">{{ accountConstants.Status }}</p>
+        <div class="right-side">
+          <div class="statuses d-flex">
+            <div class="status-img">
+              <img *ngIf="getCurrentStatus() === 'Outstanding'"
+                src="./assets/images/status-icons/active/invoice-oustanding.svg" class="status sm-ico active" />
+
+              <img *ngIf="getCurrentStatus() !== 'Outstanding'"
+                src="./assets/images/status-icons/inactive/invoice-oustanding.svg" class="status sm-ico" />
+              <p>{{ accountConstants.outstandingS }}</p>
+            </div>
+            <div class="status-img">
+              <img *ngIf="getCurrentStatus() === 'Overdue'"
+                src="./assets/images/status-icons/active/invoice-overdue.svg" class="status active" />
+              <img *ngIf="getCurrentStatus() !== 'Overdue'"
+                src="./assets/images/status-icons/inactive/invoice-overdue.svg" class="status" />
+
+              <p>{{ accountConstants.overdueS }}</p>
+            </div>
+            <div class="status-img">
+              <img *ngIf="getCurrentStatus() === 'In-Progress'"
+                src="./assets/images/status-icons/active/invoice-inprogress.svg" class="status active" />
+              <img *ngIf="getCurrentStatus() !== 'In-Progress'"
+                src="./assets/images/status-icons/inactive/invoice-inprogress.svg" class="status" />
+
+              <p>{{ accountConstants.inProgressS }}</p>
+            </div>
+            <div class="status-img">
+              <img *ngIf="getCurrentStatus() === 'Paid'" src="./assets/images/status-icons/active/invoice-paid.svg"
+                class="status active" />
+
+              <img *ngIf="getCurrentStatus() !== 'Paid'" src="./assets/images/status-icons/inactive/invoice-paid.svg"
+                class="status" />
+              <p>{{ accountConstants.paidS }}</p>
+            </div>
+            <div class="status-img">
+              <img *ngIf="getCurrentStatus() === 'Disputed'"
+                src="./assets/images/status-icons/active/invoice-disputed.svg" class="status active" />
+
+              <img *ngIf="getCurrentStatus() !== 'Disputed'"
+                src="./assets/images/status-icons/inactive/invoice-disputed.svg" class="status" />
+              <p>{{ accountConstants.disputedS }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pt-3 d-flex justify-content-start">
+        <p class="left-side">
+          {{ generateName(account?.journalEntryType || account?.AccountingDocumentType) }} PDF
+        </p>
+        <a class="right-side">
+          <img src="assets/images/file-pdf-regular.svg" alt="Upload" />
+        </a>
+      </div>
+    </div>
+    <div class="pt-3 btns-area">
+      <div class="text-center">
+        <app-pay-invoice-popup [isHistoricData]="isHistoricData" [isShow]="isMobile" [isMakePayment]="false"
+          [data]="account" *ngIf="getCurrentStatus() !== 'In-Progress' && getCurrentStatus() !== 'Paid' && !(getDocType(account?.journalEntryType || this.account?.AccountingDocumentType) === 'CREDITMEMO' ) && !(getDocType(account?.journalEntryType || this.account?.AccountingDocumentType) === 'REBATE')
+          ">
+        </app-pay-invoice-popup>
+        <app-request-for-pod-popup [isShow]="isMobile" [data]="account"
+          *ngIf="getDocType(account?.journalEntryType || this.account?.AccountingDocumentType) === 'INVOICE'">
+        </app-request-for-pod-popup>
+        <app-dispute-invoice-popup [isShow]="isMobile" [data]="account"
+          *ngIf="getCurrentStatus() !== 'Paid' && (getDocType(account?.journalEntryType || this.account?.AccountingDocumentType) === 'INVOICE') || (getDocType(account?.journalEntryType || this.account?.AccountingDocumentType) === 'DEBITMEMO')">
+        </app-dispute-invoice-popup>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+
+
+<!-- For Historic Data -->
+
+<ng-container *ngIf="isHistoricData">
+  <a [routerLink]="accountConstants.accountsLink" (click)="navigateToOrder()" *ngIf="isMobile" class="m-backArrow"><i
+      class="fa fa-chevron-left"></i></a>
+  <span class="orderBreadCrumb" *ngIf="!isMobile">
+    <a [routerLink]="homeConstants.homeLink">{{ homeConstants.homeLabel }}</a> >
+    <a [routerLink]="accountConstants.accountsLink" (click)="navigateToOrder()">{{ isStatements ? 'Statements' :
+      (generateName(account?.journalEntryType, true) || 'Account Invoices') }}</a>
+    >
+    <a>{{ account?.journalEntry }}</a>
+  </span>
+
+  <div class="desktop-order-details d-none d-md-block d-lg-block" *ngIf="account?.journalEntry || account?.StatementDate">
+    <div class="details">
+      <table class="table table-borderless">
+        <thead>
+          <tr *ngIf="!isStatements">
+            <th scope="col">{{ generateName(account?.journalEntryType || account?.AccountingDocumentType) }} No</th>
+            <th scope="col">{{ generateName(account?.journalEntryType || account?.AccountingDocumentType) }} Date</th>
+            <th scope="col">Due Date</th>
+            <th scope="col">{{ generateName(account?.journalEntryType || account?.AccountingDocumentType) }} Amount</th>
+            <th scope="col" *ngIf="!isHistoricData">Status</th>
+            <th scope="col"></th>
+          </tr>
+          <tr *ngIf="isStatements">
+            <th scope="col">Statement Date</th>
+            <th scope="col">Credit Limit</th>
+            <th scope="col">Statement Balance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="isStatements">
+            <td>{{account.StatementDate}}</td>
+            <td>$ {{creditLimit | number : '1.2-2'}}</td>
+            <td>$ {{account.AccumulatedBalAmtInDisplayCrcy | number : '1.2-2'}}</td>
+          </tr>
+          <tr *ngIf="!isStatements">
+            <td>{{ account?.journalEntry }}</td>
+            <td>{{ account?.journalEntryDate?.value }}</td>
+            <td>{{ account?.journalEntryDate?.value }}</td>
+            <td>{{ account?.amount }}</td>
+
+            <td *ngIf="!isHistoricData" class="statuses d-flex">
+              <div class="status-img">
+                <img *ngIf="getCurrentStatus() === 'Outstanding'"
+                  src="./assets/images/status-icons/active/invoice-oustanding.svg" class="status sm-ico active" />
+
+                <img *ngIf="getCurrentStatus() !== 'Outstanding'"
+                  src="./assets/images/status-icons/inactive/invoice-oustanding.svg" class="status sm-ico" />
+                <p>{{ accountConstants.outstandingS }}</p>
+              </div>
+              <div class="status-img">
+                <img *ngIf="getCurrentStatus() === 'Overdue'"
+                  src="./assets/images/status-icons/active/invoice-overdue.svg" class="status active" />
+                <img *ngIf="getCurrentStatus() !== 'Overdue'"
+                  src="./assets/images/status-icons/inactive/invoice-overdue.svg" class="status" />
+
+                <p>{{ accountConstants.overdueS }}</p>
+              </div>
+              <div class="status-img">
+                <img *ngIf="getCurrentStatus() === 'In-Progress'"
+                  src="./assets/images/status-icons/active/invoice-inprogress.svg" class="status active" />
+                <img *ngIf="getCurrentStatus() !== 'In-Progress'"
+                  src="./assets/images/status-icons/inactive/invoice-inprogress.svg" class="status" />
+
+                <p>{{ accountConstants.inProgressS }}</p>
+              </div>
+              <div class="status-img">
+                <img *ngIf="getCurrentStatus() === 'Paid'" src="./assets/images/status-icons/active/invoice-paid.svg"
+                  class="status active" />
+
+                <img *ngIf="getCurrentStatus() !== 'Paid'" src="./assets/images/status-icons/inactive/invoice-paid.svg"
+                  class="status" />
+                <p>{{ accountConstants.paidS }}</p>
+              </div>
+              <div class="status-img">
+                <img *ngIf="getCurrentStatus() === 'Disputed'"
+                  src="./assets/images/status-icons/active/invoice-disputed.svg" class="status active" />
+
+                <img *ngIf="getCurrentStatus() !== 'Disputed'"
+                  src="./assets/images/status-icons/inactive/invoice-disputed.svg" class="status" />
+                <p>{{ accountConstants.disputedS }}</p>
+              </div>
+            </td>
+            <td class="text-right btns-area">
+              <div class="text-center" *ngIf="!isHistoricData" >
+                <app-pay-invoice-popup [isHistoricData]="isHistoricData" [isMakePayment]="false" [isShow]="!isMobile
+                  " [data]="account"
+                  *ngIf="getCurrentStatus() !== 'In-Progress' && getCurrentStatus() !== 'Paid' && !(getDocType(account?.journalEntryType || this.account?.AccountingDocumentType) === 'CREDITMEMO' ) && !(getDocType(account?.journalEntryType || this.account?.AccountingDocumentType) === 'REBATE') && !isHistoricData">
+                </app-pay-invoice-popup>
+                <app-request-for-pod-popup [isShow]="!isMobile" [data]="account"
+                  *ngIf="(getDocType(account?.journalEntryType || this.account?.AccountingDocumentType) === 'INVOICE')">
+                </app-request-for-pod-popup>
+                <app-dispute-invoice-popup [isShow]="account.clearingStatus != 1 && !isMobile" [data]="account"
+                  *ngIf="getCurrentStatus() !== 'Paid' && ((getDocType(account?.journalEntryType || this.account?.AccountingDocumentType) === 'INVOICE') || (getDocType(account?.journalEntryType || this.account?.AccountingDocumentType) === 'DEBITMEMO'))">
+                </app-dispute-invoice-popup>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pdf-content d-flex justify-content-end" *ngIf="isInvoiceGen && !disableIcon">
+      <div class="invoice">
+        <a class="cursor-pointer text-center"
+          [title]="generateName(account?.journalEntryType || account?.AccountingDocumentType) + 'PDF'"
+          (click)="!disableIcon ? onOpenStatement() : null">
+          <img class="pdf-icon" src="../../../../assets/images/file-pdf-regular.svg"
+            [alt]="generateName(account?.journalEntryType || account?.AccountingDocumentType)"
+            [title]="generateName(account?.journalEntryType || account?.AccountingDocumentType)" />
+          <p>{{ generateName(account?.journalEntryType || account?.AccountingDocumentType) }} PDF</p>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- mobile view  -->
+
+</ng-container>

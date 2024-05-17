@@ -1,0 +1,193 @@
+@import "../../../shared/styles/variables.scss";
+::ng-deep .resourceSqrImageWrapper a cx-media {
+    height: 150px !important;
+}
+::ng-deep .key-industry-wrapper div:first-child a cx-media img {
+    margin-top: 3rem !important;
+}
+::ng-deep .key-industry-wrapper div:last-child a cx-media img {
+    margin-top: 3rem !important;
+}
+::ng-deep .mediaParentContainer > div label {
+    font-size: 0.95rem !important;
+}
+::ng-deep .mediaParentContainer > div .trainingVideosImg {
+    width: 25%;
+}
+.trainingBody {
+    margin-left: 3rem;
+    margin-right: 3rem;
+    b {
+        width: 100%;
+    }
+    .videoContainer {
+        width: 22rem;
+        margin: 2rem;
+
+        label {
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+            padding-left: 0.25rem;
+        }
+    }
+
+    .presentationContainer {
+        width: 22rem;
+        margin: 2rem;
+    }
+
+    .resourceContainer {
+        margin: 2rem;
+        background-color: aliceblue;
+        min-width: 15rem;
+        height: 17rem;
+        img {
+            min-height: 5rem;
+            width: 15rem;
+        }
+    }
+}
+
+@media screen and (max-width: $mobileScreenPotrait) {
+    ::ng-deep .mediaParentContainer > div .trainingVideosImg {
+        width: 100%;
+    }
+    ::ng-deep .resourceSqrImageWrapper a cx-media {
+        height: auto !important;
+    }
+    ::ng-deep .mediaParentContainer > div .imgWrapper {
+        padding: 0;
+    }
+    ::ng-deep .mediaParentContainer > div .resourceSqrImageWrapper {
+        margin-right: 0;
+    }
+    ::ng-deep .trainingVideosImg {
+        width: 100%;
+        max-width: 100% !important;
+    }
+    ::ng-deep .resourceSqrImageWrapper {
+        width: 100%;
+    }
+    ::ng-deep .resourceSqrImageWrapper:nth-child(even) {
+        padding-left: 1rem !important;
+    }
+    ::ng-deep .resourceSqrImageWrapper:nth-child(odd) {
+        padding-right: 1rem !important;
+    }
+    ::ng-deep .key-industry-wrapper div:first-child a cx-media img {
+        margin-top: 0 !important;
+    }
+    ::ng-deep .key-industry-wrapper div:last-child a cx-media img {
+        margin-top: 0 !important;
+    }
+    cx-page-slot.BottomHeaderSlot {
+        display: none !important;
+    }
+    .trainingBody {
+        .breadcrumb {
+            display: none;
+        }
+        hr {
+            margin-top: 2.5rem;
+        }
+
+        b {
+            width: 100%;
+        }
+        margin-left: 3rem;
+        margin-right: 3rem;
+        .videoContainer {
+            margin: 0rem !important;
+            width: 22rem;
+            text-align: center;
+            margin-top: 0.5rem !important;
+            margin-bottom: 0.5rem !important;
+
+            label {
+                padding-top: 0.5rem;
+                padding-bottom: 0.5rem;
+                padding-left: 0.25rem;
+            }
+        }
+
+        .presentationContainer {
+            margin: 0rem !important;
+            width: 22rem;
+            text-align: center;
+            margin-top: 0.75rem !important;
+            margin-bottom: 0.75rem !important;
+        }
+
+        .resourceContainer {
+            margin: 0rem !important;
+            margin-top: 0.75rem !important;
+            margin-bottom: 0.75rem !important;
+            min-width: 17rem;
+            height: 17rem;
+            img {
+                min-height: 5rem;
+                width: 17rem;
+            }
+        }
+        .marketingInfocontainer {
+            width: 18rem;
+            border: 1px solid black;
+            height: 4rem;
+            border-radius: 0.5rem;
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+            label {
+                width: 15rem;
+                padding-top: 0.5rem;
+                padding-left: 0.5rem;
+            }
+            a {
+                &:hover {
+                    text-decoration: none;
+                    opacity: 0.8;
+                }
+            }
+            .arrowContainer {
+                background-color: $grey-color;
+                color: white;
+                width: 5rem;
+                height: 4rem;
+                border-radius: 0.5rem;
+                border-top-left-radius: 0rem;
+                border-bottom-left-radius: 0rem;
+                border-left: 0rem;
+                left: 18rem;
+                i {
+                    align-self: center;
+                }
+            }
+        }
+    }
+}
+@media screen and (max-width: $ipadScreen-768) {
+    .trainingBody {
+        margin-left: 3rem;
+        margin-right: 3rem;
+
+        .videoContainer {
+            margin: 0rem !important;
+            width: 22rem;
+            text-align: center;
+            margin-top: 0.5rem !important;
+            margin-bottom: 0.5rem !important;
+            label {
+                padding-top: 0.5rem;
+                padding-bottom: 0.5rem;
+                padding-left: 0.25rem;
+            }
+        }
+
+        .presentationContainer {
+            margin: 0rem !important;
+            width: 22rem;
+            text-align: center;
+            margin-top: 0.5rem !important;
+            margin-bottom: 0.5rem !important;
+        }
+    }
+}

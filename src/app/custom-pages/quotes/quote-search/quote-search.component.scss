@@ -1,0 +1,141 @@
+@import "../../../shared/styles/variables.scss";
+
+.form-wrapper {
+    .search,
+    .reset {
+        padding: 0.36rem;
+        border-radius: 0.19rem;
+    }
+    .reset {
+        background: #ffffff 0% 0% no-repeat padding-box;
+        border: 1px solid #c8c9c7;
+    }
+    .reset {
+        height: 33px;
+    }
+    .search {
+        background-color: #545859;
+        border: 1px solid #545859;
+    }
+    .resetIcon, .searchIcon {
+        cursor: pointer;
+    }
+    button {
+        border: none;
+        background: none;
+        border-radius: 4px;
+        &.search-b {
+            height: 33px;
+        }
+    }
+    input {
+        border: 1px solid #c8c9c7;
+    }
+}
+
+.memberSearch.quoteSearch {
+    input {
+        height: 33px;
+        width: 14rem;
+        border-radius: 4px;
+        font-size: 0.9rem;
+    }
+}
+.input-group-append  img{
+    height: 2rem !important;
+    filter: none !important;
+    margin: 0 !important;
+    z-index: 9 !important;
+    cursor: pointer !important;
+    margin-left: -1.2rem !important;
+    position: absolute;
+    width: 15px !important;
+}
+.datepicker-control {
+    max-width: 7rem;
+}
+::ng-deep  .datepicker-control {
+    height: 32px !important;
+    cursor: pointer;
+    caret-color: transparent;
+    max-width: 8rem;
+    padding-left: 5px;
+    font-size: 0.82rem;
+}
+::ng-deep .ngb-dp-arrow button:focus{
+    outline: 0 !important;
+    box-shadow: none !important;
+}
+::ng-deep .bg-primary, ::ng-deep .bg-primary:hover {
+    background-color: $grey-color !important;
+}
+::ng-deep .btn-link {
+    color: $grey-color !important;
+}
+::ng-deep .ngb-dp-navigation-chevron {
+    width: .55em !important;
+    height: .55em !important;
+}
+::ng-deep .ngb-dp-navigation-chevron:not(.right) {
+    margin-left: 0 !important;
+    margin-right: 1.15em !important;
+    margin-bottom: 0.55rem !important;
+}
+::ng-deep .right .ngb-dp-navigation-chevron {
+    margin-left: 1.55em !important;
+    margin-right: .25em !important;
+    margin-bottom: 0.6rem !important;
+}
+::ng-deep .quoteCalender ngb-datepicker {
+    .ngb-dp-day, .ngb-dp-week-number, .ngb-dp-weekday {
+        width: 2.8rem !important;
+        height: 2.8rem !important;
+    }
+}
+
+.form-control.quoteCalender:disabled, .form-control.quoteCalender[readonly] {
+    background-color: #e9ecef !important;
+}
+
+@media screen and (max-width: $mobileScreenPotrait) {
+    .m-search {
+        width: 94.9%;
+        height: 40px;
+        border: 1px solid #c8c9c7;
+        border-radius: 4px;
+    }
+    .resetIcon, .searchIcon {
+        padding: 0.37rem 0.35rem !important;
+        display: inline-flex;
+        border-radius: 0.32rem !important;
+        margin-top: 1rem;
+    }
+    .resetIcon {
+        margin-left: 0 !important;
+        border: 1px solid #333 !important;
+        margin-right: 0.7rem !important;
+    }
+    .quoteSearch {
+        .form-wrapper {
+            flex-wrap: wrap;
+        }
+        .orText {
+            color: $black-color;
+            width: 100%;
+            margin-top: 0.7rem;
+            margin-bottom: 0.7rem;
+        }
+        &.memberSearch input {
+            width: 93%;
+        }
+        .calenderSearch {
+            width: 46.7%;
+            input {
+                width: 100%;
+            }
+        }
+    }
+    .form-wrapper button.search-b {
+        height: 51px;
+    }
+}

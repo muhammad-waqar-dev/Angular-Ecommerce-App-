@@ -1,0 +1,289 @@
+@import "../../../../shared/styles/variables.scss";
+@import "../../../../../app/shared/styles/form.scss";
+
+.item-container a {
+    cursor: pointer;
+    color: $heading-dark-grey;
+    text-decoration: none;
+    padding: 0.6rem 0;
+}
+::ng-deep .item-container a:before {
+    content: "✓";
+    color: transparent;
+    flex-shrink: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    width: 1.3rem;
+    height: 1.35rem;
+    border-radius: 0.2rem;
+    border: 1px solid var(--cx-color-light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-inline-end: 0.5rem;
+}
+::ng-deep .item-container .selected:before {
+    background-color: #fff;
+    border-color: $grey-color;
+    color: $grey-color;
+}
+
+.payment-content {
+    table {
+        th {
+            text-align: left;
+            white-space:nowrap
+        }
+    }
+    .step-total {
+        border-top: 1px solid $disabled-grey;
+    }
+    .checkb {
+        position: relative;
+        top: -10px;
+    }
+}
+.billing-doc-section {
+    height: auto;
+    max-height: 15rem;
+    overflow-y: auto;
+}
+.primary-btn-gray {
+    background-color: #545859;
+    color: #FFF;
+    margin-right: 3rem;
+    font-size: 0.9rem;
+    padding: 0 0.7rem;
+    height: 2rem;
+    outline: none;
+    box-shadow: none;
+    width: auto;
+}
+
+::ng-deep .payment-content {
+    .titleBottomStyle h3 {
+        margin-left: -1rem;
+    }
+
+    .titleBottomStyleSuccess {
+        padding-left: 1rem;
+        h3 {
+            margin-top: -1rem;
+        }
+    }
+    
+
+    @include font-MyriadReg();
+    .modal-dialog {
+        .modal-content {
+            color: $grey-color;
+            border: 3rem solid rgba(84, 88, 89, 0.7);
+        }
+        .modal-head {
+            justify-content: left;
+            padding: 1.3rem 0 1.7rem 3.1rem;
+            .closeIcon-popup {
+                position: absolute;
+                right: -2.4rem;
+                top: -2.3rem;
+                cursor: pointer;
+            }
+        }
+        .modal-header {
+            border-bottom: 0 none;
+            height: 0.6rem !important;
+        }
+        h3 {
+            color: #595959;
+        }
+
+        .modal-footer {
+            border-top: 0 none;
+        }
+        img {
+            vertical-align: middle;
+            height: 0.8rem;
+            width: 0.8rem;
+
+            margin-left: -1.5rem;
+
+            filter: invert(1);
+            border-style: none;
+            fill: grey;
+        }
+        .queryDescription {
+            color: #595959;
+        }
+    }
+}
+
+.successHeader {
+    color: #595959;
+    font-weight: bold;
+}
+
+.message {
+    color: $placeholder-grey;
+    padding: 3rem 3rem 0rem 3rem;
+}
+
+.messageThankYou {
+    color: $placeholder-grey;
+    padding: 1rem 3rem 8rem 3rem;
+}
+
+.requiredInput {
+    color: #595959;
+}
+
+.underline {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+@media screen and (max-width: $mobileScreenPotrait) {
+    .table {
+        td{
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+    }
+    .primary-btn-gray {
+        margin-right: 0;
+        width: 10rem;
+    }
+    .titleBottomStyle h5 {
+        padding-bottom: 1rem;
+        margin-bottom: 1rem;
+        margin-top: -2.2rem;
+        border-bottom: 1px solid $black-color;
+        text-align: center;
+    }
+
+    .requiredDiv {
+        text-align: left !important;
+        padding-left: 0rem;
+        color: $grey-color;
+        label {
+            color: $grey-color;
+        }
+    }
+
+    .buttonContainer {
+        justify-content: center !important;
+    }
+
+    .payment-content .modal-dialog .modal-head {
+        padding: 1.3rem 0 1.7rem 1.1rem;
+    }
+
+    .payment-content .modal-dialog .modal-head .email {
+        outline: none;
+    }
+
+    ::ng-deep .modal-backdrop {
+        width: 100%;
+        height: 100%;
+    }
+    ::ng-deep {
+        .modal-dialog {
+            .modal-content {
+                width: 90%;
+                height: fit-content;
+                bottom: -2%;
+                justify-self: center;
+                align-self: center;
+                border-radius: 0px;
+                border: 0rem none !important;
+                position: inherit;
+                transform: inherit;
+                margin: auto;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0 !important;
+
+                .modal-head {
+                    h4 {
+                        font-size: 18px;
+                        width: 220px;
+                    }
+                    .closeIcon-popup {
+                        position: absolute;
+                        right: 3px;
+                        top: 3px;
+                        height: 5px;
+                        width: 5px;
+                        cursor: pointer;
+                    }
+                }
+                .totalFormCheck {
+                    left: 0;
+                    width: 97%;
+                    margin-left: 0.4rem !important;
+                }
+            }
+        }
+        .popupStyle {
+            .modal-dialog {
+                .modal-content {
+                    position: inherit;
+                    transform: inherit;
+                    top: 13%;
+                    left: 0;
+                }
+            }
+        }
+    }
+}
+
+.text-danger {
+    font-size: 1rem;
+    margin-top: 0.1rem;
+    margin-bottom: 0.8rem;
+    display: block;
+    padding-left: 0.3rem;
+    color: #f23c2b !important;
+    border-radius: 0.3rem;
+}
+
+.submitBtn {
+    background-color: $dark-grey;
+    width: 11.875rem;
+    color: $white-color;
+    text-transform: initial;
+    padding: 12px 15px;
+    :disabled {
+        background-color: $medium-gray;
+    }
+    @media screen and (max-width: $mobileScreenPotrait) {
+        width: 100%;
+    }
+}
+
+.payment-sec-desktop {
+    @media screen and (max-width: $mobileScreenPotrait) {
+        display: none;
+    }
+}
+
+.payment-sec-mobile {
+    display: none;
+    background: $heading-grey;
+    padding: 15px;
+    .btn-area {
+        border-top: 1px solid $disabled-grey;
+        padding-top: 1rem;
+        margin-top: 1rem;
+    }
+    @media screen and (max-width: $mobileScreenPotrait) {
+        display: block;
+    }
+}
+
+.table-responsive {
+    display: table;
+    @media screen and (max-width: $mobileScreenPotrait) {
+        display: block;
+    }
+}

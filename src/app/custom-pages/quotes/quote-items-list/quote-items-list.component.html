@@ -1,0 +1,20 @@
+<div class="list-row d-flex">
+    <span>{{quote?.code}}</span>
+    <span>
+        <span *ngIf="quote.state === 'DUETOEXPIRE'" class="status">{{quoteConstants.dueToExpire}}</span>
+        <span *ngIf="quote.state !== 'DUETOEXPIRE'" class="quoteStatusText status">{{quote?.state | lowercase}}</span>
+
+        <img *ngIf="quote.state === 'VALID'" src="./assets/images/status-icons/active/quote-valid.svg" class="mt-3 mb-3"
+            [ngClass]="isMobile ? 'mt-2 mb-2' : 'mt-3 mb-3'" />
+
+        <img *ngIf="quote.state === 'DUETOEXPIRE'" src="./assets/images/status-icons/active/quote-duetoexpire.svg" class="mt-3 mb-3"
+            [ngClass]="isMobile ? 'mt-2 mb-2' : 'mt-3 mb-3'" />
+            
+        <img *ngIf="quote.state === 'EXPIRED'" src="./assets/images/status-icons/active/quote-expired.svg" class="mt-3 mb-3"
+            [ngClass]="isMobile ? 'mt-2 mb-2' : 'mt-3 mb-3'" />
+
+    </span>
+    <span>{{quote?.projectNumber}}</span>
+    <span class="address" *ngIf="!isMobile">{{quote?.deliveryAddress?.formattedAddress}}</span>
+    <span class="nex-page"><i (click)="navigateToDetailsPage(quote)" class="fa fa-lg fa-chevron-right"></i></span>
+</div>

@@ -1,0 +1,50 @@
+<ng-container *ngIf="!(isLoading$ | async);else loading">
+
+    <div *ngIf="permissionAllowed && !isLoading;else permissionDeniedMessage" [ngClass]="{'col form-wrapper mt-4': !isDashboard}">
+        <div [ngClass]="{'col form-wrapper': !isDashboard}">
+            <div class="row">
+                <div class="col-md-12 mt-4 mb-2 main-heading">
+                    <h2 class="pl-2" *ngIf="!isDashboard">{{heading}}</h2> 
+                    <span *ngIf="isDashboard"> 
+                        <b>{{heading}}</b>
+                    </span>
+                </div>
+            </div>
+            <div class="row images-container">
+                <div class="col-md-4 col-sm-12 mt-2 tile mb-4 tile-img1">
+                    <a [routerLink]="'/asset-library'">
+                        <cx-media [container]="assetLibrary.media.desktop"></cx-media>
+                    </a>
+                    
+                </div>
+                <div class="col-md-4  col-sm-12 mt-2 tile  mb-4 tile-img2">
+                    <a [routerLink]="'/trainings'">
+                        <cx-media [container]="training.media.desktop"></cx-media>
+                    </a>
+                </div>
+                <div class="col-md-4  col-sm-12 mt-2 tile mb-4 tile-img3">
+                    <a [routerLink]="'/work-with-fi'">
+                        <cx-media [container]="workingWithWifi.media.desktop"></cx-media>
+                    </a>
+                </div>
+            </div>
+            <div class="row" *ngIf="!isDashboard">
+                <div class="col-md-12 mb-5 whyFI-banner mt-5 mb-5" *ngIf="!isMobile">
+                    <cx-media [container]="descBanner.media.desktop"></cx-media>
+                    <span class="banner-overlay-text pos-abs" [innerHTML]="bannerDescription.content"></span>
+                </div>
+                <div class="col-md-12 mt-2 footer-banner mb-5 pt-2 pb-2 ml-3 mr-3" *ngIf="isMobile">
+                    <span class="banner-overlay-text mobile-para pb-5" [innerHTML]="bannerDescription.content"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
+<ng-template #permissionDeniedMessage>
+    <app-accesspermissionmessage></app-accesspermissionmessage>
+</ng-template>
+<ng-template #loading>
+    <div class="cx-spinner">
+        <cx-spinner></cx-spinner>
+    </div>
+</ng-template>

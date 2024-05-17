@@ -1,0 +1,52 @@
+<div class="menuItemContainer d-flex align-items-center justify-content-center align-middle">
+    <div class="nav-item dropdown d-flex align-items-center justify-content-center align-middle">
+        <a class="nav-link" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa fa-question-circle " aria-hidden="true"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+            <li class="mt-1">
+                <div class="contact-us-info">
+                    <b class="d-block pb-1">Need Help</b>
+                    <span class="d-block pb-1">
+                        <img class="pr-2" src="{{iconsBaseURL+'/phone.svg'}}" alt="phone" />
+                        <a href="tel:{{selectedUser?.salesPerson?.phone}}" class="text-decoration-none"> {{selectedUser?.csPhone}} </a>
+                    </span>
+                    <span class="d-block pb-1">
+                        <img class="pr-2" src="{{iconsBaseURL+'/email.svg'}}" alt="email" />
+                        <a href="mailto:{{selectedUser?.csEmail}}" *ngIf="!(isInternalStaff | async)"> {{selectedUser?.csEmail}}</a>
+                        <a href="mailto:{{selectedUser?.csEmail}}" *ngIf="isInternalStaff | async"> {{csEmail | async}}</a>
+                    </span>
+                    <span class="d-block pb-1 contactText">
+                        <img class="pr-2" src="{{iconsBaseURL+'/comment.svg'}}" alt="comment" />
+                        <a (click)="openContactCustomerServicePopup()">Contact us</a>
+                    </span>
+                    <hr class="marginLine">
+                    <span class="d-block pb-1"><b>Your sales contact:</b> </span>
+                    <span class="d-block" *ngIf="!(isInternalStaff | async)">{{selectedUser?.salesPerson?.name}}</span>
+                    <span class="d-block" *ngIf="isInternalStaff | async">{{salesPersonNameVal | async}}</span>
+                    <hr class="marginLine">
+                    <span class="pb-1 socialMediaIcons">
+                        <div class="icons">
+                            <a href="https://www.facebook.com/fletcherinsulation/?fref=ts" target="_blank">
+                                <img src="{{iconsBaseURL+'/facebook.svg'}}" alt="facebook" />
+                            </a>
+                            <a href="https://www.instagram.com/fletcherinsulation" target="_blank">
+                                <img src="{{iconsBaseURL+'/instagram.svg'}}" alt="instagram" />
+                            </a>
+                            <a href="https://twitter.com/FInsulation" target="_blank">
+                                <img src="{{iconsBaseURL+'/twitter.svg'}}" alt="twitter" />
+                            </a>
+                            <a href="https://www.linkedin.com/company/fletcher-insulation" target="_blank">
+                                <img src="{{iconsBaseURL+'/linkedin.svg'}}" alt="linkedin" />
+                            </a>
+                        </div>
+                    </span>
+                    <span class="d-block text-center">
+                        <a class="helpLink" href="http://www.insulation.com.au/" target="_blank">www.insulation.com.au</a>
+                    </span>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<app-contact-customer-service class="contactService"></app-contact-customer-service>

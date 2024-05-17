@@ -1,0 +1,45 @@
+<ng-container *ngIf="!(isLoading$ | async);else loading">
+
+    <div class="col form-wrapper mt-4" *ngIf="permissionAllowed && !isLoading;else permissionDeniedMessage">
+        <div *ngIf="isMobile" class="mobilePageTitleContainer d-flex flex-fill align-items-center mt-2 text-center">
+            <a [routerLink]="'/why-fi'"><i class="fa fa-chevron-left"></i></a>
+            <div class="flex-fill "><label>Assets Library</label></div>
+        </div>
+
+        <div *ngIf="!(isLoading$ | async)" class="col form-wrapper">
+            <p>The resources in this section are copyright and for the use of our customers only. Any modifications or
+                editing
+                of any of the images or information requires the approval of Fletcher Insulation. Please contact
+                Fletcher
+                Insulation <a href="mailto:info@insulation.com.au">info@insulation.com.au</a> for approval.</p>
+            <div class="row images-container">
+                <div class="col-md-4 col-sm-12 mt-2 tile">
+                    <a [routerLink]="'/image-assets'" class="customBoxShadow">
+                        <cx-media [container]="whyFIAssetsLibraryImagesBannerComponentData.media.desktop"></cx-media>
+                    </a>
+                    
+                </div>
+                <div class="col-md-4  col-sm-12 mt-2 tile ">
+                    <a [routerLink]="whyFIAssetLibraryEMDBannerComponentData.urlLink">
+                        <cx-media [container]="whyFIAssetLibraryEMDBannerComponentData.media.desktop"></cx-media>
+                    </a>
+                    
+                </div>
+                <div class="col-md-4  col-sm-12 mt-2 tile">
+                    <a [routerLink]="whyFIAssetLibraryLogosBannerComponent.urlLink">
+                        <cx-media [container]="whyFIAssetLibraryLogosBannerComponent.media.desktop"></cx-media>
+                    </a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
+<ng-template #permissionDeniedMessage>
+    <app-accesspermissionmessage></app-accesspermissionmessage>
+</ng-template>
+<ng-template #loading>
+    <div class="cx-spinner">
+        <cx-spinner></cx-spinner>
+    </div>
+</ng-template>

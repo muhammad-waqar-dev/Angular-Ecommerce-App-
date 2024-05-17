@@ -1,0 +1,147 @@
+@import "../../shared/styles/variables.scss";
+
+.d-flex {
+    margin: 2.5rem 3rem 2rem 3rem;
+}
+.socialMediaIcons img {
+    width: 2rem;
+}
+.socialMediaIcons {
+    display: flex;
+    justify-content: space-evenly;
+    a {
+        padding-left: 10px;
+    }
+    i {
+        color: $white-color;
+    }
+    .fa:hover {
+        color: #6eb43f;
+    }
+    cursor: pointer;
+}
+
+.notice-info {
+    color: #545859;
+    a {
+        color: #545859;
+        &:hover {
+            color: #6eb43f;
+        }
+    }
+}
+
+.contactparagraph {
+    display: flex;
+    align-items: center;
+    img {
+        width: 70px;
+    }
+    .fa-phone {
+        color: #545859;
+    }
+    margin-top: 1.5rem;
+    margin-bottom: 1.7rem;
+    font-size: 1.3rem;
+    i {
+        transform: rotate(91deg);
+        position: relative;
+    }
+}
+
+.fa-linkedin:before {
+    content: "\f0e1";
+}
+
+.contactparagraph:hover {
+    .contact,
+    a,
+    i {
+        text-decoration: none;
+        color: #6eb43f;
+    }
+}
+
+.contact {
+    color: #545859;
+    font-size: 2.3rem;
+    font-weight: 600;
+}
+
+.col-md-3 {
+    padding-left: 0%;
+    max-width: 14.7%;
+    max-width: 11rem;
+}
+
+.col-md-9 {
+    position: relative;
+    min-width: 90%;
+}
+
+.image img {
+    height: 25rem;
+}
+
+.footerBanner {
+    z-index: 1;
+    padding: 0.5rem 0rem 0rem 1rem;
+    font-size: 1.25rem;
+    position: absolute;
+    text-align: left;
+    letter-spacing: 0rem;
+    color: #ffffff;
+    opacity: 1;
+}
+hr {
+    background-color: white;
+    margin: 2rem 2.5rem 0rem 2.5rem !important;
+}
+
+@media (min-width: $screenMedium-1024) and (max-width: $ScreenMedium-1300) {
+    .contact {
+        font-size: 1.2rem;
+        font-weight: 400;
+    }
+    .contactparagraph {
+        img {
+            width: 60px;
+        }
+    }
+}
+
+@media (min-width: $ScreenMedium-1300) and (max-width: $Largescreen-1440) {
+    .contact {
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+    .contactparagraph {
+        img {
+            width: 60px;
+        }
+    }
+}
+
+@media (min-width: $Largescreen-1440) and (max-width: $Largescreen-1700) {
+    .contact {
+        font-size: 1.9rem;
+        font-weight: 600;
+    }
+    .contactparagraph {
+        img {
+            width: 50px;
+        }
+    }
+}
+
+@media (min-width: $Largescreen-1700) and (max-width: $Largescreen-1760) {
+    .contact {
+        font-size: 2.1rem;
+        font-weight: 600;
+    }
+    .contactparagraph {
+        img {
+            width: 50px;
+        }
+    }
+}

@@ -1,0 +1,90 @@
+<div class="menuContainer" id="sideMenu">
+  <div class="text-center">
+    <label class="p-2 w-auto headerTitle">Search</label>
+  </div>
+
+  <div class="pl-2 pr-3">
+    <div class="">
+      <div class="row col-12">
+        <div class=" col-6 custom-control custom-radio custom-control">
+          <input type="radio" id="rd_1" name="product_search" class="custom-control-input" 
+          name="searchALL" checked [(ngModel)]="searchALL" value="product">
+          <label class="custom-control-label gray" for="rd_1">Product Search</label>
+        </div>
+        <div class="col-6 custom-control custom-radio custom-control">
+          <input type="radio" id="rd_2" name="order_delivery_search" class="custom-control-input" 
+          name="searchALL" [(ngModel)]="searchALL" value="orderDelivery">
+          <label class="custom-control-label gray" for="rd_2">Order & Delivery Search</label>
+        </div>
+      </div>
+
+      <div class="row col-12 mt-1">
+        <div class=" col-6 custom-control custom-radio custom-control">
+          <input type="radio" id="rd_3" name="quote_search" class="custom-control-input" 
+          name="searchALL" [(ngModel)]="searchALL" value="quote">
+          <label class="custom-control-label gray" for="rd_3">Quote Search</label>
+        </div>
+        <div class="col-6 custom-control custom-radio custom-control">
+          <input type="radio" id="rd_4" name="invoice_search" class="custom-control-input" 
+          name="searchALL" [(ngModel)]="searchALL" value="invoice">
+          <label class="custom-control-label gray" for="rd_4">Invoice Search</label>
+        </div>
+      </div>
+
+      <div class="row col-12 mt-1">
+        <div class=" col-6 custom-control custom-radio custom-control">
+          <input type="radio" id="rd_5" name="member_search" class="custom-control-input" 
+          name="searchALL" [(ngModel)]="searchALL" value="memberTeam">
+          <label class="custom-control-label gray" for="rd_5">Member Search</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="productsContainer productSearchBox mt-4" *ngIf="searchALL === 'product'">
+      <div class="searchBoxBlock">
+        <div class="searchTextBox">
+          <label class="searchbox" [class.dirty]="!!searchInput.value">
+            <input #searchInput placeholder="Enter Product Name or Product Type" aria-label="search" (focus)="open()"
+              (click)="open()" (input)="search(searchInput.value)" (blur)="close($event)"
+              (keydown.escape)="close($event)" (keydown.enter)="
+          close($event, true);
+          launchSearchResult($event, searchInput.value);
+          updateChosenWord(searchInput.value);sendEvent();
+          searchClick(searchInput.value);
+        " (keydown.arrowup)="focusPreviousChild($event)" (keydown.arrowdown)="focusNextChild($event)"
+              value="{{ chosenWord || searchVal}}" />
+          </label>
+        </div>
+        <div class="searchResetIcons">
+          <span class="resetIconspan">
+            <img src="assets/images/bottomheader/redo-alt-regular.svg" (click)="clear(searchInput); searchClick(searchInput.value); routeProduct(); sendEvent()">
+          </span>
+
+          <span class="searchIconspan">
+            <img src="assets/images/bottomheader/search-regular.svg" (click)="close($event, true);
+              launchSearchResult($event, searchInput.value);
+              updateChosenWord(searchInput.value);sendEvent();
+              searchClick(searchInput.value)" class="searchIcon">
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="m-memberSearch mt-4" *ngIf="searchALL === 'memberTeam'">
+      <app-my-team-search (searchQuery)=onSearchQuery($event)
+      (clearSearch) = onClearSearch()></app-my-team-search>
+    </div>
+    <div class="m-orderDeliverySearch mt-4" *ngIf="searchALL === 'orderDelivery'">
+      <app-order-deliveries-search (searchOrderQuery)=onOrderSearchQuery($event)
+      (clearOrderSearch) = onOrderClearSearch()></app-order-deliveries-search>
+    </div>
+    <div class="m-quotesDeliverySearch mt-4" *ngIf="searchALL === 'quote'">
+      <app-quote-search (searchQuoteQuery)=onQuoteSearchQuery($event)
+      (clearQuoteSearch) = onQuoteClearSearch()></app-quote-search>
+    </div>
+    <div class="m-accountSearch mt-4" *ngIf="searchALL === 'invoice'">
+      <app-accounts-search
+      (searchAccountQuery)=onAccountSearchQuery($event)
+      (clearAccountSearch) = onAccountClearSearch()
+      ></app-accounts-search>
+    </div>
+  </div>

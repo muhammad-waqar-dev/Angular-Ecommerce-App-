@@ -1,0 +1,185 @@
+@import "../../shared/styles/variables.scss";
+
+.form-wrapper {
+    margin: 0 auto;
+    width: 95%;
+}
+.images-container {
+    cx-media {
+        box-shadow: 3px 4px 12px 1px $box-shadow-grey;
+    }
+}
+h1,
+h2,
+h3,
+p {
+    color: $grey-color;
+}
+
+::ng-deep {
+    .col-md-4 cx-media {
+        img {
+            width: 100%;
+            height: auto;
+        }
+    }
+}
+.banner-overlay-text {
+    width: 40%;
+    font-size: 1rem;
+    top: 2rem;
+    left: 5rem;
+    font-weight: 400;
+    line-height: 1.8;
+    color: #545859 !important;
+    ::ng-deep p span {
+        font-size: 1.25rem;
+    }
+    ::ng-deep .banner-overlay-text p span {
+        font-size: 1.25rem !important;
+    }
+    ::ng-deep .resourseText a {
+        color: #545859 !important;
+        text-decoration: underline;
+    }
+}
+
+.pos-abs {
+    position: absolute;
+}
+::ng-deep .tile-img1 {
+    padding-right: 50px;
+}
+::ng-deep .tile-img2 {
+    padding-right: 35px;
+    padding-left: 29px;
+}
+::ng-deep .tile-img3 {
+    padding-right: 20px;
+    padding-left: 44px;
+}
+.tile {
+    div {
+        position: absolute;
+        top: 0;
+        z-index: 1;
+        display: inline-block;
+        padding: 4% 13% 4% 4%;
+        overflow: hidden;
+        font-size: 1.05rem;
+        @include font-MyriadReg();
+        color: $white-color;
+        margin: 0;
+        border-top-left-radius: 0.2rem;
+    }
+
+    div:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: $background-grey;
+        -webkit-transform-origin: 100% 0;
+        -ms-transform-origin: 100% 0;
+        transform-origin: 100% 0;
+        -webkit-transform: skew(-45deg);
+        -ms-transform: skew(-45deg);
+        transform: skew(-45deg);
+        z-index: -1;
+    }
+}
+.mobile-para {
+    width: 90% !important;
+    font-size: 0.975rem !important;
+    line-height: 1.6;
+}
+
+@media screen and (max-width: $mobileScreenPotrait) {
+    ::ng-deep .footer-banner {
+        background-image: linear-gradient(to bottom, #fcf5f4, #f8eeed, #f4e7e7, #f0e0e1, #ecd9dc);
+        border-radius: 4%;
+    }
+    ::ng-deep .footer-banner cx-media img {
+        height: 252px;
+    }
+    h2 {
+        color: $heading-dark-grey;
+        text-align: center;
+        font-size: 0.975rem;
+    }
+    .main-heading {
+        margin-top: 2rem !important;
+    }
+    .para-heading {
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+    }
+    .tile-image-padding {
+        padding-right: 1rem;
+    }
+    ::ng-deep .tile-img1,
+    ::ng-deep .tile-img2,
+    ::ng-deep .tile-img3 {
+        padding-right: 1rem;
+        padding-left: 1rem;
+    }
+
+    .dashboard-heading{
+        font-size: 0.8rem;
+        font-weight: bold;
+        text-align: left;
+        padding-left: 0 !important;
+    }
+}
+
+@media screen and (max-width: $Largescreen-1600) {
+    .banner-overlay-text {
+        width: 40%;
+        font-size: 1rem;
+        top: 0;
+        left: 3rem;
+    }
+}
+@media screen and (max-width: $Largescreen-1440) {
+    .banner-overlay-text {
+        width: 44%;
+        font-size: 0.75rem;
+        top: 0;
+        left: 3rem;
+    }
+}
+@media screen and (max-width: $ScreenMedium-1300) {
+    .banner-overlay-text {
+        width: 45%;
+        font-size: 0.7rem;
+        top: 0rem;
+        left: 2rem;
+    }
+}
+
+@media screen and (max-width: $screenMedium-1200) {
+    .banner-overlay-text {
+        width: 45%;
+        font-size: 0.7rem;
+        top: 0rem;
+        left: 2rem;
+        font-weight: 400;
+    }
+    ::ng-deep .banner-overlay-text p {
+        margin-bottom: 0.5rem;
+    }
+}
+@media screen and (max-width: $screenMedium-1024) {
+    .banner-overlay-text {
+        width: 46%;
+        font-size: 0.7rem;
+        top: 0rem;
+        left: 2rem;
+        font-weight: 400;
+    }
+    ::ng-deep .banner-overlay-text p {
+        margin-bottom: 0.5rem;
+    }
+}

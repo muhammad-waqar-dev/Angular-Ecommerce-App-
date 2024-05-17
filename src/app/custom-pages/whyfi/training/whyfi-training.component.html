@@ -1,0 +1,66 @@
+<ng-container *ngIf="!(isLoading$ | async);else loading">
+
+    <div class="col form-wrapper mt-4" *ngIf="permissionAllowed && !isLoading;else permissionDeniedMessage">
+        <div *ngIf="isMobile" class="mobilePageTitleContainer d-flex flex-fill align-items-center mt-2 text-center">
+            <a [routerLink]="'/why-fi'"><i class="fa fa-chevron-left"></i></a>
+            <div class="flex-fill "><label>Training</label></div>
+        </div>
+        <div class="mediaParentContainer d-flex flex-column" *ngIf="!(isLoading$ | async)">
+            <div>
+                <hr>
+                <h3>Training Videos</h3>
+                <div class="d-flex flex-wrap align-content-start justify-content-start">
+                    <div class="justify-content-center align-items-center imgWrapper trainingVideosImg"
+                        *ngFor=" let mediaBanner of fiAssetLibraryTrainingVideoBannerComponent; let i = index ">
+                        <a href="{{mediaBanner.urlLink}}" target="_blank">
+                            <cx-media [container]="mediaBanner.media.desktop"></cx-media>
+                            <label>{{mediaBanner.media.desktop.altText}}</label>
+                        </a>
+                    </div>
+                </div>
+                <hr>
+            </div>
+
+            <div>
+                <h3>Training Resources</h3>
+                <div class="d-flex flex-wrap align-content-start justify-content-start">
+                    <div class="justify-content-center align-items-center imgWrapper trainingVideosImg"
+                        *ngFor=" let mediaBanner of fiAssetLibraryTrainingResourceBannerComponent; let i = index ">
+                        <a href="{{mediaBanner.urlLink}}" target="_blank">
+                            <cx-media [container]="mediaBanner.media.desktop"></cx-media>
+                            <label>{{mediaBanner.media.desktop.altText}}</label>
+                        </a>
+                    </div>
+                </div>
+                <hr>
+            </div>
+
+
+            <div>
+                <h3>Key Industry Links</h3>
+                <div class="d-flex flex-wrap align-content-start justify-content-start key-industry-wrapper">
+                    <div class="d-flex flex-column justify-content-start   imgWrapper resourceSqrImageWrapper"
+                        *ngFor=" let mediaBanner of fiAssetLibraryResourceBannerComponent; let i = index ">
+                        <a href="{{mediaBanner.urlLink}}" target="_blank">
+                            <cx-media [container]="mediaBanner.media.desktop" class="text-center"></cx-media>
+                            <label>{{mediaBanner.media.desktop.altText}}</label>
+                        </a>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </div>
+
+        <div class="" style="margin-left: 10rem;margin-right: 10rem;">
+
+        </div>
+    </div>
+</ng-container>
+<ng-template #permissionDeniedMessage>
+    <app-accesspermissionmessage></app-accesspermissionmessage>
+</ng-template>
+<ng-template #loading>
+    <div class="cx-spinner">
+        <cx-spinner></cx-spinner>
+    </div>
+</ng-template>

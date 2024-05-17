@@ -1,0 +1,10 @@
+<div class="internal-number-container d-flex" *ngIf="showInternalStaffBox$ | async">
+    <div class="internal-staff-number-block">
+        <div class="disabled-searchTextBox ">
+            <input type="text" [(ngModel)]="internalUserNumber" class="disabled-number-input" readonly />
+        </div>
+    </div>
+    <div class="change-account-btn">
+        <button (click)="openPopupForInternalStaff()">Select Account</button>
+    </div>
+</div>

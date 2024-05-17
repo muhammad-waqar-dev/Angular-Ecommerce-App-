@@ -1,0 +1,420 @@
+<div class="col form-wrapper mt-5 mb-5">
+    <form [formGroup]="createUserDetailForm" class="mt-1 " autocomplete="off">
+
+        <div class="col-md-12  d-flex align-items-center mb-4 myInfoHeading">
+            <h1>My Information</h1>
+            <label class="ml-10">Required *</label>
+        </div>
+
+        <!-- Company Information Secion starts here -->
+        <div class="row">
+            <div class="col-md-6 mt-4 d-flex align-items-center">
+                <h3 class="bold">Company Information</h3>
+            </div>
+            <div class="col-md-5 mt-4 offset-md-1 d-flex align-items-center" *ngIf="!isMobile">
+                <h3 class="bold">Your FI Sales Representative</h3>
+            </div>
+        </div>
+
+        <hr class="d-flex">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-10 col-sm-12 col-xs-12 mt-4 mr-auto">
+                        <div class="form-group searchformfld disabled">
+                            <input type="text" id="ABN" class="form-control" placeholder="" formControlName="ABN"
+                                readonly="true">
+                            <label for="ABN">ABN*</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-10 col-sm-12 col-xs-12 mt-4 disabled mr-auto">
+                        <div class="form-group searchformfld">
+                            <input type="text" class="form-control" id="accountNumber" placeholder=""
+                                formControlName="accountNumber" readonly="true">
+                            <label for="accountNumber">Account No*</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-10 col-sm-12 col-xs-12 mt-4 disabled mr-auto">
+                        <div class="form-group searchformfld">
+                            <input type="text" class="form-control" id="companyName" placeholder=" "
+                                formControlName="companyName" readonly="true">
+                            <label for="companyName">Company Name*</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="col-md-5 mt-4 offset-md-1  d-flex align-items-center pl-0" *ngIf="isMobile">
+                    <h3 class="bold">Your FI Sales Representative</h3>
+                </div>
+                <div class="row">
+                    <div class="col-md-10 mt-4 ml-auto">
+                        <div class="form-group searchformfld disabled">
+                            <input type="text" class="form-control" id="salesRepName" placeholder=" "
+                                formControlName="salesRepName" readonly="true">
+                            <label for="salesRepName">Name</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-5 mt-4 ml-auto">
+                        <div class="form-group searchformfld disabled">
+                            <input type="text" class="form-control" id="salesRepPhone" placeholder=" "
+                                formControlName="salesRepPhone" readonly="true">
+                            <label for="salesRepPhone">Phone</label>
+                           
+                        </div>
+                    </div>
+
+                    <div class="col-md-5 mt-4">
+                        <div class="form-group searchformfld disabled">
+                            <input type="text" class="form-control" id="salesRepEmail" placeholder=" "
+                                formControlName="salesRepEmail" readonly="true">
+                            <label for="salesRepEmail">Email</label>
+                            <span *ngIf="!createUserDetailForm.get('salesRepEmail').errors?.required &&
+                                        !createUserDetailForm.get('salesRepEmail').valid && 
+                                        createUserDetailForm.get('salesRepEmail').touched "
+                                class="help-block text-danger font-smaller">{{userDetailFormConstants.emailValidationMessage}}
+                                <i class="fa fa-exclamation-triangle fa_custom"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Company Information Secion ends here -->
+
+        <!-- Address Secion starts here -->
+        <div class="row">
+            <div class="col-md-6 mt-4  d-flex align-items-center">
+                <h3 class="bold">Company Address</h3>
+            </div>
+            <div class="col-md-5 mt-4 offset-md-1  d-flex align-items-center" *ngIf="!isMobile">
+                <h3 class="bold">Company Postal Address</h3>
+            </div>
+        </div>
+        <hr class="d-flex">
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <div class="row">
+                    <div class="col-md-10 mt-4 mr-auto">
+                        <div class="form-group searchformfld" [ngClass]="{ disabled: !permissionAllowed }">
+                            <input type="text" id="street" class="form-control" placeholder=" " 
+                            [readonly]="!permissionAllowed"
+                                formControlName="street">
+                            <label for="street">Street/House Number</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 mt-4">
+                        <div class="form-group searchformfld" [ngClass]="{ disabled: !permissionAllowed }">
+                            <input type="text" 
+                            [readonly]="!permissionAllowed" class="form-control" id="city" placeholder=" " formControlName="city">
+                            <label for="city">City</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-5 mt-4 mr-auto">
+                        <div class="form-group searchformfld" [ngClass]="{ disabled: !permissionAllowed }">
+                            <input type="text" class="form-control" id="postalCode" placeholder=" "
+                            [readonly]="!permissionAllowed"
+                                formControlName="postalCode" (change)="postalCodeInputVal()"
+                                [ngClass]="{ error: postalCodeCheck }">
+                            <label for="postalCode">Postcode</label>
+                            <span *ngIf="!createUserDetailForm.get('postalCode').valid && 
+                                createUserDetailForm.get('postalCode').touched "
+                                class="help-block text-danger font-smaller">{{userDetailFormConstants.postalCodeValidationMessage}}
+                                <i class="fa fa-exclamation-triangle fa_custom"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 mt-4">
+                        <div class="form-group searchformfld" [ngClass]="{ disabled: !permissionAllowed }">
+                            <input type="text" id="region" class="form-control" placeholder=" "
+                            [readonly]="!permissionAllowed"
+                                formControlName="region">
+                            <label for="region">Region</label>
+                        </div>
+                    </div>
+                    <div class="col-md-5 mt-4 mr-auto">
+                        <div class="form-group searchformfld" [ngClass]="{ disabled: !permissionAllowed }">
+                            <input type="text" id="country" class="form-control" placeholder=" "
+                            [readonly]="!permissionAllowed"
+                                formControlName="country">
+                            <label for="country">Country</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-10 col-sm-12 col-xs-12 mt-4 mr-auto">
+                        <div class="form-group searchformfld" [ngClass]="{ disabled: !permissionAllowed }">
+                            <input type="text" id="emailAddress" class="form-control" placeholder=" "
+                                formControlName="emailAddress" (change)="emailInputVal()"
+                                [readonly]="!permissionAllowed"
+                                [ngClass]="{ error: emailCheck }">
+                            <label for="emailAddress">Email*</label>
+                            <span *ngIf="emailCheck" class="help-block text-danger">Required</span>
+                            <span *ngIf="
+                                    !createUserDetailForm.get('emailAddress').errors?.required &&
+                                    !createUserDetailForm.get('emailAddress').valid && 
+                                    createUserDetailForm.get('emailAddress').touched "
+                                class="help-block text-danger font-smaller">{{userDetailFormConstants.emailValidationMessage}}
+                                <i class="fa fa-exclamation-triangle fa_custom"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-5 mt-4 offset-md-1  d-flex align-items-center" *ngIf="isMobile">
+                <h3 class="bold">Company Postal Address</h3>
+            </div>
+            <div class="col-md-6  col-sm-12">
+                <div class="row">
+                    <div class="col-md-5 mt-4 ml-auto">
+                        <div class="form-group searchformfld" [ngClass]="{ disabled: !permissionAllowed }">
+                            <input type="text" class="form-control" id="postalPOBox" placeholder=" "
+                            [readonly]="!permissionAllowed"
+                                formControlName="postalPOBox">
+                            <label for="postalPOBox">PO Box</label>
+                            <span *ngIf="
+                                !createUserDetailForm.get('postalPOBox').valid && 
+                                createUserDetailForm.get('postalPOBox').touched "
+                                class="help-block text-danger font-smaller">{{userDetailFormConstants.postalCodeValidationMessage}}
+                                <i class="fa fa-exclamation-triangle fa_custom"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-5 mt-4">
+                        <div class="form-group searchformfld" [ngClass]="{ disabled: !permissionAllowed }">
+                            <input type="text" class="form-control" id="postalCity" placeholder=" "
+                            [readonly]="!permissionAllowed"
+                                formControlName="postalCity">
+                            <label for="postalCity">City</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 mt-4 ml-auto">
+                        <div class="form-group searchformfld" [ngClass]="{ disabled: !permissionAllowed }">
+                            <input type="text" class="form-control" id="postalPostCode" placeholder=" "
+                            [readonly]="!permissionAllowed"
+                                formControlName="postalPostCode">
+                            <label for="postalPostCode">Postcode</label>
+                            <span *ngIf="!createUserDetailForm.get('postalPostCode').valid && 
+                                createUserDetailForm.get('postalPostCode').touched"
+                                class="help-block text-danger font-smaller">{{userDetailFormConstants.postalCodeValidationMessage}}
+                                <i class="fa fa-exclamation-triangle fa_custom"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-5 mt-4">
+                        <div class="form-group searchformfld" [ngClass]="{ disabled: !permissionAllowed }">
+                            <input type="text" class="form-control" id="postalRegion" placeholder=" "
+                            [readonly]="!permissionAllowed"
+                                formControlName="postalRegion">
+                            <label for="postalRegion">Region</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 mt-4 ml-auto">
+                        <div class="form-group searchformfld" [ngClass]="{ disabled: !permissionAllowed }">
+                            <input type="text" class="form-control" id="postalCountry" placeholder=" "
+                            [readonly]="!permissionAllowed"
+                                formControlName="postalCountry">
+                            <label for="postalCountry">Country</label>
+                        </div>
+                    </div>
+                    <div class="col-md-5 mt-4">
+                        <div class="form-group searchformfld" [ngClass]="{ disabled: !permissionAllowed }">
+                            <input type="text" class="form-control" id="postalPhone" placeholder=" "
+                            (keypress)="validateChar($event);" onpaste="return false;" maxlength="16"
+                            readonly="!permissionAllowed"
+                                formControlName="postalPhone" [ngClass]="{ error: validatePostalPhoneNum() }">
+                            <label for="postalPhone">Phone</label>
+                            <span *ngIf="!createUserDetailForm.get('postalPhone').valid"
+                                class="help-block text-danger font-smaller">{{userDetailFormConstants.phoneNumberNumeric}}
+                                <i class="fa fa-exclamation-triangle fa_custom"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 mt-4 ml-auto">
+                        <div class="form-group searchformfld" [ngClass]="{ disabled: !permissionAllowed }">
+                            <input type="text" class="form-control" id="postalMobile" placeholder=" "
+                            [readonly]="!permissionAllowed"
+                            (keypress)="validateChar($event);" onpaste="return false;" maxlength="16"
+                                formControlName="postalMobile">
+                            <label for="postalMobile">Mobile</label>
+                            <span *ngIf="!createUserDetailForm.get('postalMobile').valid"
+                                class="help-block text-danger font-smaller">{{userDetailFormConstants.mobileNumberNumeric}}
+                                <i class="fa fa-exclamation-triangle fa_custom"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-5 mt-4">
+                        <div class="form-group searchformfld" [ngClass]="{ disabled: !permissionAllowed }">
+                            <input type="text" class="form-control" id="postalFax" placeholder=" "
+                            (keypress)="validateChar($event);" onpaste="return false;" maxlength="16"
+                            [readonly]="!permissionAllowed"
+                                formControlName="postalFax">
+                            <label for="postalFax">Fax</label>
+                            <span *ngIf="
+                                !createUserDetailForm.get('postalFax').valid"
+                                class="help-block text-danger font-smaller">{{userDetailFormConstants.faxNumberNumeric}}
+                                <i class="fa fa-exclamation-triangle fa_custom"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 pl-md-0 pl-3 mb-2 mt-4 ml-auto d-flex justify-content-md-end pr-3">
+                        <button type="submit" class="btn btn-block font-weight-bold text-white submitBtn"
+                            [ngClass]="{ disabled: formAddressValidation() }"
+                            (click)="submitPostalAddress()">SUBMIT</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Address Secion ends here -->
+
+        <!-- Sales Rep./ Individual Account Secion starts here -->
+
+        <div class="row">
+            <div class="col-md-6 mt-4  d-flex align-items-center mr-auto">
+                <h3 class="bold">My Details</h3>
+            </div>
+        </div>
+        <hr class="d-flex">
+
+        <div class="row">
+            <div class="col-md-6 col-sm-12 mr-auto">
+                <div class="row">
+                    <div class="col-md-5 mt-4">
+                        <div class="form-group">
+
+                            <select class="form-control" formControlName="indAcInfSalutation"
+                                (change)="salutationInputVal()">
+                                <option>Mr</option>
+                                <option>Ms</option>
+                                <option>Mrs</option>
+                                <option>Miss</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 mt-4">
+                        <div class="form-group searchformfld">
+                            <input type="text" class="form-control" id="firstName" placeholder=" "
+                                formControlName="firstName">
+                            <label for="firstName">First Name</label>
+                        </div>
+                    </div>
+                    <div class="col-md-5 mt-4 mr-auto">
+                        <div class="form-group searchformfld">
+                            <input type="text" class="form-control" id="lastName" placeholder=" "
+                                formControlName="lastName">
+                            <label for="lastName">Last Name</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 mt-4">
+                        <div class="form-group searchformfld">
+                            <input type="text" class="form-control" id="indAcInfPhone" placeholder=" "
+                            (keypress)="validateChar($event);" onpaste="return false;" maxlength="16"
+                                formControlName="indAcInfPhone">
+                            <label for="indAcInfPhone">Phone</label>
+                            <span *ngIf="!createUserDetailForm.get('indAcInfPhone').valid"
+                                class="help-block text-danger font-smaller">{{userDetailFormConstants.faxNumberNumeric}}
+                                <i class="fa fa-exclamation-triangle fa_custom"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-5 mt-4 mr-auto">
+                        <div class="form-group searchformfld">
+                            <input type="text" class="form-control" id="indAcInfJobTitle" placeholder=" "
+                                formControlName="indAcInfJobTitle">
+                            <label for="indAcInfJobTitle">Job Title</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-10 mt-4">
+                        <div class="form-group searchformfld">
+                            <input type="text" class="form-control" id="indAcInfEmail" placeholder=" "
+                                formControlName="indAcInfEmail" (change)="indAcInfEmailChange()"
+                                [ngClass]="{ error: indAcInfEmailCheck }">
+                            <label for="indAcInfEmail">Email*</label>
+                            <span *ngIf="indAcInfEmailCheck" class="help-block text-danger">Required</span>
+                            <span *ngIf="!createUserDetailForm.get('indAcInfEmail').errors?.required &&
+                                    !createUserDetailForm.get('indAcInfEmail').valid && 
+                                    createUserDetailForm.get('indAcInfEmail').touched "
+                                class="help-block text-danger font-smaller">{{userDetailFormConstants.emailValidationMessage}}
+                                <i class="fa fa-exclamation-triangle fa_custom"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-10 mt-4 mr-auto">
+
+                        <div class="">
+                            <label>Contact Preference</label>
+                            <div class="custom-control custom-radio custom-control">
+                                <input type="radio" id="rd_1" name="contact_prefrence" class="custom-control-input"
+                                    value="Email" (change)="onContactPrefChange($event)">
+                                <label class="custom-control-label gray" for="rd_1">Email</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control">
+                                <input type="radio" id="rd_2" name="contact_prefrence" class="custom-control-input"
+                                    value="Phone" (change)="onContactPrefChange($event)">
+                                <label class="custom-control-label gray" for="rd_2">Phone</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- Sales Rep. / Individual Account Secion ends here -->
+
+        <div class="col-md-5 d-flex p-0 mb-2 mt-4 justify-content-start">
+            <button type="submit" class="btn btn-block font-weight-bold text-white submitBtn mr-md-4 ml-md-auto"
+                [ngClass]="{ disabled: formMyDetailsValidation() }" (click)="submitIndAccInfo()">SUBMIT</button>
+        </div>
+        <div class="col-md-6 d-flex justify-content-md-end p-0 mb-2 offset-md-6 mt-4 justify-content-start">
+            <p class="success-message" id="success-msg">Your query has been submitted</p>
+        </div>
+
+    </form>
+
+</div>
+
+<ng-template #content let-modal>
+    <ng-container>
+        <div class=" contactCSRForm modal-header modal-head container row mt-4 successHeading userDetailSuccessForm">
+            <div class="col-lg-8 co-xs-12 col-sm-12 titleBottomStyle ">
+                <h3>{{popupThankYouMessage.textThankHeading}}</h3>
+            </div>
+            <span class="closeIcon "><img src="assets/images/closegrey.svg" (click)="closePopup()"
+                    alt="Menu Icon" /></span>
+        </div>
+        <div class="modal-body ">
+            <app-fi-confirmation-popup [isSuccess]="responseSuccess"></app-fi-confirmation-popup>
+        </div>
+    </ng-container>
+</ng-template>

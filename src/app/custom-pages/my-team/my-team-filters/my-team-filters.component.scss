@@ -1,0 +1,43 @@
+@import "../../../shared/styles/variables.scss";
+
+.item-container a {
+    cursor: pointer;
+    color: $heading-dark-grey;
+    text-decoration: none;
+    padding: 0.6rem 0;
+}
+::ng-deep .item-container a:before {
+    content: "✓";
+    color: transparent;
+    flex-shrink: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    width: 1.3rem;
+    height: 1.35rem;
+    border-radius: 0.2rem;
+    border: 1px solid var(--cx-color-light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-inline-end: 0.5rem;
+}
+::ng-deep .item-container .selected:before {
+    background-color: #fff;
+    border-color: $grey-color;
+    color: $grey-color;
+}
+.filters-container{
+    padding: 4% 0;
+}
+::ng-deep .modal-head {
+    h4 {
+        font-size: 18px;
+        width: 220px;
+    }
+}
+@media screen and (max-width: $mobileScreenPotrait) { 
+
+    .filters-container{
+        padding: 4%;
+    }
+}

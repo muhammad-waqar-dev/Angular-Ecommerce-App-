@@ -1,0 +1,15 @@
+<ng-template #paymentServiceModal let-modal>
+  <div class=" modal-header modal-head container row mt-4">
+    <div class="col-lg-8 col-xs-12 col-sm-12 titleBottomStyle">
+      <h3 *ngIf='responseOpen'>Payment</h3>
+      <h3 *ngIf='!responseOpen'>{{popupThankYouMessage.textThankHeading}}</h3>
+    </div>
+
+    <span class="closeIcon "><img src="assets/images/closegrey.svg" (click)="resetAndCloseForm()"
+        alt="Menu Icon" /></span>
+  </div>
+
+  <div class="modal-body">
+    <app-payment-iframe></app-payment-iframe>
+  </div>
+</ng-template>

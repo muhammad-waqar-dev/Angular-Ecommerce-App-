@@ -1,0 +1,57 @@
+@import "./shared/styles/variables.scss";
+
+.bgcolor {
+    background-color: $grey-color;
+    height: 2.65rem;
+    position: absolute;
+    left: 0;
+    width: 100%;
+}
+
+@media screen and (max-width: $mobileScreenPotrait) {
+    .bgcolor {
+        height: 2.3rem;
+    }
+}
+
+    // uncomment for maintenance page - start
+.maintenance-body {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    background: #00b8ff;
+    text-align: center;
+    color: white;
+
+    .maintenance-segment {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 10px;
+        .heading {
+            font-size: 30px; 
+            font-weight: 500;
+        }
+        .timing {
+            font-size: 18px; 
+            font-weight: 500;
+        }
+    }
+}
+
+@media screen and (max-width: $mobileScreenPotrait) {
+    .maintenance-body {
+        .maintenance-segment {
+            .heading {
+                font-size: 30px; 
+                font-weight: 100;
+            }
+            .timing {
+                font-size: 15px; 
+                font-weight: 500;
+            }
+        }
+    }
+}
+    // uncomment for maintenance page - end

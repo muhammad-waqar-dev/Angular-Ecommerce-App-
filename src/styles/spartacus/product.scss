@@ -1,0 +1,33 @@
+@import "../styles-config";
+@import "@spartacus/product";
+
+cx-product-intro {
+  padding-inline-start: 15px;
+}
+
+cx-add-to-cart {
+  .quantity {
+    padding-left: 0!important;
+    display: inline-block;
+    .info {
+      display: none;
+    }
+  }
+  .btn-block {
+    margin: 0 0 0px 30px;
+    display: inline-block;
+    max-width: 52%;
+  }
+}
+
+cx-page-layout {
+  &.ProductDetailsPageTemplate {
+    cx-page-slot{
+      &.Summary {
+        cx-add-to-cart {
+          padding-inline-start: 0px;
+        }
+      }
+    }
+  }
+}

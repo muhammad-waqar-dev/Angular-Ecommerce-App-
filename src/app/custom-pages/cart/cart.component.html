@@ -1,0 +1,55 @@
+<ng-template #loading>
+    <div class="cx-spinner">
+        <cx-spinner></cx-spinner>
+    </div>
+</ng-template>
+<ng-container *ngIf="!(isLoading$ | async);else loading">
+<div class="page-wrapper">
+    <p class="emptyCart" *ngIf="items.length == 0">Your cart is empty. <a routerLink="/my-products/all">Continue shopping</a></p>
+    <div class="container-fluid custom-container" *ngIf="items.length > 0">
+        <div class="row cartHeading">
+            <div class="col-md-12">
+                <h3 class="mt-3 mt-md-5 text-center text-md-left">Shopping Cart</h3>
+            </div>
+        </div>
+        
+
+        <div class="row mt-md-3 cartTable">
+            <div class="col-md-9 items-col">
+
+                <hr  class="mt-2 mb-2">
+
+                <div class="items-container d-flex">
+                    <div class="item d-flex" *ngFor="let item of items; let i = index">
+                        <div
+                        *ngIf="getControl(item) | async as control"
+                        class="cx-item-list-items"
+                        [class.is-changed]="control.get('quantity').disabled"
+                      >
+                      
+                      <app-cartpage-item-list [item]="item" [quantityControl]="control.get('quantity')"
+                      [readonly]="readonly"
+                      [promotionLocation]="promotionLocation"
+                      [options]="options" [isReviewOrder]="isReviewOrder" [reviewDetails]="reviewDetails"></app-cartpage-item-list>
+                      </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-3 buttons-col text-md-left text-center mt-4 cartButton">
+
+                <button class="btn add-more mb-4" routerLink="/my-products/all">
+                    Add more items
+                </button>
+                <a routerLink="/place-order">
+                    <button class="btn review-order">
+                        Go to Checkout
+                    </button>
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+</ng-container>

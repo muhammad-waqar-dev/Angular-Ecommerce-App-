@@ -1,0 +1,37 @@
+<form (ngSubmit)="submit()" [formGroup]="quotesOrderForm" class="memberSearch quoteSearch">
+    <div class="form-wrapper d-flex">
+    <input class="pl-2 m-search" placeholder="Project Name/FI Quote No" formControlName="search" aria-label="search"
+     />
+    <span class="mx-2 d-flex align-items-center orText">Or</span>
+
+    <span class=" d-flex mr-3 calenderSearch">
+      
+        <input class="form-control datepicker-control quoteCalender"  placeholder="From" name="dp1" ngbDatepicker #d1="ngbDatepicker"
+          formControlName="validFrom" (click)="d1.toggle()" [minDate]="minDate" [maxDate]="maxDate" 
+          (dateSelect)="onDateSelectFrom($event);quoteFromDate($event)" [(ngModel)]="quoteSearchFromVal">
+        <span class="input-group-append" (click)="d1.toggle()">
+          <img class="from-calendar" src="assets/images/calendar-icon.svg">
+        </span>
+      </span>
+
+      <span class=" d-flex calenderSearch">
+        <input class="form-control datepicker-control quoteCalender"  placeholder="To" name="dp2" ngbDatepicker #d2="ngbDatepicker"
+          formControlName="validTo" (click)="d2.toggle()" [minDate]="toMindate" [maxDate]="maxDate" 
+          [disabled]="!quotesOrderForm.get('validFrom').value" (dateSelect)="onDateSelectTo($event)" [(ngModel)]="quoteSearchToVal">
+        <span class="input-group-append" (click)="d2.toggle()">
+          <img class="from-calendar" src="assets/images/calendar-icon.svg">
+        </span>
+      </span>
+
+
+    <span class="reset d-flex ml-3 mr-3 resetIcon" (click)="resetSearch()">
+        <img src="assets/images/bottomheader/redo-alt-regular.svg" />
+    </span>
+    
+    <button class="search-b" type="submit">
+      <span class="search searchIcon">
+        <img src="assets/images/bottomheader/search-regular.svg" />
+      </span>
+    </button>
+</div>
+</form>

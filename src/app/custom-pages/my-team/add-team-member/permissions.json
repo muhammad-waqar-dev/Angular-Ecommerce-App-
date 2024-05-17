@@ -1,0 +1,58 @@
+{
+    "permissions": [
+        {
+            "name": "Quotes",
+            "selected": false,
+            "code": "fbQuotesGroup",
+            "for": "quotesModal"
+        },
+        {
+            "name": "Order and Deliveries",
+            "selected": false,
+            "code": "fbOrdersDeliveriesGroup",
+            "for": "orderAndDeliveriesModal"
+        },
+        {
+            "name": "Products",
+            "selected": false,
+            "code": "fbProductsGroup",
+            "for": "productsModal"
+        },
+        {
+            "name": "Add to Cart",
+            "selected": false,
+            "code": "fbAddtoCartGroup",
+            "for": "cartModal"
+        },
+        {
+            "name": "Pricing",
+            "selected": false,
+            "code": "fbPricingGroup",
+            "for": "pricingModal"
+        },
+        {
+            "name": "Accounts",
+            "selected": false,
+            "code": "fbAccountsGroup",
+            "for": "accountsModal"
+        },
+        {
+            "name": "Manage My Team",
+            "selected": false,
+            "code": "fbManageMyTeamGroup",
+            "for": "manageMyTeamModal"
+        },
+        {
+            "name": "Why FI?",
+            "selected": false,
+            "code": "fbWhyFIGroup",
+            "for": "whyFIModal"
+        },
+        {
+            "name": "All",
+            "selected": false,
+            "code": "all",
+            "for": "allModal"
+        }
+    ]
+}

@@ -1,0 +1,19 @@
+@import "../../../../shared/styles/variables.scss";
+.template {
+    .ml div:first-child {
+        margin-left: 0;
+    }
+    .ml div:last-child {
+        margin-right: 0;
+    }
+}
+
+@media screen and (max-width: $mobileScreenPotrait) {
+    .template {
+        .ml div {
+            width: 100%;
+            margin: 0;
+            margin-bottom: 1rem;
+        }
+    }
+}

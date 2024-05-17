@@ -1,0 +1,132 @@
+<ng-template #updateMemberFormModal let-modal>
+
+  <div class=" modal-header modal-head add-team-member-modal container row mt-4">
+    <div class="col-lg-8 col-xs-12 col-sm-12 titleBottomStyle text-md-left text-center">
+    <h3 *ngIf='responseOpen'>Update Permissions</h3>
+    <h3 *ngIf='!responseOpen'>{{popupThankYouMessage.textThankHeading}}</h3>
+    </div>
+
+    
+    <span class="closeIcon "><img src="assets/images/closegrey.svg" (click)="resetAndCloseForm()"
+        alt="Menu Icon" /></span>
+  </div>
+
+  <div class="modal-body">
+    <ng-container *ngIf='responseOpen'>
+      <form class="add-member-form" (ngSubmit)="submit($event)" [formGroup]="addMemberForm">
+
+        <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 text-left requiredDiv pl-0" *ngIf='responseOpen'>
+          <label>Required *</label>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 email" tabindex="1">
+            <div class="form-group searchformfld">
+              <input type="text" id="name" class="form-control" placeholder=" " formControlName="name" (change)="nameCheckVal()"
+              >
+              <label for="name">Name *</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 email">
+            <div class="form-group searchformfld">
+              <input type="text" class="form-control" placeholder=" "
+              (focus)="emailCheckVal()"
+                (change)="emailCheckVal()" formControlName="email">
+              <label for="email">Email *</label>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12" [ngClass]="{ 'mt-2': isMobile }">
+            <div class="form-group searchformfld">
+              <input type="text" class="form-control" placeholder=" " formControlName="phone">
+              <label for="phone">Phone</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="form-group searchformfld">
+              <input type="text" class="form-control" placeholder=" " formControlName="jobTitle">
+              <label for="jobTitle">Job Title</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-2 w-100 ">
+          <h3>Permissions</h3>
+          <div [ngClass]="isMobile ? 'w-100' : 'w-60'">
+            <!--Quotes Starts Here-->
+
+            <ng-container *ngFor="let permission of userPermissions$ | async | sort:'asc':'sequence';let i = index">
+            <div class="d-flex mt-1 mb-3">
+              <div class="w-75">
+                  <label class="" for="orderDeliveries">{{ permission.name}}</label>
+              </div>
+              <div class="w-25 custom-control custom-switch d-inline d-flex justify-content-end">
+                <input type="checkbox" class="custom-control-input" attr.id="{{permission?.code}}-{{index}}"
+                [checked]="permission?.selected" name="{{permission?.code}}-{{index}}" value="" 
+                (change)="changePermissionStatus($event, permission?.code)" />
+                <label class="custom-control-label mr-2" for="{{permission.code}}-{{index}}"></label>
+              </div>
+            </div>
+            </ng-container>
+
+
+            <!--Date From Starts Here-->
+            <div class="d-flex mt-2 justify-content-between">
+              
+              <div class="w-50">
+                <label class="mt-1" for="orderDeliveries">Valid From</label>
+              </div>
+              <div class="w-60">
+                <div class="form-group">
+                  <div class="input-group d-flex input-group-sm justify-content-md-end">
+                    <input class="form-control datepicker-control"  placeholder="DD/MM/YYYY" name="dp1" ngbDatepicker #d1="ngbDatepicker"
+                      formControlName="validFrom" (click)="d1.toggle()">
+                    <div class="input-group-append" (click)="d1.toggle()">
+                      <img class="from-calendar" src="assets/images/calendar-icon.svg">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Date From Ends Here-->
+
+            <!--Date From Starts Here-->
+            <div class="d-flex mt-2 justify-content-between">
+              <div class="w-50">
+                <label class="mt-1" for="orderDeliveries">Valid To</label>
+              </div>
+              <div class="w-60">
+                <div class="form-group">
+                  <div class="input-group d-flex input-group-sm justify-content-md-end">
+                    <input class="form-control datepicker-control" placeholder="DD/MM/YYYY" name="dp2" ngbDatepicker #d2="ngbDatepicker"
+                      formControlName="validTo" (click)="d2.toggle()">
+                    <div class="input-group-append dateContainer" (click)="d2.toggle()">
+                      <img class="" src="assets/images/calendar-icon.svg">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Date From Ends Here-->
+
+
+            <div class="row">
+              <div class="col-lg-6 col-sm-12 col-xs-12 d-flex justify-content-start mt-4 mb-4 buttonContainer">
+                <button type="submit" class="btn btn-block font-weight-bold text-white submitBtn ">SUBMIT</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </form>
+    </ng-container>
+    <ng-container *ngIf='!responseOpen'>
+      <app-fi-confirmation-popup [isSuccess]="responseSuccess">
+      </app-fi-confirmation-popup>
+    </ng-container>
+  </div>
+</ng-template>

@@ -1,0 +1,238 @@
+@import "../../../shared/styles/variables.scss";
+
+.main-wrapper {
+    margin: 0 auto;
+    width: 95%;
+}
+.main-wrapper {
+    h4,
+    p {
+        color: $heading-dark-grey;
+    }
+    h5 {
+        font-weight: bold;
+    }
+    .submitBtn {
+        background-color: $dark-grey;
+        width: 20rem;
+        color: $white-color;
+        :disabled {
+            background-color: $medium-gray;
+        }
+    }
+    .form-check input[type="checkbox"]:checked {
+        border-color: $heading-dark-grey;
+        background-color: $heading-dark-grey;
+    }
+    textarea {
+        height: 10rem;
+    }
+
+    .success-message {
+        background-color: #6bbd6b;
+        width: 20rem;
+        text-align: center;
+        color: #fff;
+    }
+    #success-msg1,
+    #success-msg2 {
+        display: none;
+    }
+    .form-check input[type="checkbox"] {
+        border-color: $grey-color;
+    }
+    .fa-chevron-left {
+        color: $grey-color;
+    }
+}
+@media screen and (max-width: $mobileScreenPotrait) {
+    .main-wrapper .mobile-full-w {
+        width: 100%;
+    }
+    .main-wrapper {
+        margin: 0 auto;
+        width: 100%;
+        margin-top: -3rem;
+    }
+    .aboutFletcherText {
+        margin-top: 3.7rem !important;
+    }
+    .blurbText {
+        padding-bottom: 0.7rem;
+    }
+}
+
+
+::ng-deep .helpWithProductForm {
+    .titleBottomStyle h3 {
+        margin-left: -1rem;
+    }
+
+    .titleBottomStyleSuccess {
+        padding-left: 1rem;
+        h3 {
+            margin-top: -1rem;
+        }
+    }
+
+    @include font-MyriadReg();
+    .modal-dialog {
+        .modal-content {
+            color: $grey-color;
+            border: 3rem solid rgba(84, 88, 89, 0.7);
+        }
+        .modal-head {
+            justify-content: left;
+            padding: 1.3rem 0 1.7rem 3.1rem;
+            .closeIcon {
+                position: absolute;
+                right: -2.4rem;
+                top: -2.3rem;
+                cursor: pointer;
+            }
+        }
+        .modal-header {
+            border-bottom: 0 none;
+            height: 0.6rem !important;
+        }
+        h3 {
+            color: #595959;
+        }
+
+        .modal-footer {
+            border-top: 0 none;
+        }
+        img {
+            vertical-align: middle;
+            height: 0.8rem;
+            width: 0.8rem;
+
+            margin-left: -1.5rem;
+
+            filter: invert(1);
+            border-style: none;
+            fill: grey;
+        }
+        .queryDescription {
+            color: #595959;
+        }
+        .modal-body {
+            > form {
+                > *input {
+                    color: $dark-grey;
+                    border: 1px solid $medium-gray;
+                    background-color: $white-color !important;
+                    z-index: 1;
+                    margin-bottom: 0;
+                    &:visited {
+                        background-color: $white-color;
+                    }
+                    &:focus {
+                        background-color: $white-color;
+                        box-shadow: none;
+                        outline-style: hidden !important;
+                        outline-color: transparent;
+                        border: 1px solid $medium-gray;
+                    }
+                    &:hover {
+                        background-color: $white-color;
+                        box-shadow: none;
+                    }
+                    &:disabled {
+                        color: $placeholder-grey;
+                    }
+                    &:-webkit-autofill {
+                        background-color: $white-color !important;
+                        box-shadow: none;
+                    }
+                    &:-webkit-internal-autofill-selected {
+                        background-color: $white-color !important;
+                        box-shadow: none;
+                    }
+                    &:-webkit-autofill,
+                    &:-webkit-autofill:hover,
+                    &:-webkit-autofill:focus,
+                    &:-webkit-autofill:active {
+                        background-color: $white-color !important;
+                        box-shadow: none;
+                    }
+                    &:disabled {
+                        opacity: 0.8;
+                        color: $placeholder-grey;
+                    }
+                }
+                input.ng-invalid.ng-touched,
+                input.error {
+                    border: 1px solid $error-text-red-color !important;
+                }
+                .fa_custom {
+                    color: $error-text-red-color;
+                    position: absolute;
+                    right: 1rem;
+                    top: 1rem;
+                    transform: scale(1.2);
+                }
+                .row {
+                    .form-group {
+                        position: relative;
+                        margin-bottom: 0.5rem !important;
+                        label {
+                            position: absolute;
+                            font-size: 0.875rem;
+                            color: $placeholder-grey;
+                            cursor: text;
+                            z-index: 0;
+                            transition: all 0.15s ease-in-out 0s;
+                            &.liftUp {
+                                top: 14px;
+                                left: 15px;
+                                color: $placeholder-grey;
+                                background-color: $white-color;
+                                top: -12px;
+                                padding: 0 2px;
+                                font-size: 0.875rem;
+                                transition: all 0.15s ease-in-out 0s;
+                            }
+                        }
+                    }
+                    > *p {
+                        margin-bottom: 0px;
+                        @include font-MyriadReg();
+                        font-size: 1rem;
+                        color: $dark-grey;
+                    }
+                    .submitBtn {
+                        background-color: $dark-grey;
+                        width: 20rem;
+                        color: $white-color;
+                        :disabled {
+                            color: $medium-gray;
+                        }
+                    }
+                    select {
+                        height: 40px;
+                        font-size: 0.875rem;
+                        color: $grey-color;
+                        border: 1px solid $medium-gray;
+                        outline: none;
+                        @include font-Arial();
+                        &:focus {
+                            background-color: white;
+                        }
+                        option {
+                            color: $grey-color;
+                            font-size: 1rem;
+                            @include font-Arial();
+                        }
+                    }
+
+                    > *textarea {
+                        background-color: white;
+                        color: $grey-color;
+                        outline: none;
+                    }
+                }
+            }
+        }
+    }
+}

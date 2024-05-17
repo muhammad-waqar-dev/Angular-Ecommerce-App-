@@ -1,0 +1,43 @@
+<div class="list-row d-flex">
+    <span>{{order?.purchaseOrderNumber}}</span>
+    <span *ngIf="isMobile">
+        <span class="capitalize status" >{{order?.statusDisplay | lowercase}}</span> 
+        
+        <img *ngIf="order?.status === 'RECEIVED'" src="./assets/images/status-icons/active/order-received.svg" class="mt-3 mb-3"
+                  [ngClass]="isMobile ? 'mt-2 mb-2' : 'mt-3 mb-3'" />
+    
+            <img *ngIf="order?.status === 'INVOICED'" src="./assets/images/status-icons/active/order-delivered.svg" class="mt-3 mb-3"
+            [ngClass]="isMobile ? 'mt-2 mb-2' : 'mt-3 mb-3'" />
+    
+            <img *ngIf="order?.status === 'IN_PROGRESS'" src="./assets/images/status-icons/active/order-inprogress.svg" class="mt-3 mb-3"
+            [ngClass]="isMobile ? 'mt-2 mb-2' : 'mt-3 mb-3'" />
+    
+            <img *ngIf="order?.status === 'PENDING' " src="./assets/images/status-icons/active/order-pending.svg" class="mt-3 mb-3"
+                [ngClass]="isMobile ? 'mt-2 mb-2' : 'mt-3 mb-3'" />
+    </span> 
+
+    <span *ngIf="!isMobile"><span class="capitalize status" >{{order?.statusDisplay | lowercase}}</span> 
+
+        <img *ngIf="order?.status === 'RECEIVED'" src="./assets/images/status-icons/active/order-received.svg" class="mt-3 mb-3"
+              [ngClass]="isMobile ? 'mt-2 mb-2' : 'mt-3 mb-3'" />
+
+        <img *ngIf="order?.status === 'INVOICED'" src="./assets/images/status-icons/active/order-delivered.svg" class="mt-3 mb-3"
+        [ngClass]="isMobile ? 'mt-2 mb-2' : 'mt-3 mb-3'" />
+
+        <img *ngIf="order?.status === 'IN_PROGRESS'" src="./assets/images/status-icons/active/order-inprogress.svg" class="mt-3 mb-3"
+        [ngClass]="isMobile ? 'mt-2 mb-2' : 'mt-3 mb-3'" />
+
+        <img *ngIf="order?.status === 'PENDING' " src="./assets/images/status-icons/active/order-pending.svg" class="mt-3 mb-3"
+            [ngClass]="isMobile ? 'mt-2 mb-2' : 'mt-3 mb-3'" />
+        
+    </span>
+
+    <span class="ml-4">{{(order?.deliveryDate || order?.requestedDeliveryDate) | date: 'mediumDate'}}</span>
+    <span class="address" *ngIf="!isMobile">{{order?.deliveryAddress?.formattedAddress}}</span>
+    <span class="orderNumVal" *ngIf="!isMobile">{{order?.code}}
+        <span *ngIf="!isMobile && order?.status == 'PENDING'" class="pendingInfoIcon"><i class="fas fa-info-circle"></i>
+            <span class="pendingHoverText">{{orderDeliveriesConstants?.pendingOrder}}</span>
+        </span>
+    </span>
+    <span class="nex-page"><i (click)="navigateToDetailsPage(order)" class="fa fa-lg fa-chevron-right"></i></span>
+</div>

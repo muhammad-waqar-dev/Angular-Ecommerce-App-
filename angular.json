@@ -1,0 +1,214 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "fib2b": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/fib2b",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.app.json",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              "src/webApplicationInjector.js",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@spartacus/smartedit/assets",
+                "output": "assets/"
+              }
+            ],
+            "styles": [
+              "src/styles.scss",
+              "src/styles/spartacus/user.scss",
+              "src/styles/spartacus/storefinder.scss",
+              "src/styles/spartacus/qualtrics-embedded-feedback.scss",
+              "src/styles/spartacus/product-configurator.scss",
+              "src/styles/spartacus/product.scss",
+              "src/styles/spartacus/organization.scss",
+              "src/styles/spartacus/cart.scss"
+            ],
+            "scripts": [
+              "src/assets/js/bootstrap.bundle.min.js"
+            ],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            },
+            "qa": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.qa.ts"
+                }
+              ],
+              "outputHashing": "all",
+              "optimization": true,
+              "buildOptimizer": true,
+              "vendorChunk": false,
+              "sourceMap": false
+            },
+            "dev": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.ts"
+                }
+              ],
+              "outputHashing": "all",
+              "optimization": true,
+              "buildOptimizer": true,
+              "vendorChunk": false,
+              "sourceMap": false
+            },
+            "uat": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.uat.ts"
+                }
+              ],
+              "outputHashing": "all",
+              "optimization": true,
+              "buildOptimizer": true,
+              "vendorChunk": false,
+              "sourceMap": false
+            },
+            "sit": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.uat.ts"
+                }
+              ],
+              "outputHashing": "all",
+              "optimization": true,
+              "buildOptimizer": true,
+              "vendorChunk": false,
+              "sourceMap": false
+            }
+          },
+          "defaultConfiguration": ""
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "fib2b:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "fib2b:build:production"
+            },
+            "dev": {
+              "browserTarget": "fib2b:build:dev"
+            },
+            "uat": {
+              "browserTarget": "fib2b:build:uat"
+            },
+            "sit": {
+              "browserTarget": "fib2b:build:sit"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "fib2b:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              "src/webApplicationInjector.js",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@spartacus/smartedit/assets",
+                "output": "assets/"
+              }
+            ],
+            "styles": [
+              "src/styles.scss",
+              "src/styles/spartacus/user.scss",
+              "src/styles/spartacus/storefinder.scss",
+              "src/styles/spartacus/qualtrics-embedded-feedback.scss",
+              "src/styles/spartacus/product-configurator.scss",
+              "src/styles/spartacus/product.scss",
+              "src/styles/spartacus/organization.scss",
+              "src/styles/spartacus/cart.scss"
+            ],
+            "scripts": [
+              "src/assets/js/bootstrap.bundle.min.js"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "e2e/protractor.conf.js",
+            "devServerTarget": "fib2b:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "fib2b:serve:production"
+            }
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "analytics": false
+  }
+}

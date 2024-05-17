@@ -1,0 +1,283 @@
+<ng-template #loading>
+    <div class="cx-spinner w-100">
+        <cx-spinner></cx-spinner>
+    </div>
+</ng-template>
+
+<ng-container *ngIf="!(isLoading$ | async);else loading">
+    <a [routerLink]="quoteDetailsConstants.quote_deliveriesLink"
+        (click)="navigateToQuote()" *ngIf="isMobile" class="m-backArrow">
+        <i class="fa fa-chevron-left"></i>
+    </a>
+
+    <span class="orderBreadCrumb" *ngIf="!isMobile">
+        <a [routerLink]="homeConstants.homeLink">{{homeConstants.homeLabel}}</a> >
+        <a [routerLink]="isFromDashboard ? dashboardPageConstants.dashboardLink : quoteDetailsConstants.quote_deliveriesLink"
+        (click)="navigateToQuote()">{{isFromDashboard ? dashboardPageConstants.myDashboardLabel : quoteDetailsConstants.quote_deliveriesLabel}}</a> >
+        <a>{{quote.code}}</a>
+    </span>
+
+<div class="desktop-order-details d-none d-md-block d-lg-block" *ngIf="quote.code">
+    <div class="head-dark">
+        <p>{{quoteConstants.FIQuoteNo}} {{quote?.code}}</p>
+    </div>
+
+    <div class="details">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">{{quoteConstants.projectNameTh}}</th>
+                    <th scope="col">{{quoteConstants.suburbAddressTh}}</th>
+                    <th scope="col">{{quoteConstants.validDate}}</th>
+                    <th scope="col">{{quoteConstants.quoteAmount}}</th>
+                    <th scope="col">{{quoteConstants.status}}</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{quote?.projectNumber}}</td>
+                    <td>{{quote?.deliveryAddress?.formattedAddress}}</td>
+                    <td>{{quote?.expirationDate | date: 'mediumDate'}}</td>
+                    <td>${{quote?.subTotal?.value}}</td>
+                    <td class="statuses d-flex">
+                        <div class="status-img">
+                            <img *ngIf="quote.state == 'VALID'" src="./assets/images/status-icons/active/quote-valid.svg" class="status" [ngClass]="{'active': quote.state == 'VALID'}" />
+                            <img *ngIf="quote.state !== 'VALID'" src="./assets/images/status-icons/inactive/quote-valid.svg" class="status" [ngClass]="{'active': quote.state == 'VALID'}" />
+                            <p>{{quoteConstants.validS}}</p>
+                        </div>
+                        <div class="status-img">
+                            <img *ngIf="quote.state == 'DUETOEXPIRE'" src="./assets/images/status-icons/active/quote-duetoexpire.svg" class="status small-one" [ngClass]="{'active': quote.state == 'DUETOEXPIRE'}" />
+                            <img *ngIf="quote.state !== 'DUETOEXPIRE'" src="./assets/images/status-icons/inactive/quote-duetoexpire.svg" class="status small-one" [ngClass]="{'active': quote.state == 'DUETOEXPIRE'}" />
+                            <p>{{quoteConstants.dueToExpireS}}</p>
+                        </div>
+                        <div class="status-img">
+                            <img *ngIf="quote.state == 'EXPIRED'" src="./assets/images/status-icons/active/quote-expired.svg" class="status" [ngClass]="{'active': quote.state == 'EXPIRED'}" />
+                            <img *ngIf="quote.state !== 'EXPIRED'" src="./assets/images/status-icons/inactive/quote-expired.svg" class="status" [ngClass]="{'active': quote.state == 'EXPIRED'}" />
+
+                            <p>{{quoteConstants.expiredS}}</p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="cx-spinner-small d-flex" *ngIf="!isPDFloaded">
+                            <cx-spinner></cx-spinner>
+                        </div>
+                        <a 
+                        *ngIf="isPDFloaded && isInvoiceGen && !disableIcon" class="quote-pdf-download" 
+                        title="{{quoteConstants.quotePDFTip}}" 
+                        (click)="!disableIcon ? onOpenStatement() : null">
+                            <img class="pl-2" src="assets/images/file-pdf-regular.svg" alt="{{quoteConstants.quotePDFTip}}" />
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container-fluid py-3 d-flex justify-content-between" *ngIf="isInvoiceGen">
+        <div>
+            <span *ngIf="quote?.CustomerInstructions">
+            <p class="mb-0"><strong>{{quoteConstants.stdShippingLabel}}</strong></p>
+            <p class="mb-0">{{quote?.CustomerInstructions}}</p>
+            </span>
+        </div>
+    </div>
+
+    <div class="order-info">
+        <p class="mb-0 pl-2"><strong>{{quoteConstants.quoteDetails}}</strong></p>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">{{quoteConstants.productNo}}</th>
+                    <th scope="col" class="prod-img"></th>
+                    <th scope="col" class="prod-desc">{{quoteConstants.productDescription}}</th>
+                    <th scope="col">{{quoteConstants.qtyQuoted}}</th>
+                    <th scope="col">{{quoteConstants.mtoQuoteQty}}</th>
+                    <th scope="col" class="text-transform-none prod-qty-ordered">{{quoteConstants.qtyToBeOrdered}}</th>
+                    <th scope="col">{{quoteConstants.uOM}}</th>
+                    <th scope="col">{{quoteConstants.unitPrice}}</th>
+                    <th scope="col" class="text-transform-none">{{quoteConstants.priceByM2}}</th>
+                    <th scope="col">{{quoteConstants.subtotal}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let entry of quote.entries">
+                    <ng-container *ngIf="entry?.product">
+                    <th scope="row">{{entry?.product?.code}}</th>
+                    <td>
+                        <div class="product-image">
+                            <img *ngIf="entry?.product?.images" src="{{entry?.product?.images[0]?.url}}" alt="{{entry.product.code}}" />
+                        </div>
+                    </td>
+                    <td>
+                        <div class="product-desc">
+                            <div class="content">
+                                <p>{{entry?.product?.name}}</p>
+                                <p>{{entry?.product?.description}}</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>{{entry?.quantity}}</td>
+                    <td>{{entry?.mtoQuantity}}</td>
+                    <td>{{entry?.quoteQuantityPending}}</td>
+                    <td>{{entry?.product?.salesUOM}}</td>
+                    <td>{{entry?.product?.price?.formattedValue}}</td>
+                    <td>{{entry?.product?.m2Price?.formattedValue}}</td>
+                    <td>{{entry?.subTotal?.formattedValue}}</td>
+                </ng-container>
+                </tr>
+                <tr *ngIf="quote?.subTotal !== null && quote?.subTotal !== undefined">
+                    <td colspan="8"></td>
+                    <td><strong>{{quoteConstants.total}}</strong></td>
+                    <td><strong>${{quote?.subTotal?.value}}</strong></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="mobile-order-details d-lg-none d-md-none d-block">
+    <div class="purchase-order-info space-border">
+        <div class="head-dark">
+            <p>{{quoteConstants.FIQuoteNo}} {{quote?.code}}</p>
+        </div>
+
+        <div class="pt-3 d-flex justify-content-start">
+            <p class="left-side">{{quoteConstants.projectNameTh}}</p>
+            <p class="right-side">{{quote?.projectNumber}}</p>
+        </div>
+
+        <div class="pt-3 d-flex justify-content-start">
+            <p class="left-side">{{quoteConstants.suburbAddressTh}}</p>
+            <p class="right-side">{{quote?.deliveryAddress?.formattedAddress}}</p>
+        </div>
+
+        <div class="pt-3 d-flex justify-content-start">
+            <p class="left-side">{{quoteConstants.status}}</p>
+            <div class="right-side">
+                <div class="statuses d-flex">
+                    <div class="status-img">
+                        <img *ngIf="quote.state == 'VALID'" src="./assets/images/status-icons/active/quote-valid.svg" class="status" [ngClass]="{'active': quote.state == 'VALID'}" />
+                        <img *ngIf="quote.state !== 'VALID'" src="./assets/images/status-icons/inactive/quote-valid.svg" class="status" [ngClass]="{'active': quote.state == 'VALID'}" />
+
+                        <p>{{quoteConstants.validS}}</p>
+                    </div>
+                    <div class="status-img">
+                        <img *ngIf="quote.state == 'DUETOEXPIRE'" src="./assets/images/status-icons/active/quote-duetoexpire.svg" class="status small-one" [ngClass]="{'active': quote.state == 'DUETOEXPIRE'}" />
+                        <img *ngIf="quote.state !== 'DUETOEXPIRE'" src="./assets/images/status-icons/inactive/quote-duetoexpire.svg" class="status small-one" [ngClass]="{'active': quote.state == 'DUETOEXPIRE'}" />
+
+                        <p>{{quoteConstants.dueToExpireS}}</p>
+                    </div>
+                    <div class="status-img">
+                        <img *ngIf="quote.state == 'EXPIRED'" src="./assets/images/status-icons/active/quote-expired.svg" class="status" [ngClass]="{'active': quote.state == 'EXPIRED'}" />
+                        <img *ngIf="quote.state == 'EXPIRED'" src="./assets/images/status-icons/inactive/quote-expired.svg" class="status" [ngClass]="{'active': quote.state == 'EXPIRED'}" />
+
+                        <p>{{quoteConstants.expiredS}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pt-3 d-flex justify-content-start">
+            <p class="left-side">{{quoteConstants.validDate}}</p>
+            <p class="right-side">{{quote?.expirationDate | date: 'mediumDate'}}</p>
+        </div>
+
+
+        <div class="pt-3 d-flex justify-content-start">
+            <p class="left-side">{{quoteConstants.quoteAmount}}</p>
+            <p class="right-side">${{quote?.subTotal?.value}}</p>
+        </div>
+        <div class="pt-3 d-flex justify-content-start">
+            <div class="cx-spinner-small d-flex" *ngIf="!isPDFloaded">
+                <cx-spinner></cx-spinner>
+            </div>
+            <a             
+            *ngIf="isPDFloaded && isInvoiceGen && !disableIcon" (click)="!disableIcon ? onOpenStatement() : null" href="{{quote.downloadPDF}}" target="_blank" class="quote-pdf-download">
+                <img class="pl-2" src="assets/images/file-pdf-regular.svg" alt="{{quoteConstants.quotePDFTip}}" />
+            </a>
+        </div>
+    </div>
+
+
+    <div class="space-border d-flex justify-content-between" *ngIf="quote?.CustomerInstructions">
+        <div>
+            <span>
+            <p class="mb-0"><strong>{{quoteConstants.stdShippingLabel}}</strong></p>
+            <p class="mb-0">{{quote?.CustomerInstructions}}</p>
+        </span>
+        </div>
+
+    </div>
+
+    <div class="order-info">
+        <h5 class="pt-3"><strong>{{quoteConstants.quoteItemDetails}}</strong></h5>
+
+        <!-- products  -->
+        <div class="space-border" *ngFor="let entry of quote.entries">
+            <div class="d-flex justify-content-start">
+                <p class="left-side">{{quoteConstants.productNo}}</p>
+                <p class="right-side">{{entry?.product?.code}}</p>
+            </div>
+
+            <div class="pt-3 d-flex justify-content-start">
+                <p class="left-side">{{quoteConstants.productDescription}}</p>
+                <div class="right-side">
+                    <p><strong>{{entry?.product?.name}}</strong></p>
+                    <p>{{entry?.product?.description}}</p>
+                </div>
+            </div>
+
+            <div class="pt-3 d-flex justify-content-start">
+                <p class="left-side">{{quoteConstants.qtyQuoted}}</p>
+                <p class="right-side">{{entry?.quantity}}</p>
+            </div>
+
+            <div class="pt-3 d-flex justify-content-start">
+                <p class="left-side">{{quoteConstants.mtoQuoteQty}}</p>
+                <p class="right-side">{{entry?.mtoQuantity}}</p>
+            </div>
+
+            <div class="pt-3 d-flex justify-content-start">
+                <p class="left-side">{{quoteConstants.qtyToBeOrdered}}</p>
+                <p class="right-side">{{entry?.quoteQuantityPending}}</p>
+            </div>
+
+            <div class="pt-3 d-flex justify-content-start">
+                <p class="left-side">{{quoteConstants.uOM}}</p>
+                <p class="right-side">{{entry?.product?.salesUOM}}</p>
+            </div>
+
+            <div class="pt-3 d-flex justify-content-start">
+                <p class="left-side">{{quoteConstants.unitPrice}}</p>
+                <p class="right-side">{{entry?.product?.price?.formattedValue}}</p>
+            </div>
+
+            <div class="pt-3 d-flex justify-content-start">
+                <p class="left-side">{{quoteConstants.priceByM2}}</p>
+                <p class="right-side">{{entry?.product?.m2Price?.formattedValue}}</p>
+            </div>
+
+            <div class="pt-3 d-flex justify-content-start">
+                <p class="left-side">{{quoteConstants.subtotal}}</p>
+                <p class="right-side">{{entry?.subTotal?.formattedValue}}</p>
+            </div>
+            <div class="pt-3 mt-4 d-flex justify-content-start border-top"
+            *ngIf="quote?.subTotal !== null && quote?.subTotal !== undefined">
+                <p class="left-side"><strong>{{quoteConstants.total}}</strong></p>
+                <p class="right-side"><strong>${{quote?.subTotal?.value}}</strong></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="discalimer-typo">
+    <ul>
+        <li *ngFor="let item of quoteConstants.disclaimer; let i = index">
+            {{item}}
+            <a *ngIf="i == quoteConstants.disclaimer.length-1" href="http://www.insulation.com.au/terms">http://www.insulation.com.au/terms</a>
+        </li>
+    </ul>
+</div>
+</ng-container>

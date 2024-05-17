@@ -1,0 +1,50 @@
+@import "../../../../shared/styles/variables.scss";
+
+.underline {
+    text-decoration: underline;
+    cursor: pointer;
+}
+::ng-deep .modal-content {
+    color: #545859;
+    border: 3rem solid rgba(84, 88, 89, 0.7);
+}
+.btn {
+    background-color: #545859;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    color: #FFF;
+    width: 12rem;
+    border-radius: 0.3rem;
+}
+.closeIcon {
+    cursor: pointer;
+    img {
+        filter: invert(1);
+        position: absolute;
+        top: -2rem;
+        right: -2rem;
+    }
+}
+
+@media screen and (max-width: $mobileScreenPotrait) {
+
+    ::ng-deep .modal-backdrop {
+        width: 100%;
+        height: 100%;
+    }
+    .closeIcon {
+        right: 26px !important;
+        top: 9px !important;
+        height: 5px !important;
+        width: 5px !important;
+        img {
+            max-width: 1rem;
+        }
+    }
+    .btn {
+        max-width: 6rem;
+        height: auto;
+    }
+}
+
+

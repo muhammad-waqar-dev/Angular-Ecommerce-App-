@@ -1,0 +1,211 @@
+@import "../../../shared/styles/variables.scss";
+
+.desktop-order-details {
+    @include font-Arial();
+    table {
+        thead {
+            th {
+                text-transform: capitalize;
+                font-size: 16px;
+            }
+        }
+    }
+    .details {
+        padding-top: 69px;
+        table {
+            thead {
+                th {
+                    text-align: left;
+                    width: 12%;
+                }
+            }
+        }
+    }
+    .order-info {
+        padding: 50px 0;
+        padding-bottom: 29px;
+        table {
+            thead {
+                th {
+                    text-align: left;
+                    width: 9%;
+                    &.prod-desc {
+                        width: 18%;
+                    }
+                    &.prod-img {
+                        width: 7%;
+                    }
+                    &.prod-qty-ordered {
+                        width: 11.5%;
+                    }
+                }
+            }
+            .product-image {
+                float: 15px;
+                img {
+                    width: 90px;
+                    height: 90px;
+                    object-fit: cover;
+                    object-position: center;
+                }
+            }
+            .product-desc {
+                display: flex;
+                justify-content: start;
+                align-items: center;
+                .content {
+                    p {
+                        margin-bottom: 0;
+                        &:first-child {
+                            font-weight: 600;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.mobile-order-details {
+    @include font-Arial();
+    p {
+        margin-bottom: 0;
+    }
+    .convert-to-order {
+        margin: 25px 0 20px 0;
+        padding: 15px 0;
+        background: $heading-grey;
+        text-align: center;
+        button {
+            text-transform: uppercase;
+            font-weight: 400;
+            background-color: $grey-color;
+        }
+    }
+}
+
+.left-side {
+    width: 35%;
+}
+
+.right-side {
+    text-align: left;
+    width: 65%;
+}
+
+
+img {
+    position: relative;
+    &.status {
+        width: 50px;
+        opacity: 0.3;
+        &.active {
+            opacity: 1;
+        }
+        @media screen and (max-width: $mobileScreenPotrait) {
+            width: 40px;
+        }
+        margin-right: 15px;
+        &:last-child {
+            margin-right: 0;
+        }
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            width: 100px;
+            height: 5px;
+            background: $black-color;
+        }
+    }
+}
+
+.space-border {
+    padding: 20px 0;
+    border-bottom: 1px solid $medium-gray;
+}
+
+.head-dark {
+    color: white;
+    background-color: $background-grey;
+    height: 63px;
+    padding: 15px;
+    border-radius: 4px;
+    p {
+        line-height: 35px;
+    }
+}
+
+.discalimer-typo {
+    @include font-Arial();
+    padding: 50px 0;
+    border-top: 1px solid $medium-gray;
+    ul {
+        padding-left: 0;
+        margin-bottom: 0;
+        @media screen and (max-width: $mobileScreenPotrait) {
+            padding-left: 15px;
+        }
+        li {
+            a {
+                color: $heading-dark-grey;
+            }
+        }
+    }
+}
+
+.quote-pdf-download {
+    color: $heading-dark-grey;
+    img {
+        width: 25px;
+    }
+}
+
+.statuses {
+    .status-img {
+        width: 80px;
+        position: relative;
+        text-align: center;
+        @media screen and (max-width: $mobileScreenPotrait) {
+            width: 70px;
+        }
+        &::after {
+            content: '';
+            position: absolute;
+            top: 25%;
+            right: -7px;
+            width: 30px;
+            height: 2px;
+            background: $disabled-grey;
+        }
+        &:last-child {
+            &::after {
+                width: 0;
+            }
+        }
+        p {
+            color: $heading-dark-grey;
+            font-size: 14px;
+            padding-top: 5px;
+            font-weight: 600;
+            margin-bottom: 0;
+            line-height: 20px;
+            @media screen and (max-width: $mobileScreenPotrait) {
+                font-size: 11px;
+            }
+        }
+    }
+}
+
+.m-backArrow {
+    position: absolute;
+    left: 0rem;
+    top: -1.875rem;
+    color: inherit;
+}
+
+.text-transform-none {
+    text-transform: none !important;
+}

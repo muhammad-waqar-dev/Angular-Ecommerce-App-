@@ -1,0 +1,247 @@
+@import "../../../shared/styles/variables.scss";
+
+::ng-deep .productDiv {
+    box-shadow: 4px 4px 5px #0000004d;
+    border: 1px solid #d8d8d8;
+    border-radius: 4px;
+    opacity: 1;
+    height: auto;
+    max-width: 37.4rem;
+    > p {
+        margin-bottom: 0px;
+        color: $grey-color;
+        font-size: 0.9375rem;
+        font-weight: 500;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    h3 {
+        font-size: 0.9375rem;
+        font-weight: 600;
+        color: $grey-color;
+    }
+    label {
+        color: $grey-color;
+        font-size: 0.9375rem;
+        font-weight: 400;
+    }
+    .btn {
+        background: #545859 0% 0% no-repeat padding-box;
+        border-radius: 4px;
+        opacity: 1;
+        font-size: 0.875rem;
+        border-color: #545859;
+        max-width: 150px;
+        margin-right: 3rem;
+        text-transform: uppercase;
+    }
+    .col-lg-6 {
+        > p {
+            margin-bottom: 0px;
+            color: $grey-color;
+            font-size: 0.9375rem;
+        }
+    }
+    .quantityCol {
+        margin-top: 2.5rem;
+    }
+    cx-item-counter input[type="number"] {
+        width: 33px;
+        border-radius: 0 !important;
+    }
+    ::ng-deep cx-add-to-cart .quantity {
+        padding-left: 1rem;
+        margin: 0;
+        display: flex;
+    }
+    .discount-label {
+      position: absolute;
+      top: -45px;
+    }
+}
+
+.productNewBtn, .productSpecialBtn {
+    button {
+        padding: 0.45rem 1.7rem;
+        border: none;
+        position: absolute;
+        top: 3.7rem;
+        right: 1.4rem;
+        cursor: default;
+        border-radius: 7px;
+        color: #fff;
+        z-index: 1;
+    }
+}
+
+.productNewBtn {
+    button {
+        background-color: #6CB33E;
+    }
+}
+
+.productSpecialBtn {
+    button {
+        background-color: #E02D33;
+    }
+}
+
+.piecePackInfo {
+    min-height: 24px;
+    margin-bottom: 0.7rem;
+    display: block;
+}
+
+cx-product-grid-item .cx-product-name {
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+    font-size: 0.95rem;
+    height: auto;
+    min-height: 57px;
+    max-height: 57px;
+    overflow: hidden;
+    line-height: 20px;
+
+    &:hover {
+    color: #212738 !important;
+}
+}
+
+.pieceCoverage {
+    padding: 0.7rem 1rem;
+    display: flex;
+    height: 93px;
+    justify-content: space-around;
+    @media screen and (max-width: $screenMedium-1280) {
+        height: 140px;
+    }
+    span {
+        label {
+            display: flex;
+            margin-bottom: 0.7rem;
+            p {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+
+.productLink {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.7rem !important;
+    height: 27px;
+    a {
+        color: #2014F9;
+        text-decoration: underline;
+        font-size: 1.1rem;
+    }
+}
+
+.mtoBtn {
+    margin-top: 1.4rem !important;
+    display: block;
+    margin-bottom: 1.89rem !important;
+    button {
+        width: 87%;
+        padding: 0.47rem 0.3rem;
+        background-color: #545859;
+        color: #fff;
+        border-radius: 7px;
+        border: none;
+        font-size: 0.93rem;
+    }
+}
+
+.marketDesc {
+    height: 63px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: relative;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+}
+
+@media screen and (max-width: $screenMedium-1200) {
+    ::ng-deep .productDiv cx-add-to-cart .quantity {
+        padding-left: 0 !important;
+        margin-bottom: 1.4rem;
+        position: relative;
+        right: 3px;
+    }
+    ::ng-deep cx-item-counter button, ::ng-deep .quantity cx-item-counter input[type=number] {
+        min-width: 53px !important;
+    }
+}
+
+@media screen and (max-width: $mobileScreenPotrait) {
+    .mobileViewTemplate {
+        width: 100%;
+    }
+    .qtylabel {
+        text-align: center;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+    .quantityCol {
+        text-align: center;
+        margin-top: 2.5rem;
+        margin-left: -4rem;
+        margin-bottom: 2.5rem;
+    }
+    .productDiv {
+        margin-top: 0;
+        min-width: 97%;
+    }
+    ::ng-deep .form-wrapper .productDiv .btn {
+        margin-right: 1rem !important;
+        margin-left: 0.5rem;
+        max-width: 61% !important;
+    }
+    ::ng-deep app-product-item-grid {
+        margin-top: 3rem;
+        width: 92%;
+    }
+    ::ng-deep .productDiv {
+        margin-left: 0 !important;
+    }
+    .prodDiv-w-3-col {
+        max-width: 100% !important;
+    }
+    .prodDiv-w-4-col {
+        max-width: 100% !important;
+    }
+    .marketDesc {
+        height: auto;
+    }
+    ::ng-deep .productDiv cx-add-to-cart .quantity {
+        padding-left: 0 !important;
+        margin-bottom: 1.4rem;
+        position: relative;
+        right: 3px;
+    }
+    ::ng-deep cx-item-counter button,
+    ::ng-deep .quantity cx-item-counter input[type=number] {
+        min-width: 53px !important;
+    }
+    .productNewBtn button,
+    .productSpecialBtn button {
+        position: relative;
+        top: 0.4rem;
+        right: 0.4rem;
+        float: right;
+    }
+    .pieceCoverage, cx-product-grid-item .cx-product-name {
+        height: auto;
+    }
+    cx-product-grid-item .cx-product-name {
+        padding-left: 0.7rem;
+        padding-right: 0.7rem;
+    }
+    .pieceCoverage {
+        padding: 0.7rem;
+    }
+
+}

@@ -1,0 +1,176 @@
+<div class="pl-3">
+    <h3>Checkout</h3>
+    <a routerLink="/cart">
+    <button class="btn w-15 font-weight-bold text-white submitBtn cartBtn"
+    (click)="onPayForYourOrder()">
+    Return to Cart
+    </button>
+    </a>
+    <div class="row place-order mb-5">
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 order-2 order-md-1">
+            <div class="fulfillmentSection">
+                <div class="section-heading">
+                    <p>1. Fulfillment</p>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" id="facetRadioOption1" name="searchALL" checked
+                        [(ngModel)]="searchALL" value="delivery" (click)="deliveryOption()">
+                    <label class="form-check-label" for="facetRadioOption1">
+                        Delivery
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" id="rd_5" name="member_search" name="searchALL"
+                        [(ngModel)]="searchALL" value="pickup" (click)="deliveryOption()">
+                    <label class="form-check-label" for="facetRadioOption1">
+                        Pick Up
+                    </label>
+                </div>
+
+                <div class="deliverySection" *ngIf="searchALL === 'delivery'">
+                    <app-order-delivery-section (onReviewClick)="reviewOrder($event)"></app-order-delivery-section>
+                </div>
+
+                <div class="pickupSection" *ngIf="searchALL === 'pickup'">
+                   <app-order-pickup-section (onReviewClick)="reviewOrder($event)"></app-order-pickup-section>
+                </div>
+
+                <!-- review-order collapsable section  -->
+                <div class="section-heading pt-3">
+                    <p>3. Review Your Order</p>
+                </div>
+                <div class="review-order" *ngIf="isReviewOrder">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                            <p class="mb-2 d-flex justify-content-between">
+                                <span>Sub Total:</span>
+                                <span>{{ reviewDetails?.subTotal?.formattedValue }}</span>
+                            </p>
+                            <p class="mb-2 d-flex justify-content-between" *ngIf="reviewDetails?.deliveryMode?.code == 'Delivery'">
+                                <span>Freight:</span>
+                                <span>{{ reviewDetails?.deliveryCost?.formattedValue }}</span>
+                            </p>
+                            <p class="mb-2 d-flex justify-content-between">
+                                <span>GST</span>
+                                <span>{{ reviewDetails?.totalTax?.formattedValue }}</span>
+                            </p>
+                            <p class="mb-2 d-flex justify-content-between">
+                                <span><strong>Total</strong></span>
+                                <span><strong>{{ reviewDetails?.totalPriceWithTax?.formattedValue }}</strong></span>
+                            </p>
+
+                            <button [disabled]="reviewDetails?.totalPrice?.value == 0 || reviewDetails?.totalPrice?.value < 0" class="btn w-100 font-weight-bold text-white submitBtn"
+                                (click)="onPayForYourOrder()">
+                                PAY FOR MY ORDER
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- payment collapsable section  -->
+                <div class="section-heading pt-5">
+                    <p>4. Payment</p>
+                </div>
+                <div class="payment" *ngIf="isPayForYourOrder">
+                    <form [formGroup]="paymentMethodForm">
+                        <div class="row">
+                            <div class="col-12">
+                                <p class="mt-1 mb-2 paymentHeading">Payment Method:</p>
+                            </div>
+
+                            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 order-2 order-md-1">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="paymentMethod" checked
+                                        formControlName="paymentMethod" value="ACCOUNT" (click)="paymentType('ACCOUNT')">
+                                    <label class="form-check-label">
+                                        Charge to Credit Account: {{ reviewDetails?.accountName }} {{ reviewDetails?.accountId }}
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="paymentMethod"
+                                        formControlName="paymentMethod" value="CARD" (click)="paymentType('CARD')">
+                                    <label class="form-check-label">
+                                        Pay with Credit Card
+                                    </label>
+                                </div>
+                                <button [disabled]="reviewDetails?.totalPrice?.value == 0 || reviewDetails?.totalPrice?.value < 0" class="btn w-100 mt-2 font-weight-bold text-white submitBtn"
+                                (click)="onPlaceMyOrder()">
+                                    PLACE MY ORDER
+                                </button>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 order-1 order-md-2">
+            <div class="order-summary-section">
+                <div class="section-heading">
+                    <p class="d-flex justify-content-between">
+                        <span>Order Summary</span>
+                        <span class="d-md-none d-sm-block plusIcon" (click)="onOrderSummaryExpanded()"
+                            *ngIf="!isOrderSummaryExpanded">+</span>
+                        <span class="d-md-none d-sm-block minusIcon" (click)="onOrderSummaryExpanded()"
+                            *ngIf="isOrderSummaryExpanded">-</span>
+                    </p>
+                </div>
+
+                <!-- desktop  -->
+                <div class="orderSummary-Checkout">
+                    <div class="d-none d-md-block d-lg-block" *ngIf="!isOrderSummaryExpanded">
+                        <div class="reference" 
+                        *ngIf="(isReviewOrder && isOrderSummaryExpanded) || (isReviewOrder && !isMobile)">
+                            <p class="itemRef">Your Reference: {{  reviewDetails?.purchaseOrderNumber }}</p>
+                            <p class="itemRef" *ngIf="reviewDetails?.deliveryMode?.code == 'Pick Up'">Estimated Weight of Order (kg): {{ reviewDetails?.totalOrderWeight }}</p>
+                        </div>
+                        <div class="orderSummaryView">
+                            <app-cart [isReviewOrder]="isReviewOrder" [reviewDetails]="reviewDetails"></app-cart>
+                        </div>
+                    </div>
+
+                    <!-- mobile  -->
+                    <div class="d-md-none d-sm-block" *ngIf="isOrderSummaryExpanded">
+                        <div class="reference" 
+                        *ngIf="(isReviewOrder && isOrderSummaryExpanded) || (isReviewOrder && !isMobile)">
+                            <p class="itemRef">Your Reference: {{  reviewDetails?.purchaseOrderNumber }}</p>
+                            <p class="itemRef" *ngIf="reviewDetails?.deliveryMode?.code == 'Pick Up'">Estimated Weight of Order (kg): {{ reviewDetails?.totalOrderWeight }}</p>
+                        </div>
+                        <div class="orderSummaryView">
+                            <app-cart [isReviewOrder]="isReviewOrder"></app-cart>
+                        </div>
+                    </div>
+                    <div class="reference subtotalVal" 
+                    *ngIf="(isReviewOrder && isOrderSummaryExpanded) || (isReviewOrder && !isMobile)">
+                       
+                        <div class="totals">
+                            <p class="mb-2 d-flex justify-content-between">
+                                <span>Sub Total:</span>
+                                <span>{{ reviewDetails?.subTotal?.formattedValue }}</span>
+                            </p>
+                            <p class="mb-2 d-flex justify-content-between" *ngIf="reviewDetails?.deliveryMode?.code == 'Delivery'">
+                                <span>Freight</span>
+                                <span>{{ reviewDetails?.deliveryCost?.formattedValue }}</span>
+                            </p>
+                            <p class="mb-2 d-flex justify-content-between">
+                                <span>GST</span>
+                                <span>{{ reviewDetails?.totalTax?.formattedValue }}</span>
+                            </p>
+                            <p class="mb-2 d-flex justify-content-between">
+                                <span><strong>Total</strong></span>
+                                <span><strong>{{ reviewDetails?.totalPriceWithTax?.formattedValue }}</strong></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="desclimarText mt-4">
+        <p class="text-md-left text-center mb-0"><b>{{ productDisclaimr.disclaimerHeading }} </b> {{ productDisclaimr.disclaimerText }}</p>
+        <p *ngIf="paymentMethodForm.controls.paymentMethod.value == 'ACCOUNT'">{{productDisclaimr.frightCalculation}}</p>
+    </div>
+</div>
+
+<app-payment-popup [isShow]="true"></app-payment-popup>

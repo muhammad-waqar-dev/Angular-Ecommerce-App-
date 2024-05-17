@@ -1,0 +1,115 @@
+@import "../../shared/styles/variables.scss";
+
+.miniCartStyle {
+    position: absolute;
+    font-size: 1rem;
+    top: 0.8rem;
+    right: 4rem;
+    a {
+        color: #fff;
+        text-decoration: none;
+    }
+}
+
+.quantity {
+    padding: 3px;
+    position: absolute;
+    right: -1em;
+    top: -1em;
+    font-size: 0.8rem;
+}
+
+a {
+    position: relative;
+}
+.cart-preview {
+    background-color: var(--cx-color-background-focus);
+    color: var(--cx-color-light);
+    display: none;
+    position: absolute;
+    top: 0;
+    min-width: 21rem;
+    box-shadow: 0px 4px 3px #0000004D;
+}
+.hide-menu{
+    display: none;
+}
+.show-menu{
+    display: block !important;
+    position: absolute !important;
+    z-index: 999 !important;
+    background: #FFF !important;
+    color: #595959 !important;
+    list-style: none !important;
+    top: 32px !important;
+    right: -5px !important;
+    padding-left: 0;
+    cursor: auto;
+    width: 21rem;
+}
+.show-menu li {
+    padding: 2rem;
+    padding-bottom: 0;
+}
+.item img {
+    border: 1px solid $disabled-grey;
+    max-width: 9rem;
+}
+.remove {
+    text-decoration: underline;
+    cursor: pointer;
+}
+.btn {
+    background-color: $grey-color;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    color: #FFF;
+    min-width: 17rem;
+    margin-bottom: 0 !important;
+}
+.buttons-container{
+    align-items: center;
+    flex-direction: column;
+}
+.cart-link {
+    cursor: pointer;
+}
+.cartView { 
+    max-height: 33rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+ }
+ .d-cart {
+     pointer-events: none;
+ }
+ .d-quantity {
+    right: -1.74em;
+ }
+
+@media screen and (max-width: $mobileScreenPotrait) {
+    .fa-shopping-cart,
+    .m-cartIcon {
+        color: $grey-color;
+        font-size: 1.3rem;
+    }
+    .miniCartStyle {
+        position: static;
+        font-size: 1rem;
+    }
+    .cart-preview {
+        min-width: 21rem !important;
+    }
+    .btn {
+        max-width: 12rem !important;
+        min-width: 12rem;
+    }
+    .show-menu {
+        top: 41px !important;
+    }
+    .quantity {
+        color: $black-color;
+    }
+    .cartView { 
+        max-height: 24rem;
+    }
+}

@@ -1,0 +1,129 @@
+@import "../../../shared/styles/variables.scss";
+
+.form-wrapper {
+    margin: 0 auto;
+    width: 95%;
+    margin-bottom: 20rem;
+    > p {
+        color: $grey-color;
+        padding-bottom: 1rem;
+        padding-top: 0rem;
+        font-size: 1.3rem;
+        text-align: justify;
+        a {
+            color: $grey-color;
+            text-decoration: underline;
+            &:hover {
+                color: $grey-color;
+            }
+            &:visited {
+                color: $grey-color;
+            }
+        }
+    }
+    cx-media {
+        box-shadow: 3px 4px 12px 1px $box-shadow-grey;
+    }
+}
+h1,
+h2,
+h3,
+p {
+    color: $grey-color;
+}
+
+::ng-deep {
+    .col-md-4 cx-media {
+        img {
+            width: 100%;
+            height: auto;
+        }
+    }
+}
+.banner-overlay-text {
+    width: 40%;
+    font-size: 1.2rem;
+    top: 1rem;
+    left: 5rem;
+    font-weight: 600;
+    line-height: 1.8;
+}
+.pos-abs {
+    position: absolute;
+}
+.tile {
+    padding-right: 4rem;
+    div {
+        position: absolute;
+        top: 0;
+        z-index: 1;
+        display: inline-block;
+        padding: 4% 13% 4% 4%;
+        overflow: hidden;
+        font-size: 1.05rem;
+        @include font-MyriadReg();
+        color: $white-color;
+        border-top-left-radius: 0.2rem;
+    }
+
+    div:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: $background-grey;
+        -webkit-transform-origin: 100% 0;
+        -ms-transform-origin: 100% 0;
+        transform-origin: 100% 0;
+        -webkit-transform: skew(-45deg);
+        -ms-transform: skew(-45deg);
+        transform: skew(-45deg);
+        z-index: -1;
+    }
+}
+.mobile-para {
+    width: 90% !important;
+    font-size: 0.975rem !important;
+    line-height: 1.6;
+}
+
+@media screen and (max-width: $mobileScreenPotrait) {
+    .banner-overlay-text {
+        width: 60%;
+        font-size: 0.7rem;
+        top: 0rem;
+        left: 1rem;
+        font-weight: 400;
+    }
+    h2 {
+        color: $heading-grey;
+        text-align: center;
+        font-size: 0.975rem;
+    }
+    .main-heading {
+        margin-top: 2rem !important;
+    }
+    .para-heading {
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+    }
+
+    .form-wrapper {
+        margin-bottom: 8rem;
+        > p {
+            padding-bottom: 1rem !important;
+            padding-top: 1rem !important;
+            font-size: 0.8rem;
+            word-spacing: 0.13rem;
+            word-break: break-all;
+        }
+    }
+    .tile {
+        padding: 0rem;
+        margin-left: 1rem;
+        margin-right: 1rem;
+        margin-bottom: 2rem;
+    }
+}

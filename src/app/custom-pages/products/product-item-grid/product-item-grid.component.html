@@ -1,0 +1,129 @@
+<cx-product-grid-item
+  *ngIf="product"
+  [product]="product"
+  class="d-flex productDiv mb-md-5 mb-0 mx-2 mt-5 px-0"
+>
+  <span class="productNewBtn" *ngIf="product?.newMaterial">
+    <button>New</button>
+  </span>
+  <span class="productSpecialBtn" *ngIf="product?.isSpecial">
+    <button>Special</button>
+  </span>
+  <a
+    class="cx-product-image-container pointer"
+    (click)="selectedProduct(product)"
+    tabindex="-1"
+  >
+    <cx-media *ngIf="product?.images?.PRIMARY;else normalImage"
+      class="cx-product-image pt-3 pb-2 mr-2 rounded mx-auto d-block"
+      [container]="product?.images?.PRIMARY"
+      format="product"
+      [alt]="product.summary"
+    ></cx-media>
+    <ng-template #normalImage>
+      <img class="cx-product-image pt-3 pb-2 mr-2 rounded mx-auto d-block" [src]="product?.firstVariantImage" />
+    </ng-template>
+  </a>
+  <p class="text-center mb-2">Product No {{ product.code }}</p>
+  <a class="cx-product-name" [innerHTML]="product.name"></a>
+
+  <div class="pieceCoverage">
+    <span>
+      <span class="piecePackInfo"
+        ><label *ngIf="product?.coveragePerPack"
+          >Coverage per m2:
+          <p class="ml-1">{{ product?.coveragePerPack }}</p></label
+        ></span
+      >
+      <span class="piecePackInfo"
+        ><label *ngIf="product?.pallet"
+          >Pallet Quantity:
+          <p class="ml-1">{{ product?.pallet }}</p></label
+        ></span
+      >
+    </span>
+    <span>
+      <span class="piecePackInfo"
+        ><label *ngIf="product?.pieces" class="ml-5"
+          >Pieces per pack:
+          <p class="ml-1">{{ product?.pieces }}</p></label
+        ></span
+      >
+      <span class="piecePackInfo"
+        ><label *ngIf="product?.bales" class="ml-5"
+          >Packs per Bale:
+          <p class="ml-1">{{ product?.bales }}</p></label
+        ></span
+      >
+    </span>
+  </div>
+
+  <p class="productLink">
+    <a
+      [href]="product?.pdpLink"
+      target="_blank"
+      *ngIf="product?.pdpLink !== null && product?.pdpLink !== undefined"
+    >
+      Link to product information
+    </a>
+  </p>
+  <hr
+    class="mt-2 mb-2 ml-2 mr-2"
+    style="color: black"
+    *ngIf="product?.price !== null && product?.price !== undefined"
+  />
+
+  <div
+    class="row mt-4 mb-4"
+    *ngIf="(product.price || product.m2Price) && isPricePermissionAllowed"
+  >
+    <div class="row col-12 mt-4 pl-3 mb-3">
+      <p
+        class="discount-label text-center text-danger h3 col-12 mb-4"
+        *ngIf="hasDiscount(product)"
+      >
+        <strong>{{ product?.potentialPromotions[0]?.discountLabel }}</strong>
+      </p>
+      <div class="col-lg-6 col-md-6 col-6" *ngIf="product?.price">
+        <p class="text-center">Package Price</p>
+        <p *ngIf="hasDiscount(product); else noDiscount" class="text-center">
+          <del>{{ product?.price?.formattedValue }}</del>
+          <span class="pl-2 h4"
+            ><strong>{{
+              product.potentialPromotions[0]?.discountPrice
+            }}</strong></span
+          >
+        </p>
+        <ng-template #noDiscount>
+          <p class="text-center">{{ product?.price?.formattedValue }}</p>
+        </ng-template>
+      </div>
+      <div class="col-lg-6 col-md-6 col-6" *ngIf="product.m2Price">
+        <p class="text-center">Price per m2</p>
+        <p class="text-center">{{ product.m2Price?.formattedValue }}</p>
+      </div>
+    </div>
+  </div>
+  <div
+    class="row"
+    *ngIf="product?.price !== null && product?.price !== undefined"
+  >
+    <div class="col-md-12 text-center">
+      <div class="mb-4 mt-3 w-100" *ngIf="!product.mto">
+        <app-custom-add-to-cart
+          [showQuantity]="true"
+          [product]="product"
+        ></app-custom-add-to-cart>
+      </div>
+      <div
+        class="mb-4 mt-3 w-100 mtoBtn"
+        *ngIf="product.mto"
+        (click)="openMTOContactForm()"
+      >
+        <span *ngIf="!(isInternStaff | async)">
+          <button>{{ productConstants.mtoOrderText }}</button>
+        </span>
+      </div>
+    </div>
+  </div>
+</cx-product-grid-item>

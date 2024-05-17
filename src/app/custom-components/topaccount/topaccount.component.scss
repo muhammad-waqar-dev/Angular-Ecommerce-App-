@@ -1,0 +1,59 @@
+@import "../../shared/styles/variables.scss";
+
+.menuItemContainer {
+    margin-right: 2.4rem;
+    ul {
+        margin-top: -0.2rem !important;
+        border: 0px;
+        transform: translate(-71.1%, 47px) !important;
+        li {
+            cursor: pointer;
+            @include font-MyriadReg();
+            &:first-child {
+                padding: 0.2rem 1.2rem;
+                span {
+                    max-width: 7rem;
+                    text-overflow: ellipsis;
+                    position: relative;
+                    overflow: hidden;
+                    margin-left: 0.5rem;
+                    white-space: nowrap;
+                    display: inline-block;
+                }
+            }
+            a {
+                padding: 0.2rem 1.2rem;
+                text-align: left;
+                text-decoration: underline;
+                color: $grey-color;
+            }
+        }
+    }
+    .nav-link {
+        &.show {
+            background-color: $white-color;
+            i {
+                color: $white-color;
+            }
+            & .fa-user:before {
+                color: $black-color;
+            }
+        }
+    }
+    .fa-user:before {
+        color: $white-color;
+    }
+    .dropdown-item:hover {
+        background-color: $white-color;
+    }
+}
+
+ngb-modal-window{
+    visibility: hidden;
+}
+
+@media (min-width: $Largescreen-1440) and (max-width: $ExtraLargeScreen-1920) {
+    .menuItemContainer {
+        margin-right: 1.4rem;
+    }
+}

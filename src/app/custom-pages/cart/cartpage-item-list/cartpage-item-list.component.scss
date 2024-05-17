@@ -1,0 +1,89 @@
+@import "../../../shared/styles/variables.scss";
+
+.quantity-section {
+    flex-direction: column;
+    justify-content: space-between;
+}
+.cx-remove-btn {
+    justify-content: flex-end;
+    display: flex;
+}
+.bold {
+    font-weight: 600;
+}
+.cx-image-container {
+    width: 10%;
+    margin-right: 2%;
+}
+.reviewImg {
+    width: 147px;
+}
+.orderSummaryItemPrice {
+    font-size: 1.05rem;
+    margin-bottom: 0.4rem;
+    height: 65px;
+    span {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+.cartItemList {
+    min-height: 5rem;
+}
+.remove-link {
+    position: relative;
+    right: 1rem;
+}
+.productName {
+    font-size: 0.9rem;
+}
+.qty-label {
+    margin-bottom: 0.7rem;
+    margin-top: 0.4rem;
+}
+.productNum {
+    font-size: 0.95rem;
+}
+
+@media screen and (max-width: $mobileScreenPotrait) {
+    
+    .cx-image-container {
+        width: 70%;
+    }
+    ::ng-deep cx-item-counter {
+        max-height: 2.6rem;
+        input[type=number] {
+            max-width: 2rem !important;
+        }
+    }
+
+    .content-container {
+        flex-direction: column;
+        margin-left: 0;
+        .cx-remove-btn {
+            justify-content: start;
+        }
+        .cx-quantity {
+            padding-left: 0;
+            display: flex;
+            align-items: center;
+            margin: 1rem 0;
+            div{
+                display: block !important;
+            }
+            .cx-value {
+                margin-left: 1rem;
+                cx-item-counter {
+                    max-height: 2.6rem;
+                    input {
+                        width: 3rem !important;
+                    }
+                }
+            }
+        }
+        .remove-link {
+            position: relative;
+            right: 0;
+        }
+    }
+}

@@ -1,0 +1,28 @@
+<ng-container *ngIf="!(isLoading$ | async);else loading">
+    <div class="col form-wrapper mt-4" *ngIf="permissionAllowed && !isLoading;else permissionDeniedMessage">
+        <div *ngIf="isMobile" class="mobilePageTitleContainer d-flex flex-fill align-items-center mt-2 text-center">
+            <a [routerLink]="'/asset-library'"><i class="fa fa-chevron-left"></i></a>
+            <div class="flex-fill "><label>Images</label></div>
+        </div>
+
+        <div class="mediaParentContainer d-flex flex-column" *ngIf="!(isLoading$ | async)">
+            <div class="d-flex flex-wrap align-content-start justify-content-start">
+                <div class="justify-content-center align-items-center imgWrapper whyFI-img"
+                    *ngFor=" let imageBaner of imagesBannerComponentList; let i=index ">
+                    <a [href]="getImagePath(imageBaner.media.desktop.url)" target="_blank">
+                        <cx-media [container]="imageBaner.media.desktop"></cx-media>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="mt-5"></div>
+    </div>
+</ng-container>
+<ng-template #permissionDeniedMessage>
+    <app-accesspermissionmessage></app-accesspermissionmessage>
+</ng-template>
+<ng-template #loading>
+    <div class="cx-spinner">
+        <cx-spinner></cx-spinner>
+    </div>
+</ng-template>

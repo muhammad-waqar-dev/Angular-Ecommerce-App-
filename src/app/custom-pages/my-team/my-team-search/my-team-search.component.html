@@ -1,0 +1,13 @@
+<form (ngSubmit)="submit()" [formGroup]="searchMemberForm" class="memberSearch">
+    <span class="form-wrapper">
+    <input class="pl-2 m-search" placeholder="Member Name" formControlName="search" aria-label="search" />
+    <span class="reset ml-3 mr-3 resetIcon" (click)="resetSearch()">
+        <img src="assets/images/bottomheader/redo-alt-regular.svg" />
+    </span>
+    
+        <button type="submit"><span class="search searchIcon">
+            <img src="assets/images/bottomheader/search-regular.svg" />
+            </span>
+        </button>
+</span>
+</form>

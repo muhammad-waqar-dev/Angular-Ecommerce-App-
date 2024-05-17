@@ -1,0 +1,47 @@
+<ng-container *ngIf="!showDetailsPage">
+  <div infiniteScroll [infiniteScrollDistance]="5" [infiniteScrollThrottle]="50"
+    [infiniteScrollDisabled]="isMaxProducts || isLastPage || isEmpty" (scrolled)="scrollPage(model?.currentPage + 1)">
+    <div>
+      <ng-container *ngIf="isGridView && !isShowStatements">
+      
+        <app-accounts-item-grid *ngFor="let account of accounts;let i = index" [model]="model" [account]="account"
+        [index]="i" [showFilterSection]="showFilterSection" [isMobile]="true" (click)="onCardClick(account)"></app-accounts-item-grid>
+      </ng-container>
+      <ng-container *ngIf="isGridView && isShowStatements">
+      
+        <app-statements-item-grid *ngFor="let statement of statements;let i = index" [model]="model" [statement]="statement"
+        [index]="i" [showFilterSection]="showFilterSection" [isMobile]="true" (click)="onCardClick(statement)"></app-statements-item-grid>
+      </ng-container>
+
+      
+      <ng-container *ngIf="!isGridView && !isShowStatements">
+        <div class="list-view-header">
+          <span [class]="heading.id" *ngFor = "let heading of listViewHeading">{{heading.name}}</span>
+        </div>
+        <app-accounts-item-list *ngFor="let account of accounts; let i = index" [showFilterSection] = "showFilterSection"
+          [account]="account" [index]="i" [isMobile]="true" (click)="onCardClick(account)"></app-accounts-item-list>
+      </ng-container>
+
+      <ng-container *ngIf="!isGridView && isShowStatements">
+        <div class="list-view-header">
+          <span [class]="heading.id" *ngFor = "let heading of listViewStatementHeading">{{heading.name}}</span>
+        </div>
+        <app-statements-item-list *ngFor="let statement of statements; let i = index" [showFilterSection] = "showFilterSection"
+          [statement]="statement" [index]="i" [isMobile]="true" (click)="onCardClick(statement)"></app-statements-item-list>
+      </ng-container>
+      
+
+    </div>
+  </div>
+</ng-container>
+
+<div *ngIf="showDetailsPage">
+  <div class="col form-wrapper mt-4" *ngIf="!isShowStatements">
+      <app-accounts-details [data]="accountDetails" (searchAccountQuery)= "onAccountSearchQuery($event)"
+      (clearAccountSearch) = "onAccountClearSearch()" (navigateAccount)="navigateBackAccount()"></app-accounts-details>
+  </div>
+  <div class="col form-wrapper mt-4" *ngIf="isShowStatements">
+    <app-statements-details [data]="accountDetails" [creditLimit]="creditLimit" (searchAccountQuery)= "onAccountSearchQuery($event)"
+    (clearAccountSearch) = "onAccountClearSearch()" (navigateAccount)="navigateBackAccount()"></app-statements-details>
+</div>
+</div>

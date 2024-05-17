@@ -1,0 +1,191 @@
+<ng-template #loading>
+    <div class="cx-spinner w-100">
+        <cx-spinner></cx-spinner>
+    </div>
+</ng-template>
+
+<ng-container *ngIf="!(isLoading$ | async);else loading">
+<ng-container *ngIf="permissionAllowed && !isLoading;else permissionDeniedMessage">
+<ng-container *ngIf="!showDetailsPage">
+    <div class="col form-wrapper mt-4">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-12 mb-md-0" [ngClass]="{'mb-4': !isQuoteDetails}">
+                <h2 class="">{{quoteConstants.myQuoteLabel}}</h2>
+                <h5 class="pl-2 mt-4 pointer mobile-menu-btn" *ngIf="isMobile && !isQuoteDetails" (click)="openFiltersPopup(content)">
+                    <i class="fa fa-sliders fa-lg" aria-hidden="true"></i>
+                </h5>
+            </div>
+            <div *ngIf="!isQuoteDetails" class="col-lg-6 col-md-6 search-bar text-md-right text-left col-12 d-flex justify-content-md-end justify-content-start">
+
+                <span class="grid-list-icons">
+                    <span class="mr-4 grid-list-icon" (click)="toggleGridView(true)">
+                        <img *ngIf="isGridView" src="../../../assets/images/order-delivery-status/grid-view-active.png">
+                        <img *ngIf="!isGridView" src="../../../assets/images/order-delivery-status/grid-view.png">
+                        <span *ngIf="!isMobile" class="text-center">{{genericConstants.gridView}}</span>
+                    </span>
+                    <span class="grid-list-icon" (click)="toggleGridView(false)">
+                        <img *ngIf="isGridView" src="../../../assets/images/order-delivery-status/list-view.png">
+                        <img *ngIf="!isGridView" src="../../../assets/images/order-delivery-status/list-view-active.png">
+                        <span *ngIf="!isMobile" class="text-center">{{genericConstants.listView}}</span>
+                    </span>
+                    
+                </span>
+
+                <span class="nav-item dropdown mr-md-5 mr-3">
+                    <button class="nav-link sort-button" id="navbarDropdownMenuLink2" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <span class="mr-2 selectedText">{{selectedSortName?.name}}</span>
+                        <div class="m-display-inline m-arrow">
+                            <img src="assets/images/headerIcons/arrow.svg" />
+                        </div>
+                    </button>
+
+                    <ul class="dropdown-menu dropdown-menu-end pageSortDropdown" aria-labelledby="navbarDropdownMenuLink2">
+                        <ng-container *ngFor="let sort of sortOption; let i = index">
+                            <li class="pl-3 pr-3 sort-item" [ngClass]="{'selected':sort.selected}">
+                                <div class="sortOption">
+                                    <label (click)="changeSortOrder(quoteService.sortOrderState[sort.code], sort.code, i)" class="form-check-label d-flex" [name]="i">
+                                       
+                                        <span class="sortNameText"> {{sort.name}}</span>
+                                        <span class="sort-icon">
+                                            <i *ngIf="quoteService.sortOrderState[sort.code] === 'ASC'" class="fas fa-arrow-up"></i>
+                                            <i *ngIf="quoteService.sortOrderState[sort.code] === 'DESC' " class="fas fa-arrow-down"></i>
+                                        </span>
+                                        
+                                    </label>
+                                </div>
+                            </li>
+                        </ng-container>
+                    </ul>
+                </span>
+
+
+                <span *ngIf="!isMobile">
+                    <app-quote-search
+                    (searchQuoteQuery)=onQuoteSearchQuery($event)
+                    (clearQuoteSearch) = onQuoteClearSearch()
+                    ></app-quote-search>
+                </span> 
+
+            </div>
+        </div>
+        <div class="row" *ngIf="!isMobile">
+            <div class="d-flex mt-4 mb-2 container-fluid main-heading">
+                <div class="accordion" id="accordionFilter">
+                    <div class="accordion-item">
+                        <h5 *ngIf="!isMobile" class="pl-2 mt-4"><span class="pointer">{{genericConstants.filtersText}}</span>
+                            <span class="pointer ml-08">
+                                <i (click)="toggleDivContent()" class="fa fa-lg fa-chevron-right pl-2 accordion-button"
+                                    data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
+                                    aria-controls="collapseOne" [ngClass]="{'invert':divContent}"></i>
+                            </span>
+                            <span><button class="btn btn-clear-filter" (click)="resetFilters()">Clear Filters</button></span>
+
+                        </h5>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="row d-flex ml-md-2 m-card">
+            <div class="filter-section-container">
+
+                <quote-filters *ngIf="!isMobile && showFilterSection" [filtersModel]="filtersModel"
+                    [filtersState]="filtersState" (filterSelected)="onFilterSelection($event)">
+                </quote-filters>
+
+                <ng-template #content let-modal>
+                    <quote-filters [filtersModel]="filtersModel" [filtersState]="filtersState"
+                        (clearMobileFilters)="resetFilters()"
+                        (filterSelected)="onFilterSelection($event)">
+                    </quote-filters>
+                </ng-template>
+
+            </div>
+
+            <!-- card section statrs here -->
+
+            <ng-container *ngIf="!isInfiniteScroll;else infiniteScroll">
+                <div [ngClass]="showFilterSection ? 'prodDiv-w-3-col' : 'prodDiv-w-2-col'"
+                    class="d-flex flex-wrap justify-content-md-start justify-content-center">
+                    <ng-container *ngIf="!(isLoading$ | async);else loading">
+                    <ng-container *ngIf="quotes.length == 0">
+                        <h3 class="w-100 text-center mt-4">{{genericConstants.noResultsText}}</h3>
+                    </ng-container>
+
+                    <ng-container *ngIf="isGridView">
+                        <app-quote-items-grid class="my-team-card mb-4" *ngFor="let quote of quotes; let i = index"
+                            [quote]="quote" [index]="i" (click)="onCardClick(quote)"></app-quote-items-grid>
+                    </ng-container>
+                    <ng-container *ngIf="!isGridView">
+                        <div class="pt-0 pr-3" [class]="showFilterSection ? 'list-view-container' : 'list-view-container-full-w'">
+                            <div class="list-view-header">
+                                <span [class]="heading.id" *ngFor = "let heading of listViewHeading">{{heading.name}}</span>
+                                <span class="nex-page">&nbsp;</span>
+                            </div>
+                            <app-quote-items-list *ngFor="let quote of quotes; let i = index"
+                            [showFilterSection] = "showFilterSection"
+                            [quote]="quote" [index]="i" (click)="onCardClick(quote)">
+                            </app-quote-items-list>
+                        </div>
+                    </ng-container>
+                </ng-container>
+                </div>
+            </ng-container>
+
+            <div *ngIf="isMobile" class="w-100">
+                <ng-container *ngIf="!(isLoading$ | async);else loading">
+                    <ng-container *ngIf="quotes.length == 0">
+                        <h3 class="w-100 text-center mt-4">{{genericConstants.noResultsText}}</h3>
+                    </ng-container>
+                <div class="mobile-teamGrid">
+                    <ng-container *ngIf="!(isPaginationModel$ | async)">
+                        <app-quote-mobile 
+                        [model]="paginationModel"
+                        [scrollConfig]="scrollConfig"
+                        [quotes]="quotes" 
+                        [sortOrder]="selectedSortName"
+                        [isGridView] = "isGridView"
+                        [showFilterSection] = "showFilterSection"
+                        [listViewHeading] = "listViewHeading"
+                        class="w-100"
+                        >
+                        </app-quote-mobile>
+                    </ng-container>
+                </div>
+                </ng-container>
+            </div>
+            <!-- card section ends here -->
+        </div>
+        <!-- card section ends here -->
+        <div class="pagination-perPage d-flex mb-4" *ngIf="!isMobile">
+            <div class="mt-4">
+                <cx-pagination [pagination]="paginationModel" (viewPageEvent)="pageChange($event)"></cx-pagination>
+            </div>
+            <div class="col-lg-3 ml-auto pr-0 d-flex align-items-center justify-content-end" *ngIf="quotes.length>= 12">
+                <label class="mt-3 mb-0 productPerPageText">{{quoteConstants.quotesPerPage}}</label>
+                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-12 mt-2 text-left pr-0 pl-0">
+                    <select class="form-control productPerPage"
+                        (change)="quotesPerPageSelectionChange($event.target.value)">
+                        <option [selected]="pageSize == 12">12</option>
+                        <option [selected]="pageSize == 24">24</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<div *ngIf="showDetailsPage">
+    <div class="col form-wrapper mt-4">
+        <app-quote-details [data]="quoteDetails" (navigateQuote)="navigateBackQuote()"></app-quote-details>
+    </div>
+</div>
+</ng-container>
+</ng-container>
+<p class="text-center font-weight-bold serverErrorMsgText">{{ ErrorMsgText }}</p>
+<ng-template #permissionDeniedMessage>
+    <app-accesspermissionmessage></app-accesspermissionmessage>
+</ng-template>

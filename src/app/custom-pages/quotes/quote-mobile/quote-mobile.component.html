@@ -1,0 +1,27 @@
+<ng-container *ngIf="!showDetailsPage">
+  <div infiniteScroll [infiniteScrollDistance]="5" [infiniteScrollThrottle]="50"
+    [infiniteScrollDisabled]="isMaxProducts || isLastPage || isEmpty" (scrolled)="scrollPage(model?.currentPage + 1)">
+    <div>
+      <ng-container *ngIf="isGridView">
+      
+        <app-quote-items-grid *ngFor="let quote of quotes;let i = index" [model]="model" [quote]="quote"
+        [index]="i" [showFilterSection]="showFilterSection" [isMobile]="true" (click)="onCardClick(quote)"></app-quote-items-grid>
+      </ng-container>
+
+      <ng-container *ngIf="!isGridView">
+        <div class="list-view-header">
+          <span [class]="heading.id" *ngFor = "let heading of listViewHeading">{{heading.name}}</span>
+        </div>
+        <app-quote-items-list *ngFor="let quote of quotes; let i = index" [showFilterSection] = "showFilterSection"
+          [quote]="quote" [index]="i" (click)="onCardClick(quote)"></app-quote-items-list>
+      </ng-container>
+
+    </div>
+  </div>
+</ng-container>
+
+<div *ngIf="showDetailsPage">
+  <div class="col form-wrapper">
+      <app-quote-details [data]="quoteDetails" (navigateQuote)="navigateBackQuote()"></app-quote-details>
+  </div>
+</div>

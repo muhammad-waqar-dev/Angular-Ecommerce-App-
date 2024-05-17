@@ -1,0 +1,43 @@
+<div class="orderDeliveryCardDiv">
+  <div class="card pointer">
+    <div class="card-header">
+      <label class="d-flex"><p class="cardHeading">{{orderDeliveriesConstants.myReferenceNo}}</p> <span class="pl-1">{{order?.purchaseOrderNumber}}</span></label>
+    </div>
+    <div class="card-body">
+      <div class="d-flex">
+        <div class="w-50">
+          <label>{{genericConstants.status}} <span class="capitalize">{{order?.statusDisplay | lowercase}}</span></label>
+          <div class="statusImgWrapper">
+            <img *ngIf="order?.status === 'RECEIVED'" src="./assets/images/status-icons/active/order-received.svg" class="mt-3 mb-3"
+              [ngClass]="isMobile ? 'mt-2 mb-2' : 'mt-3 mb-3'" />
+
+              <img *ngIf="order?.status === 'INVOICED'" src="./assets/images/status-icons/active/order-delivered.svg" class="mt-3 mb-3"
+              [ngClass]="isMobile ? 'mt-2 mb-2' : 'mt-3 mb-3'" />
+
+              <img *ngIf="order?.status === 'IN_PROGRESS'" src="./assets/images/status-icons/active/order-inprogress.svg" class="mt-3 mb-3"
+              [ngClass]="isMobile ? 'mt-2 mb-2' : 'mt-3 mb-3'" />
+
+              <img *ngIf="order?.status === 'PENDING' " src="./assets/images/status-icons/active/order-pending.svg" class="mt-3 mb-3"
+              [ngClass]="isMobile ? 'mt-2 mb-2' : 'mt-3 mb-3'" />
+
+          </div>
+
+        </div>
+        <span class="separatorSpan"></span>
+        <div class="w-50 deliveryInfo">
+          <span class="deliveryDate">{{orderDeliveriesConstants.requestedDeliveryDate}}: {{order?.requestedDeliveryDate | date: 'mediumDate'}}</span>
+          <hr [ngClass]="isMobile ? 'mt-2 mb-2' : 'mt-3 mb-3'">
+          {{orderDeliveriesConstants.deliveryAddressLabel}}
+          <br/>
+          <p class="mt-2 mb-0 addressText">
+            {{order?.deliveryAddress?.formattedAddress}}
+          </p>
+          <br/>
+          <p class="mb-1" *ngIf="order?.status !== 'PENDING'">{{orderDeliveriesConstants.orderNumberLabel}}</p>
+          <p class="mb-1" *ngIf="order?.status == 'PENDING'">{{orderDeliveriesConstants.orderPendingNoLabel}}</p>
+          <p class="mb-0">{{order?.code}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

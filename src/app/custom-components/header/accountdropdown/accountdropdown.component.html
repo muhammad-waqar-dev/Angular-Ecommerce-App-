@@ -1,0 +1,43 @@
+<app-internal-staff-input></app-internal-staff-input>
+
+<div *ngIf="isInternalStaff" class="container row mr-0 ml-0 pr-0 pl-0">
+    <div class="dropdownData col-lg-12">
+        <div class="col-lg-12 m-accountIcon pr-0">
+            <ng-container *ngIf="!(isLoading$ | async)">
+                <div class="m-userName" *ngIf="isMobile">
+                    <span>Hi {{userFirstName}}</span>
+                </div>
+                <span class="m-userDetail" *ngIf="isMobile">
+                    <a routerLink="/user-profile" (click)="mobileCloseMenu()">User Details</a>
+                </span>
+
+                <div class="nav-item dropdown d-flex align-items-center justify-content-center align-middle">
+                    <button class="nav-link" id="navbarDropdownMenuLink2" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false" (click)="onDropdownClick()">
+                        <span class="mr-2 selectedText">{{selectedName}}</span>
+                        <div class="m-display-inline m-arrow">
+                            <img src="assets/images/headerIcons/arrow.svg" [ngClass]="{'invert':isOpen && isMobile}" />
+                        </div>
+                    </button>
+
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink2">
+                        <ng-container *ngFor="let business of businessData; let i = index">
+                            <li class="pl-3 pr-3" (click)="changeBusiness(i, content)" [ngClass]="{'selected':business.checked}">
+                                <div class="sortOption">
+                                    <label class="form-check-label" [name]="i">
+                                        {{ business.name }}
+                                    </label>
+                                </div>
+                            </li>
+                        </ng-container>
+                    </ul>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>
+<ng-template #content let-modal>
+    <app-switch-account-confirmation-popup
+    (switchAccount)="switchAccount($event)"
+    ></app-switch-account-confirmation-popup>
+</ng-template>

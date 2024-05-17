@@ -1,0 +1,81 @@
+@import "../../../shared/styles/variables.scss";
+
+.modal-dialog {
+    .modal-content {
+        color: $grey-color;
+        border: 3rem solid rgba(84, 88, 89, 0.7);
+    }
+    .modal-head {
+        justify-content: left;
+        padding: 1.3rem 0 1.7rem 3.1rem;
+        .closeIcon {
+            position: absolute;
+            right: -2.4rem;
+            top: -2.3rem;
+            cursor: pointer;
+        }
+    }
+    .modal-header {
+        border-bottom: 0 none;
+        height: 0.6rem !important;
+    }
+    h3 {
+        color: #595959;
+    }
+
+    .modal-footer {
+        border-top: 0 none;
+    }
+    img {
+        vertical-align: middle;
+        height: 0.8rem;
+        width: 0.8rem;
+
+        margin-left: -1.5rem;
+
+        filter: invert(1);
+        border-style: none;
+        fill: grey;
+    }
+}
+
+.remove-btn {
+    text-transform: uppercase;
+    font-size: 1rem;
+}
+
+.successHeader {
+    color: #595959;
+    font-weight: bold;
+}
+
+.message {
+    color: $placeholder-grey;
+    padding: 3rem 3rem 0rem 3rem;
+}
+::ng-deep .modal-dialog .modal-content {
+    color: #545859;
+    border: 3rem solid rgba(84, 88, 89, 0.7);
+}
+.remove-team-member{
+    background-color: #545859;
+    color: #FFF;
+    margin-right: 3rem;
+    min-width: 12rem;
+}
+.remove-btn {
+    background-color: #545859;
+}
+
+@media screen and (max-width: $mobileScreenPotrait) {
+    .remove-team-member {
+        min-width: 7rem;
+    }
+    ::ng-deep .modal-dialog .modal-content .modal-head .closeIcon {
+        right: 1.5rem !important;
+        top: 0.5rem !important;
+    }
+    ::ng-deep .modal-dialog .modal-content .modal-head .closeIcon img{
+        width: 1rem !important;
+    }
+}

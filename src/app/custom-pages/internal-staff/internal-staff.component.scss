@@ -1,0 +1,455 @@
+@import '../../shared/styles/variables.scss';
+@-moz-document url-prefix() {
+    body.modal-open {
+        position: fixed;
+    }
+    .appScaleLevel {
+        .fullScreen {
+            pointer-events: initial !important;
+            position: fixed !important;
+        }
+        .bgblock {
+            width: 129vw;
+            height: 41rem;
+            position: absolute;
+            top: -16rem;
+            left: -25rem;
+        }
+        .fullScreen+.internalstaffModal {
+            position: fixed !important;
+            .modal-dialog-centered {
+                position: inherit !important;
+                top: 0 !important;
+                left: 33% !important;
+                height: 20% !important;
+                border: none;
+                .modal-content {
+                    border: none !important;
+                }
+                &.modal-dialog {
+                    border: none;
+                }
+            }
+        }
+        .fullScreen+.internalstaffModal {
+            position: fixed !important;
+            .modal-dialog-centered {
+                position: inherit !important;
+                top: 0 !important;
+                left: 33% !important;
+                height: 20% !important;
+                border: none;
+                .modal-content {
+                    border: none !important;
+                }
+                &.modal-dialog {
+                    border: none;
+                }
+            }
+        }
+        .internalstaffModal {
+            .closeIcon {
+                &.internalStaff-close {
+                    left: 26.7rem;
+                }
+            }
+        }
+    }
+}
+
+::ng-deep .internalstaffModal {
+    .modal-dialog {
+        width: 30rem;
+        max-width: 30rem;
+        border: none;
+        @media screen and (max-width: $mobileScreen) {
+            top: 4.7rem;
+            padding-bottom: 8.5rem;
+        }
+        .modal-content {
+            border-radius: 5px;
+            width: 93%;
+            border: none !important;
+            box-shadow: 0px 6px 12px #0000004D;
+            .cx-spinner {
+                height: 28rem;
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+            @media screen and (max-width: $mobileScreen) {
+                width: 21.3rem;
+                left: 0.1rem;
+                height: fit-content;
+            }
+            .modal-head {
+                @media screen and (max-width: $mobileScreen) {
+                    padding: 0.9rem 3rem 0.9rem 2rem;
+                    justify-content: center;
+                }
+                padding: 0.9rem 0rem 0.9rem 0rem;
+                justify-content: space-around;
+                position: relative;
+                border-bottom:none;
+                h4 {
+                    @include font-Arial();
+                    font-size: 24px;
+                    color: $black-color;
+                    @media screen and (max-width: $mobileScreen) {
+                        font-size: 1.2rem;
+                    }
+                }
+                .closeIcon {
+                    &.internalStaff-close {
+                        position: absolute;
+                        right: -19px !important;
+                        top: -18px !important;
+                        cursor: pointer;
+                        height: 35px !important;
+                        width: 35px !important;
+                        @media screen and (max-width: $mobileScreen) {
+                            position: absolute;
+                            right: -11px;
+                            top: -15px;
+                            height: 35px;
+                            width: 35px;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+            .modal-body {
+                p {
+                    @include font-Arial();
+                    text-align: left;
+                    letter-spacing: 0px;
+                    color: #666666;
+                    opacity: 1;
+                    font-size: 0.83rem;
+                    @media screen and (max-width: $mobileScreen) {
+                        font-size: 0.8rem;
+                    }
+                }
+                >form {
+                    >*input {
+                        border: 1px solid $medium-gray;
+                        border-radius: 0;
+                        background-color: $white-color !important;
+                        z-index: 1;
+                        margin-bottom: 0.875rem;
+                        padding: 10px 50px;
+                        &:visited {
+                            background-color: $white-color;
+                        }
+                        &:focus {
+                            background-color: $white-color;
+                            box-shadow: none;
+                            outline-style: hidden !important;
+                            outline-color: transparent;
+                        }
+                        &:hover {
+                            background-color: $white-color;
+                            box-shadow: none;
+                        }
+                        &:-webkit-autofill {
+                            background-color: $white-color !important;
+                            box-shadow: none;
+                        }
+                        &:-webkit-internal-autofill-selected {
+                            background-color: $white-color !important;
+                            box-shadow: none;
+                        }
+                        &:-webkit-autofill,
+                        &:-webkit-autofill:hover,
+                        &:-webkit-autofill:focus,
+                        &:-webkit-autofill:active {
+                            background-color: $white-color !important;
+                            box-shadow: none;
+                        }
+                    }
+                    .row {
+                        justify-content: center;
+                        .form-group {
+                            position: relative;
+                            margin-bottom: 0.5rem !important;
+                            width: 19.8rem;
+                            label {
+                                @include font-Arial();
+                                position: absolute;
+                                font-size: 0.875rem;
+                                color: $placeholder-grey;
+                                cursor: text;
+                                z-index: 0;
+                                transition: all .15s ease-in-out 0s;
+                                &.liftUp {
+                                    top: 14px;
+                                    left: 15px;
+                                    color: $placeholder-grey;
+                                    background-color: $white-color;
+                                    top: -12px;
+                                    padding: 0 2px;
+                                    font-size: 0.875rem;
+                                    transition: all .15s ease-in-out 0s;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+::ng-deep .custom-backdrop {
+    opacity: 1 !important;
+    background-color: #4D304F !important;
+}
+
+.desktopShareIcon {
+    height: 23px;
+}
+
+.btn-send {
+    width: 159px;
+    height: 50px;
+    background-color: $grey-color;
+}
+
+
+/* Textbox click move label up and outside click down */
+
+.searchformfld {
+    position: relative;
+    margin: 5px 35px;
+    width: 19.8rem;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+/* Firefox */
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.searchinput {
+    height: 44px;
+    border: 1px solid $grey-color;
+    width: 100%;
+    font-size: $size-08;
+    padding-left: 14px;
+    border-radius: 5px !important;
+    @include font-Arial();
+    &::-webkit-input-placeholder {
+        color: $medium-gray;
+    }
+    &:-moz-placeholder {
+        color: $medium-gray;
+    }
+    &::-moz-placeholder {
+        color: $medium-gray;
+    }
+    &:-ms-input-placeholder {
+        color: $medium-gray;
+    }
+    &:disabled {
+        background-color: #f9f9f9;
+    }
+}
+
+.popup-logo {
+    width: 180px;
+    height: auto;
+}
+
+.searchIcon {
+    position: absolute;
+    filter: brightness(0.5);
+    margin: 10px;
+    padding: 0px 5px;
+    width: 30px;
+    height: 25px;
+}
+
+.searchTopIcon {
+    position: absolute;
+    filter: brightness(0.5);
+    margin: 0px;
+    padding: 0px 5px;
+    width: 30px;
+    height: 25px;
+    right: -1rem;
+    top: 0.6rem;
+}
+
+.searchformtop {
+    width: 220px !important;
+    height: 50px !important;
+}
+
+.searchformfld label {
+    position: absolute;
+    padding-left: 10px;
+    top: 14px;
+    cursor: text;
+}
+
+.searchformfld input:focus+label,
+.searchformfld input:not(:placeholder-shown)+label {
+    opacity: 1;
+    transform: scale(.9) translateY(-124%) translateX(9px);
+    color: #999999;
+    background-color: $white-color;
+    padding-right: 9px;
+}
+
+.searchformfld input:focus {
+    border: 1px solid #000;
+    outline-color: #000;
+}
+
+.searchformfld input {
+    width: 100%;
+    align-self: center;
+    padding-left: 10px;
+}
+
+.searchformfld label {
+    transition: all 0.2s;
+    transition-timing-function: ease;
+    transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+    opacity: 0.9;
+}
+
+.bgTransparent {
+    position: absolute;
+}
+
+.phoneTextBox::-webkit-outer-spin-button,
+.phoneTextBox::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.phoneTextBox[type=number] {
+    -moz-appearance: textfield;
+}
+
+.text-danger {
+    font-size: 0.75rem;
+    margin-top: -0.7rem;
+    margin-bottom: 0.8rem;
+    display: block;
+    background-color: #FFF2F1;
+    padding-left: 0.3rem;
+    color: #F23C2B !important;
+}
+
+@media screen and (max-width:1024px),
+(max-width:768px) {
+    .tableIcon {
+        width: 12px;
+    }
+}
+
+@media screen and (max-width:$mobileScreen),
+(max-width: $mobileScreenPotrait) {
+    .btn-send {
+        width: 100%;
+        display: block;
+        height: 50px;
+        background-color: $grey-color;
+    }
+    .searchformfld {
+        margin: 5px 0px;
+        width: 17.4rem;
+    }
+    .searchformtop {
+        width: 220px !important;
+        height: 50px !important;
+    }
+    .searchinputtop {
+        width: 220px !important;
+        height: 50px !important;
+        border: none;
+        margin-top: 10px;
+        padding: 0;
+    }
+    .searchTopIcon {
+        position: absolute;
+        filter: invert(1);
+        margin: 22px;
+        padding: 0px 3px;
+        width: 30px;
+        height: 25px;
+        left: 70%;
+    }
+    .searchinput {
+        height: 44px;
+        font-weight: bold;
+        width: 100%;
+        font-size: $size-08;
+        padding-left: 14px;
+        border-radius: 5px !important;
+        @include font-Arial();
+        &::-webkit-input-placeholder {
+            color: $placeholder-grey;
+        }
+        &:-moz-placeholder {
+            color: $placeholder-grey;
+        }
+        &::-moz-placeholder {
+            color: $placeholder-grey;
+        }
+        &:-ms-input-placeholder {
+            color: $placeholder-grey;
+        }
+        &:disabled {
+            background-color: #f9f9f9;
+        }
+    }
+    .internalstaffModal {
+        .modal-dialog {
+            border: none;
+            .modal-content {
+                left: 0.1rem;
+                border: none;
+            }
+        }
+    }
+    .appScaleLevel {
+        .internalstaffModal {
+            top: -3rem;
+            left: 0.1rem;
+            .modal-content {
+                border-bottom-left-radius: 14px;
+                border-bottom-right-radius: 14px;
+                height: fit-content !important;
+            }
+            .modal-dialog {
+                border: none;
+                top: 3rem;
+            }
+        }
+        .modal-header {
+            display: block;
+            h4 {
+                width: 14rem;
+            }
+        }
+        .closeIcon {
+            &.internalStaff-close {
+                position: absolute;
+                right: 17px;
+                top: 19px;
+            }
+        }
+    }
+    .tableIcon {
+        width: 2rem;
+    }
+}

@@ -1,0 +1,130 @@
+@import "../../../../shared/styles/variables.scss";
+.custom-control-input:checked ~ .custom-control-label::before {
+    background-color: #545859;
+}
+.custom-control-input:checked ~ .custom-control-label.gray::before {
+    background-color: #fff;
+}
+.custom-control-input:checked ~ .custom-control-label::before {
+    color: #fff;
+    border-color: #545859;
+}
+.custom-radio .custom-control-input:checked ~ .custom-control-label::after {
+    background-color: #545859 !important;
+    border-radius: 50%;
+}
+.menuContainer {
+    @include font-MyriadReg();
+    font-size: 0.8rem;
+    label {
+        color: $black-color;
+    }
+}
+
+.menuContainer {
+    .custom-control {
+        font-size: 0.7rem !important;
+    }
+    .custom-control-label::before {
+        top: 0 !important;
+    }
+    .custom-control-label::after {
+        top: 0 !important;
+    }
+}
+
+.headerTitle {
+    position: relative;
+    right: 7px;
+}
+
+.resetIconspan {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border: 1px solid #000;
+    border-radius: 0.28rem;
+    opacity: 1;
+    height: 2rem;
+    width: 2rem;
+    color: black;
+    margin-right: 1rem;
+    cursor: pointer;
+    display: flex;
+    img {
+        height: 100%;
+        width: 100%;
+        padding: 0.4rem;
+    }
+}
+
+.searchIconspan {
+    background-color: #545859;
+    border-radius: 0.28rem;
+    padding: 6px;
+    height: 2rem;
+    width: 2rem;
+    cursor: pointer;
+    display: flex;
+    img {
+        height: 100%;
+        width: 100%;
+    }
+}
+
+.searchIcon {
+    border-radius: 3px;
+    opacity: 1;
+    background: 0% 0% no-repeat padding-box;
+    height: 1.4rem;
+}
+
+.appScaleLevel header .SearchBox {
+    margin: 18px auto;
+}
+
+/* OOTB Styles */
+
+.productSearchBox {
+    color: #545859;
+    z-index: 10;
+    display: block;
+    margin-right: 0.8rem;
+
+    .searchTextBox {
+        position: relative;
+        border: 1px solid #c8c9c7;
+        border-radius: 4px;
+        height: 40px;
+    }
+    label {
+        display: flex;
+        align-content: stretch;
+        margin: 0;
+        padding-top: 6px;
+        padding-inline-end: 6px;
+        padding-bottom: 6px;
+        padding-inline-start: 10px;
+        .headerTitle {
+            font-size: 1.1rem !important;
+        }
+        input {
+            background: none;
+            border: none;
+            outline: none;
+            display: block;
+            flex-basis: 98%;
+            height: 27px;
+            color: currentColor;
+            border-radius: 4px;
+            z-index: 20;
+        }
+        &:not(.dirty) cx-icon.reset {
+            display: none;
+        }
+    }
+}
+
+.searchResetIcons {
+    position: absolute;
+    display: flex;
+    top: 12.85rem;
+}

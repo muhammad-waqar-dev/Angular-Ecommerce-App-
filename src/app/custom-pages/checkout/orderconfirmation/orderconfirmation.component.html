@@ -1,0 +1,170 @@
+<ng-template #loading>
+  <div class="cx-spinner w-100">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>
+<div *ngIf="!(isLoading$ | async); else loading">
+  <div class="w-100 text-center">{{ placeOrderErrorMessage }}</div>
+  <div class="orderConfirmationDetails">
+    <div class="col-md-10 mt-5">
+      <div class="transactionFailMessage mb-3" *ngIf="orderSummaryData?.paymentTransactionInfo?.entry?.transactionStatus == 'FAIL'">
+        <p class="mb-0">Your payment is incomplete.</p>
+        <p class="mb-0">Please contact our Accounts Receivable team on 1300 728 886</p>
+      </div>
+      <div class="orderThanksText">
+        <p class="mb-2">
+          <b
+            >{{ orderConfirmation?.thankText }}
+            {{ orderSummaryData?.orgCustomer?.firstName }}</b
+          >
+        </p>
+        <hr />
+        <p class="mt-3 mb-0">{{ orderConfirmation?.thankMessage }}</p>
+       
+      </div>
+      <div
+        class="orderThanksText"
+        *ngIf="orderSummaryData?.deliveryMode?.code == 'Pick Up'"
+      >
+        <p class="mb-2">
+          <b>{{ orderConfirmation?.pickingOrder }}</b>
+        </p>
+        <hr />
+        <p class="mt-3 mb-1">{{ orderConfirmation?.pickingOrderMessage }}</p>
+        
+      </div>
+
+      <div class="row productHeader" *ngIf="!isMobile">
+        <div class="col-md-3 col-sm-12">
+          <p class="pl-0">{{ orderDeliveriesConstants?.productNoTh }}</p>
+        </div>
+        <div class="col-md-4 col-sm-12">
+          <p class="pl-0">
+            {{ orderDeliveriesConstants?.productDescriptionTh }}
+          </p>
+        </div>
+        <div class="col-md-1 col-sm-12">
+          <p class="pl-0">Qty</p>
+        </div>
+        <div class="col-md-2 col-sm-12">
+          <p class="pl-0">{{ orderDeliveriesConstants?.unitPriceTh }}</p>
+        </div>
+        <div class="col-md-2 col-sm-12">
+          <p class="pl-0">{{ orderDeliveriesConstants?.subTotalTh }}</p>
+        </div>
+        <hr />
+      </div>
+      <div
+        *ngFor="let item of orderSummaryData.entries; let i = index"
+        class="row mb-3 productItem">
+        <div class="col-md-3 col-sm-12 m-productData">
+          <p class="pl-0" *ngIf="isMobile">
+            {{ orderDeliveriesConstants.productNoTh }}
+          </p>
+          <p>{{ item?.product?.code }}</p>
+        </div>
+        <div class="col-md-4 m-productData">
+          <p class="pl-0" *ngIf="isMobile">
+            {{ orderDeliveriesConstants?.productDescriptionTh }}
+          </p>
+          <div class="productDesc orderProductDesc d-flex">
+                <div class="cx-image-container">
+                    <cx-media *ngIf="item?.product?.images?.length <= 0" [container]="item?.product?.images?.PRIMARY" format="cartIcon"></cx-media>
+                    <img *ngIf="item?.product?.images?.length > 0" [src]="item?.product?.images[0]?.url" />
+                </div>
+            <div class="productContent">
+              <p class="mb-2">{{ item?.product?.name }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-1 col-sm-12 m-productData">
+          <p class="pl-0" *ngIf="isMobile">Qty</p>
+          <p>{{ item?.quantity }}</p>
+        </div>
+        <div class="col-md-2 col-sm-12 m-productData">
+          <p class="pl-0" *ngIf="isMobile">
+            {{ orderDeliveriesConstants?.unitPriceTh }}
+          </p>
+          <p>{{ item?.product?.price?.formattedValue }}</p>
+        </div>
+        <div class="col-md-2 col-sm-12 m-productData">
+          <p class="pl-0" *ngIf="isMobile">
+            {{ orderDeliveriesConstants.subTotalTh }}
+          </p>
+          <p>{{ item?.subTotal?.formattedValue }}</p>
+        </div>
+      </div>
+      <div class="confirmOrderSum mt-5">
+        <div class="orderThanksText">
+          <p class="mb-2">
+            <b>{{ orderConfirmation?.orderSummaryText }}</b>
+          </p>
+          <hr />
+          <p
+          class="mt-1 mb-0"
+          *ngIf="orderSummaryData?.deliveryMode?.code !== 'Pick Up'"
+        >
+          Your Reference:
+          <span class="orderRefNum">{{
+            orderSummaryData?.purchaseOrderNumber
+          }}</span>
+        </p>
+        <p
+          class="mt-1"
+          *ngIf="orderSummaryData?.deliveryMode?.code !== 'Pick Up'"
+        >
+        Delivery Address:
+          <span class="orderRefNum">{{
+            orderSummaryData?.deliveryAddress?.formattedAddress
+          }}</span>
+        </p> 
+        <p class="mt-1 mb-0" *ngIf="orderSummaryData?.deliveryMode?.code == 'Pick Up'">
+          Your Reference:
+          <span class="orderRefNum">{{
+            orderSummaryData?.purchaseOrderNumber
+          }}</span>
+        </p>
+        <p class="mt-1" *ngIf="orderSummaryData?.deliveryMode?.code == 'Pick Up'">
+          Delivery Address:
+          <span class="orderRefNum">{{
+            orderSummaryData?.deliveryAddress?.formattedAddress
+          }}</span>
+        </p>
+       
+          <p class="mt-3 mb-0 orderCal">
+            {{ orderConfirmation.subtotalText }}
+            <span>{{ orderSummaryData?.subTotal?.formattedValue }}</span>
+          </p>
+          <p
+            *ngIf="orderSummaryData?.deliveryMode?.code == 'Delivery'"
+            class="mt-2 mb-0 orderCal"
+          >
+            {{ orderConfirmation.frieghtText }}
+            <span>{{ orderSummaryData?.deliveryCost?.formattedValue }}</span>
+          </p>
+          <p class="mt-2 mb-0 orderCal">
+            {{ orderConfirmation.GSTText }}
+            <span>{{ orderSummaryData?.totalTax?.formattedValue }}</span>
+          </p>
+          <b><p class="mt-2 orderCal">
+            {{ orderConfirmation.totalText }}
+            <span>{{
+              orderSummaryData?.totalPriceWithTax?.formattedValue
+            }}</span>
+          </p></b>
+        </div>
+      </div>
+      <div class="orderThanksText">
+        <p class="mb-2">
+          <b>{{ orderConfirmation?.termsText }}</b>
+        </p>
+        <hr />
+        <p class="mt-3 termsText">
+          <a [href]="orderConfirmation.termsURL" target="_blank">{{
+            orderConfirmation?.termLinkText
+          }}</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

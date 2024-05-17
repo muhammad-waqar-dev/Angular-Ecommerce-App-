@@ -1,0 +1,37 @@
+<hr>
+<div class="d-flex align-items-center" *ngIf="!(isLoading$ | async)">
+    <div class="col-md-2">
+        <cx-media [container]="siteLogoData?.media"></cx-media>
+    </div>
+    <div class="col-md-6">
+        <p [innerHTML]="paragraphData?.content"></p>
+
+    </div>
+    <div class="col-md-2">
+        <p class='contactparagraph'>
+            <img src="./assets/images/socialmedia_icons/phone-icon.svg">
+            <a class='contact' [href]="callTo()">{{contactInfo?.content}}</a>
+        </p>
+    </div>
+
+    <div class="col-md-2">
+        <div class="container socialMediaIcons">
+            <a href="https://www.facebook.com/fletcherinsulation/?fref=ts" target="_blank">
+                <img src="./assets/images/socialmedia_icons/fb-icon.svg">
+            </a>
+            <a href="https://www.instagram.com/fletcherinsulation" target="_blank">
+                <img src="./assets/images/socialmedia_icons/insta-icon.svg">
+            </a>
+            
+            <a href="https://www.youtube.com/channel/UCKkKSg_aJArhdVUIMutWIeg" target="_blank">
+                <img src="./assets/images/socialmedia_icons/youtube-icon.svg">
+            </a>
+
+            <a href="https://www.linkedin.com/company/fletcher-insulation" target="_blank">
+                <img src="./assets/images/socialmedia_icons/in-icon.svg">
+            </a>
+            
+        </div>
+    </div>
+
+</div>

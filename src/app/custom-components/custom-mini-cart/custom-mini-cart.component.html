@@ -1,0 +1,28 @@
+<div class="miniCartStyle d-flex align-items-center justify-content-center align-middle" >
+    <a class="d-flex align-items-center justify-content-center align-middle cart-link" [ngClass]="!(isCartEmpty$ | async) ? 'd-cart' : ''" (click)=toggleMenu()>
+        <cx-icon [type]="iconTypes.CART" *ngIf="!isMobile"></cx-icon>
+        <img src="assets/images/mobile/shopping-cart.svg" alt="Search Icon" *ngIf="isMobile" class="m-cartIcon" />
+        <span class="quantity" *ngIf="quantity$ | async as quantity" [ngClass]="quantity > 9 ? 'd-quantity' : ''">
+            {{ quantity }}
+        </span>
+    </a>
+        <ul  class="cart-preview" [class]="isShowMenu ? 'show-menu' : 'hide-menu'">
+            <div class="cartView">
+                <app-cart></app-cart>
+            </div>
+
+            <div class="buttons-container d-flex p-4">
+                <a routerLink="/cart">
+                    <button class="btn add-more mb-4" (click)="toggleMenu()">
+                        View Cart
+                    </button>
+                </a>
+                <a routerLink="/place-order">
+                    <button class="btn review-order" (click)="toggleMenu()">
+                        Review your order
+                    </button>
+                </a>
+            </div>
+        </ul>
+    
+</div>

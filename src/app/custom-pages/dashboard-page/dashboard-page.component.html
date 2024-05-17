@@ -1,0 +1,61 @@
+<div class="container-fluid py-4" *ngIf="!showDetailsPage && !showOrderDetailsPage">
+    <div class="col-12 px-md-5">
+        <h2 class="page-heading">{{dashboardPageConstants.mydashboardLabel}}</h2>
+
+        <app-accounts-credit-payment class="ml-md-2" (graphDataLoad)="paymentGraphLoad($event)"></app-accounts-credit-payment>
+
+        <hr class="mt-4">
+        <div class="row">
+
+            <div class="col-md-12 mt-4 mb-4 d-flex justify-content-between listing-container">
+                <span><b>Recent Orders & Deliveries</b></span>
+                <span class="navigation-text" (click)="navigateToAllOrders()">All Orders & Deliveries</span>
+            </div>
+
+            <div class="prodDiv-w-3-col d-flex flex-wrap justify-content-md-start justify-content-center">
+                <app-dashboard-order-delivery-item-grid class="my-team-card mb-4" *ngFor="let order of ordersCreatedDate; let i = index"
+                [order]="order" [index]="i" (click)="onCardClickOrder(order)"></app-dashboard-order-delivery-item-grid>
+            </div>
+
+            <br/>
+
+            <div class="prodDiv-w-3-col d-flex flex-wrap justify-content-md-start justify-content-center">
+                <app-dashboard-order-delivery-item-grid class="my-team-card mb-4" *ngFor="let order of ordersDeliveryDate; let i = index"
+                [order]="order" [index]="i" (click)="onCardClickOrder(order)"></app-dashboard-order-delivery-item-grid>
+            </div>
+        </div>
+
+
+
+        <hr class="mt-4">
+        <div class="row">
+
+            <div class="col-md-12 mt-4 mb-4 d-flex justify-content-between  listing-container">
+                <span><b>Quotes Due to Expire</b></span>
+                <span class="navigation-text" (click)="navigateToAllQuotes()">All Quotes</span>
+            </div>
+
+            <div class="prodDiv-w-3-col d-flex flex-wrap justify-content-md-start justify-content-center">
+                <app-dashboard-quote-item-grid class="my-team-card mb-4" *ngFor="let quote of quotes; let i = index"
+                [quote]="quote" [index]="i" (click)="onCardClickQuote(quote)"></app-dashboard-quote-item-grid>
+            </div>
+        </div>
+
+        <hr class="mt-4">
+        <app-whyfi [isDashboard]="true"></app-whyfi>
+    </div>
+</div>
+
+<!-- quote details  -->
+<div *ngIf="showDetailsPage">
+    <div class="col form-wrapper mt-4">
+        <app-quote-details [data]="quoteDetails" [isFromDashboard]="true" (navigateQuote)="navigateBackQuote()"></app-quote-details>
+    </div>
+</div>
+
+<!-- order deliveries details  -->
+<div *ngIf="showOrderDetailsPage">
+    <div class="col form-wrapper mt-4">
+        <app-order-delivery-details [data]="orderDetails" [isFromDashboard]="true" (navigateOrder)="navigateBackOrders()"></app-order-delivery-details>
+    </div>
+</div>

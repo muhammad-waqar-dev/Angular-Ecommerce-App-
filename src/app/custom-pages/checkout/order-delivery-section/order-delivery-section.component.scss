@@ -1,0 +1,36 @@
+@import "../../../../app/shared/styles/form.scss";
+.section-heading {
+    font-size: 0.95rem;
+    @include font-Arial();
+    p {
+        font-weight: bold;
+        color: $heading-dark-grey;
+        border-bottom: 1px solid $disabled-grey;
+        padding-bottom: 0.4rem;
+        margin-bottom: 1.7rem;
+    }
+}
+
+ul {
+    &.dropdown-menu{
+        &.dropdown-menu-end{
+            &.deliveryAddressDropdown{
+                &.show{
+                    &.address-list-overflow{
+                        overflow-y: scroll;
+
+                        height: 40rem;
+                    
+                        box-sizing: border-box;
+                    
+                        overflow-x: hidden;
+                        li{
+                            width:41.4vw !important;
+                        }
+                    }
+                    
+                }
+            }
+        }
+    }
+}

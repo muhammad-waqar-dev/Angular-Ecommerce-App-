@@ -1,0 +1,58 @@
+<ng-container *ngIf="!(isLoading$ | async);else loading">
+    <div class="col form-wrapper mt-4" *ngIf="permissionAllowed && !isLoading;else permissionDeniedMessage">
+        <div *ngIf="isMobile" class="mobilePageTitleContainer d-flex flex-fill align-items-center mt-2 text-center">
+            <a [routerLink]="'/asset-library'"><i class="fa fa-chevron-left"></i></a>
+            <div class="flex-fill "><label>EDM/Social</label></div>
+        </div>
+
+        <div class="mediaParentContainer d-flex flex-column" *ngIf="!(isLoading$ | async)">
+            <!--Facebook Section Starts-->
+            <div class="template">
+                <h3>Facebook Templates</h3>
+                <div class="d-flex flex-wrap align-content-start justify-content-between ml">
+                    <div class="justify-content-center align-items-center imgWrapper"
+                        *ngFor=" let FBImage of FBTemplateComponentList; let i = index ">
+                        <a [href]="getImagePath(FBImage.media.desktop.url)" target="_blank">
+                            <cx-media [container]="FBImage.media.desktop"></cx-media>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!--Facebook Section Ends -->
+            <div class="template">
+                <h3>YouTube Templates</h3>
+                <div class="d-flex flex-wrap align-content-start justify-content-start ml">
+                    <div class="justify-content-center align-items-center imgWrapper"
+                        *ngFor=" let YTImage of YTTemplateComponentList; let i = index ">
+                        <a [href]="getImagePath(YTImage.media.desktop.url)" target="_blank">
+                            <cx-media [container]="YTImage.media.desktop"></cx-media>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--Instagram Templates-->
+            <div class="template">
+                <h3>Instagram Templates</h3>
+                <div class="d-flex flex-wrap align-content-start justify-content-between ml">
+                    <div class="justify-content-center align-items-center imgWrapper"
+                        *ngFor=" let INImage of INTemplateComponentList; let i = index ">
+                        <a [href]="getImagePath(INImage.media.desktop.url)" target="_blank">
+                            <cx-media [container]="INImage.media.desktop"></cx-media>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mb-4"></div>
+    </div>
+</ng-container>
+<ng-template #permissionDeniedMessage>
+    <app-accesspermissionmessage></app-accesspermissionmessage>
+</ng-template>
+<ng-template #loading>
+    <div class="cx-spinner">
+        <cx-spinner></cx-spinner>
+    </div>
+</ng-template>

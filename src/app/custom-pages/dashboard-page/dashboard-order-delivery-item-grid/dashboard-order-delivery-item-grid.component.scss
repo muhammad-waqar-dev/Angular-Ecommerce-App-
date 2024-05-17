@@ -1,0 +1,5 @@
+@import "../../../shared/styles/variables.scss";
+@import "../../../shared/styles/card.scss";
+::ng-deep.orderDeliveryCardDiv {
+    height: 23rem !important;
+}

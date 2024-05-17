@@ -1,0 +1,126 @@
+<form  [formGroup]="myTeamForm" class="formView">
+    <div class="card">
+        <div class="pl-3 d-flex align-items-center card-title text-white">
+            {{ myTeam.nameLabel }}: <b class="ml-1">{{ user.name }}</b>
+        </div>
+        <div class="d-flex">
+            <div class="col-lg-6 col-md-6 d-flex align-items-center pl-3">
+                {{ myTeam.statusLabel }}: 
+                <b>
+                    <span *ngIf="user.accountStatus === 'ACTIVE'" class="pl-1"> Active</span>
+                    <span *ngIf="user.accountStatus !== 'ACTIVE'">Expired</span>
+                </b>
+            </div>
+            <div class="col-lg-6 col-md-6 text-right">
+                <img *ngIf="user.accountStatus === 'ACTIVE'" [src]="'assets/images/active.PNG'" />
+                <img *ngIf="user.accountStatus !== 'ACTIVE'" [src]="'assets/images/expired-icon.png'" />
+            </div>
+        </div>
+        <hr class="m-3" />
+
+        <div class="d-flex">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-3">
+                <div class="form-group searchformfld">
+                    <input type="email" attr.id="emailAddress-{{index}}" class="form-control noEvents" placeholder=" "
+                        value="{{user.uid}}" formControlName="emailAddress" />
+                    <label for="emailAddress">Email*</label>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-3">
+                <div class="form-group searchformfld">
+                    <input type="tel" attr.id="phone-{{index}}" class="form-control noEvents" placeholder=" "
+                        value="{{user.phoneNumber}}" formControlName="phoneNumber" />
+                    <label for="phone">Phone</label>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-3">
+                <div class="form-group searchformfld">
+                    <input type="text" attr.id="jobTitle-{{index}}" class="form-control" placeholder=" "
+                        value="{{user.jobTitle}}" formControlName="jobTitle" />
+                    <label for="emailAddress">Job Title</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- permissions section -->
+        <div class="d-flex mt-4">
+            <div class="pl-3 d-flex align-items-center col-lg-12 col-md-12">
+                <b>{{ myTeam.permissionLabel }}</b>
+            </div>
+        </div>
+
+        <!-- loop for permission -->
+        <div class="d-flex mt-3" *ngFor="let permission of user.modulePermissions | sort:'asc':'sequence'" >
+            <div class="col-lg-6 col-md-6 col-8">
+                <label class="" for="orderDeliveries">{{
+                    permission.name
+                    }}</label>
+            </div>
+            <div class="col-lg-6 col-md-6 col-4 custom-control custom-switch d-inline d-flex justify-content-end"
+                id="orderDeliveries">
+                <input type="checkbox" [disabled]="true" class="custom-control-input" attr.id="{{permission.code}}-{{index}}"
+                    [checked]="permission.selected" name="{{permission.code}}-{{index}}" value="" />
+                <label class="custom-control-label mr-2" for="{{permission.code}}-{{index}}"></label>
+            </div>
+        </div>
+
+        <div class="d-flex cardCal" [ngClass]="isMobile ? 'mt-2' : 'mt-4'">
+            <div class="col-lg-6 col-md-6">
+                <label class="" for="orderDeliveries">Valid From</label>
+            </div>
+            <div class="col-lg-6 col-md-6 custom-control custom-switch d-inline d-flex justify-content-end"
+                id="datepicker1">
+                <div class="form-group">
+                    <div class="input-group d-flex input-group-sm" (click)="d2.toggle()">
+                        <input class="form-control datepicker-control" placeholder="DD/MM/YYYY" name="dp1" ngbDatepicker
+                            #d2="ngbDatepicker" formControlName="validFrom">
+                        <div class="input-group-append">
+                            <img class="from-calendar" src="assets/images/calendar-icon.svg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex cardCal" [ngClass]="isMobile ? 'mt-2' : 'mt-3'">
+            <div class="col-lg-6 col-md-6">
+                <label class="" for="orderDeliveries">Valid To</label>
+            </div>
+            <div class="col-lg-6 col-md-6 custom-control custom-switch d-inline d-flex justify-content-end"
+                id="datepicker2">
+                <div class="form-group">
+                    <div class="input-group d-flex input-group-sm" (click)="d1.toggle()">
+                        <input class="form-control datepicker-control" placeholder="DD/MM/YYYY" name="dp2"
+                            ngbDatepicker #d1="ngbDatepicker" formControlName="validTo">
+                        <div class="input-group-append">
+                            <img class="from-calendar" src="assets/images/calendar-icon.svg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="separator d-flex">
+        </div>
+        <div class="d-flex">
+            <div class="col-md-12"><p>Request to</p></div>
+            
+        </div>
+        <div class="d-flex buttons-container">
+            
+            <div class="col-lg-6 col-md-6 pr-4 mt-4 mb-4 ">
+                
+                <app-remove-team-member [user]="user" (removeMember)="onRemoveTeamMemberConfirmed()"></app-remove-team-member>
+                
+            </div>
+            <div class="col-lg-6 col-md-6 pl-4 mt-4 mb-4">
+                <button class="btn btn-block font-weight-bold text-white light-gray-bg" (click)="openUpdateModal(user)">
+                    Update
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

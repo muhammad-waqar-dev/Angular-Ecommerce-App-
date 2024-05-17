@@ -1,0 +1,41 @@
+<ng-template #internalStaffContent let-modal>
+    <div>
+        <div class="modal-header modal-head">
+            <h4 class="font-weight-bolder pt-3 mt-3">
+                <img class="popup-logo" src="assets/images/favLogo.png">
+            </h4>
+            <ng-container *ngIf="(showCloseButton$ | async)">
+                <img src="assets/images/Popup_close.svg" alt="close" class="closeIcon internalStaff-close" (click)="closePopup()" />
+            </ng-container>
+        </div>
+        <ng-container>
+            <div class="modal-body">
+                <form (ngSubmit)="submit()" [formGroup]="searchForm" class="mt-1 " autocomplete="off">
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-10">
+                            <p>Please enter your Customer Account Number to search</p>
+                        </div>
+                    </div>
+                    <div class="form-group searchformfld mb-3">
+                        <img class="searchIcon" src="assets/images/search_icon.svg ">
+                        <input type="tel" OnlyNumeric class="searchinput" placeholder="Enter here" formControlName="orderNumber" minlength="6" maxlength="8" (keyup)="onKeyup()" />
+                        <!-- <label for="the_phoneNumber">Enter </label> -->
+
+                        <span class="help-block text-danger font-smaller" *ngIf="!searchForm.get('orderNumber').valid && submitted">
+                            Please enter a valid customer account number
+                        </span>
+                        
+                        <span class="help-block text-danger font-smaller" *ngIf="isValidNumber && isError">{{error}}</span>
+                    </div>
+                    <div class="form-group searchformfld row">
+                        <button type="submit" class="btn btn-send font-weight-bold  text-white float-right mb-3">
+                            {{ buttonLabels.search | uppercase}}
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </ng-container>
+    </div>
+</ng-template>

@@ -1,0 +1,181 @@
+@import "../../../shared/styles/variables.scss";
+@import "../../../../app/shared/styles/form.scss";
+
+.desktop-order-details {
+    @include font-Arial();
+    table {
+        thead {
+            th {
+                text-transform: capitalize;
+                font-size: 16px;
+            }
+        }
+    }
+    .details {
+        table {
+            thead {
+                th {
+                    text-align: left;
+                    width: 12%;
+                    text-align: left;
+                    color: white;
+                    background-color: $background-grey;
+                    vertical-align: middle;
+                    text-transform: capitalize;
+                    font-size: 16px;
+                    padding: 15px;
+                    &:first-child {
+                        border-radius: 4px 0 0 4px;
+                    }
+                    &:last-child {
+                        border-radius: 0 4px 4px 0;
+                    }
+                }
+            }
+            tbody {
+                tr {
+                    td {
+                        padding: 15px;
+                    }
+                    border-bottom: none!important;
+                }
+            }
+        }
+        .pdf-icon {
+            width: 25px;
+        }
+    }
+}
+
+.pdf-content {
+    padding: 20px 0 20px 0;
+    margin: 50px 0 0 0;
+    border-top: 1px solid $disabled-grey;
+    .invoice, .pod {
+        padding: 0 15px;
+        text-align: center;
+        p {
+            color: $heading-dark-grey;
+            margin-bottom: 0;
+            padding-top: 5px;
+        }
+        a {
+            color: $heading-dark-grey;
+            text-decoration: none;
+        }
+    }
+}
+
+.mobile-order-details {
+    @include font-Arial();
+    .purchase-order-info {
+        .head-dark {
+            color: white;
+            background-color: $background-grey;
+            height: 63px;
+            padding: 15px;
+            border-radius: 4px;
+            p {
+                line-height: 35px;
+                font-size: 15px;
+            }
+        }
+    }
+    p {
+        margin-bottom: 0;
+    }
+}
+
+.left-side {
+    width: 35%;
+}
+
+.right-side {
+    text-align: left;
+    width: 65%;
+}
+
+
+img {
+    position: relative;
+    &.status {
+        width: 50px;
+        opacity: 0.3;
+        &.active {
+            opacity: 1;
+        }
+        @media screen and (max-width: $mobileScreenPotrait) {
+            width: 30px;
+        }
+    }
+}
+
+.space-border {
+    padding: 20px 0;
+}
+
+.statuses {
+    .status-img {
+        width: 80px;
+        position: relative;
+        text-align: center;
+        @media screen and (max-width: $mobileScreenPotrait) {
+            width: 60px;
+        }
+        &::after {
+            content: '';
+            position: absolute;
+            top: 25%;
+            right: -15px;
+            width: 30px;
+            height: 2px;
+            background: $disabled-grey;
+        }
+        &:last-child {
+            &::after {
+                width: 0;
+            }
+        }
+        p {
+            color: $heading-dark-grey;
+            font-size: 14px;
+            padding-top: 5px;
+            font-weight: 600;
+            margin-bottom: 0;
+            @media screen and (max-width: $mobileScreenPotrait) {
+                font-size: 11px;
+            }
+        }
+    }
+}
+
+.m-backArrow {
+    position: absolute;
+    left: 0rem;
+    top: -1.0rem;
+    color: inherit;
+}
+
+.pdf-icon {
+    width: 20px;
+}
+
+.btns-area {
+    button {
+        width: 190px;
+        float: right;
+    }
+    a {
+        color: $heading-dark-grey;
+        cursor: pointer;
+        position: relative;
+        top: 10px;
+    }
+    @media screen and (max-width: $mobileScreenPotrait) {
+        width: 60%;
+        button {
+            float: none;
+            width: 100%;
+        }
+    }
+}

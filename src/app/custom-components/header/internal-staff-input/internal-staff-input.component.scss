@@ -1,0 +1,58 @@
+@import "../../../shared/styles/variables.scss";
+
+.internal-number-container {
+    width: 35rem;
+    position: absolute;
+    left: 13rem;
+    top: 1rem;
+    .internal-staff-number-block {
+        position: relative;
+        .disabled-searchTextBox {
+            border: 1px solid #c8c9c7;
+            border-radius: 4px;
+            padding: 0.3rem 1rem 0.3rem 1rem;
+            width: 20rem;
+            .disabled-number-input {
+                width: 100%;
+                border: none;
+            }
+        }
+        .searchIcon {
+            position: absolute;
+            padding: 0.4rem;
+        }
+    }
+    .change-account-btn {
+        position: relative;
+        width: 11rem;
+        border-radius: 4px;
+        box-sizing: border-box;
+        align-items: center;
+        text-align: center;
+        padding-top: 0.4rem;
+        left: 0.5rem;
+        background-color: #bebdbe;
+        button {
+            border: none;
+            background-color: #bebdbe;
+        }
+    }
+}
+
+@media screen and (max-width: $mobileScreenPotrait) {
+    .internal-number-container {
+        left: 1rem;
+        flex-direction: column;
+        .internal-staff-number-block {
+            padding: 0.3rem 0.5rem 0.3rem 0.5rem;          
+            .disabled-searchTextBox {
+                width: 15.5rem;
+            }
+        }
+        .change-account-btn {
+            top: 1rem;
+            left: 0rem;
+            width: 15.5rem;
+        }
+    }
+}

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>FB</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Customer-Service-Dropdown" transform="translate(-1093.000000, -304.000000)">
+            <g id="FB" transform="translate(1093.000000, 304.000000)">
+                <circle id="Oval" fill="#545859" cx="16" cy="16" r="16"></circle>
+                <g id="facebook-f-brands" transform="translate(10.000000, 6.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                    <path d="M10.2791554,11.55 L10.8495733,7.83394792 L7.2830574,7.83394792 L7.2830574,5.42248438 C7.2830574,4.40584375 7.78127051,3.41486979 9.37860112,3.41486979 L11,3.41486979 L11,0.251052083 C11,0.251052083 9.52862665,0 8.12183648,0 C5.18470571,0 3.26486033,1.77982292 3.26486033,5.00179167 L3.26486033,7.83394792 L0,7.83394792 L0,11.55 L3.26486033,11.55 L3.26486033,20.5333333 L7.2830574,20.5333333 L7.2830574,11.55 L10.2791554,11.55 Z" id="Path"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

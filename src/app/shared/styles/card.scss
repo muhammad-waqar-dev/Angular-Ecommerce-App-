@@ -1,0 +1,131 @@
+@import "../styles/variables.scss";
+::ng-deep.orderDeliveryCardDiv {
+    box-shadow: 0.4rem 0.2rem 0.6rem rgb(0 0 0 / 30%);
+    border-radius: 0.55rem;
+    margin-bottom: 2rem;
+    height: auto;
+    .card {
+        border: 0;
+        .card-header {
+            background-color: $background-grey;
+            border-radius: 0.25rem;
+            height: 4rem;
+            padding: 0.75rem 0.8rem;
+            padding-right: 0;
+            label {
+                font-weight: 400;
+                margin-top: 0.7rem;
+                font-size: 1.063rem;
+
+                span {
+                    font-weight: 600;
+                    width: 61%;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    position: relative;
+                    white-space: nowrap;
+                }
+            }
+        }
+        .card-body {
+            position: relative;
+            padding: 20px 11px;
+            label {
+                font-weight: 400;
+                font-size: 0.938rem;
+                color: #595959;
+
+                span {
+                    font-weight: 800;
+                    display: inline-block;
+                }
+                .quoteStatusValue::first-letter {
+                    text-transform: uppercase;
+                 }
+            }
+            .statusImgWrapper {
+                text-align: center;
+                img {
+                    display: block;
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+            }
+            .separatorSpan {
+                margin: 0rem 0.9rem;
+                margin-left: 0.5rem;
+                border: 1px solid #C8C9C7;
+                opacity: 0.4;
+            }
+        }
+    }
+    .statusImgWrapper img {
+        width: 5rem;
+        margin-top: 3rem !important;
+        margin-bottom: 3rem !important;
+    }
+}
+
+.deliveryDate {
+    font-size: 0.92rem;
+}
+
+.deliveryInfo {
+    font-size: 1rem;
+}
+.card-body p {
+    font-size: 1rem;
+}
+.checkbox-custom {
+    margin-top: 0.7rem;
+}
+
+::ng-deep .accountsCard a:before {
+    content: "✓";
+    flex-shrink: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    width: 1.3rem;
+    height: 1.35rem;
+    border-radius: 0.2rem;
+    border: 1px solid var(--cx-color-light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-inline-end: 0.5rem;
+}
+::ng-deep .accountsCard .selected:before {
+    background-color: #fff;
+    border-color: $grey-color;
+    color: $grey-color;
+}
+::ng-deep .accountsCard a {
+    color: transparent;
+}
+.cardHeading {
+    width: 11rem;
+    margin-bottom: 0;
+}
+
+@media screen and (max-width: $mobileScreenPotrait) {
+    ::ng-deep.orderDeliveryCardDiv {
+        .card {
+            .card-header label {
+                font-size: 1.03rem;
+                margin-top: 0.4rem;
+            }
+            .card-body {
+                .separatorSpan {
+                    margin: 0rem 0.3rem;
+                }
+                label,
+                p, .deliveryInfo {
+                    font-size: 0.81rem;
+                }
+            }
+        }
+    }
+    .orderDeliveryCardDiv .card .card-header label span {
+        width: 54%;
+    }
+}

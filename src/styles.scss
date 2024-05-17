@@ -1,0 +1,1131 @@
+/* You can add global styles to this file, and also import other style files */
+//$skipComponentStyles: (header, SiteLinks, cx-media, cx-banner, cx-category-navigation);
+// $styleVersion: 3.2;
+// @import "~@spartacus/styles/index";
+
+@import './styles/styles-config.scss';
+@import "@spartacus/styles/index";
+@import "./app/shared/styles/header.scss";
+@import "./app/shared/styles/Footer.scss";
+
+body cx-storefront {
+    @include font-Arial();
+}
+
+:root {
+    --cx-page-width-max: 94% !important;
+}
+
+/* header styles */
+app-m-header {
+    display: none;
+}
+
+header {
+    .header .SiteLogo {
+        position : relative;
+        width    : auto;
+        min-width: 90px;
+        max-width: 10.7rem;
+        z-index  : 1;
+
+        @media screen and (max-width: $mobileScreenPotrait) {
+            app-accountdropdown {
+                display: none;
+            }
+
+            .totalMenuContainer app-accountdropdown,
+            app-m-header {
+                display: block;
+            }
+        }
+    }
+
+    .SearchBox {
+        position: absolute;
+        top     : 3.3rem;
+        right   : 5rem;
+    }
+}
+
+hr {
+    margin: 0 !important;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.btn-clear-filter {
+    background-color: #DDDDDE !important;
+    max-height: 2.7rem !important;
+    margin-left: 1rem !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+
+.LandingPage2Template .Section1 {
+    // display: none;
+    margin: 0 !important;
+}
+
+.Section3 app-home-mainsection {
+    width         : 26%;
+    flex          : none;
+    padding-right : 2.7rem;
+    padding-bottom: 0.7rem;
+    padding-top   : 1rem;
+
+    .landingTiles {
+        cx-media {
+            width: 104%;
+        }
+    }
+}
+
+.whyFI-banner img {
+    width: 100% !important;
+}
+
+.appScaleLevel {
+    zoom            : 78%;
+    -moz-transform  : scale(0.78);
+    transform-origin: 0 0;
+
+    app-welcometext p {
+        font-size: 1.5rem;
+    }
+
+    .landingTiles a div {
+        padding  : 4% 18% 4% 4% !important;
+        font-size: 1.1rem !important;
+    }
+}
+
+cx-storefront main .landingTiles cx-media img {
+    width        : 100%;
+    overflow     : hidden;
+}
+
+cx-storefront:before {
+    background: rgba(0, 0, 0, 0) !important;
+}
+
+cx-searchbox {
+    label {
+        border          : 1px solid $dark-grey;
+        background-color: $white-color;
+        border-radius   : 0.5rem;
+        color           : $dark-grey;
+        height          : 2.5rem;
+
+        cx-icon.search {
+            visibility: collapse;
+        }
+
+        cx-icon.reset {
+            visibility: collapse;
+        }
+
+        input {
+            height: 1.75rem !important;
+        }
+    }
+}
+
+.MiniCart {
+    position: absolute;
+    top     : 0;
+    right   : 0;
+}
+
+app-accountdropdown {
+    cursor : pointer;
+    z-index: 4;
+}
+
+cx-storefront main app-create-account .imgContainer cx-media img {
+    min-height: 71rem;
+}
+
+.modal-backdrop {
+    width : 100% !important;
+    height: 100% !important;
+    
+}
+
+@-moz-document url-prefix() {
+    .appScaleLevel {
+        width : 128%;
+        height: 145vh;
+    }
+}
+
+cx-storefront header,
+cx-storefront cx-page-slot,
+cx-storefront main {
+    outline: none !important;
+}
+
+// products mobile menu
+.my-custom-modal-close ngb-modal-backdrop {
+    opacity   : 0 !important;
+    visibility: hidden !important;
+}
+
+.my-custom-modal-close ngb-modal-window {
+    z-index   : 0 !important;
+    visibility: hidden !important;
+    display   : none !important;
+}
+
+
+.my-custom-modal-open ngb-modal-backdrop {
+    opacity   : 0.5 !important;
+    visibility: visible !important;
+}
+
+.my-custom-modal-open ngb-modal-window {
+    z-index   : 1150 !important;
+    visibility: visible !important;
+    display   : block !important;
+}
+
+// products mobile menu
+
+.logout-popup,
+.logout-popup+ngb-modal-window {
+    visibility: hidden;
+}
+
+main {
+    cx-page-layout.MultiStepCheckoutSummaryPageTemplate cx-page-slot.BodyContent {
+        flex: 100%;
+    }
+
+    cx-page-layout.MultiStepCheckoutSummaryPageTemplate {
+        padding-left : 0;
+        padding-right: 0;
+    }
+}
+
+.LoginPageTemplate app-accountdropdown {
+    display: none;
+}
+
+@media (min-width: $Largescreen-1600) and (max-width: $ExtraLargeScreen-1920) {
+    .Section3 app-home-mainsection {
+        width: 33%;
+    }
+
+    cx-page-layout.LandingPage2Template {
+        max-width: 1899px !important;
+    }
+}
+
+.cx-spinner {
+    cx-spinner .loader-container {
+        margin-top   : 5rem;
+        margin-bottom: 5rem;
+        width        : 6.5rem;
+        height       : 6.5rem;
+    }
+
+    .loader,
+    .loader::before {
+        width : 6.5rem;
+        height: 6.5rem;
+    }
+
+    .loader::before {
+        border-left-color: $grey-color;
+    }
+}
+
+.cx-spinner-small {
+    cx-spinner .loader-container {
+        // margin-top   : 2rem;
+        // margin-bottom: 2rem;
+        width        : 2.5rem;
+        height       : 2.5rem;
+    }
+
+    .loader,
+    .loader::before {
+        width : 2.5rem;
+        height: 2.5rem;
+        border-width: 6px;
+    }
+
+    .loader::before {
+        border-left-color: $grey-color;
+    }
+}
+
+@media screen and (max-width: $mobileScreenPotrait) {
+    header .SiteContext {
+        padding: 0.5rem 0 0.25rem !important;
+    }
+
+    .appScaleLevel {
+        zoom            : 100%;
+        -moz-transform  : scale(1);
+        transform-origin: 0 0;
+
+        app-welcometext p {
+            font-size: 0.85rem;
+        }
+    }
+
+    .btn-clear-filter {
+        background-color: #DDDDDE !important;
+        max-height: 2.7rem !important;
+        margin-left: 1rem !important;
+        outline: none !important;
+        box-shadow: none !important;
+        height: 2.9rem!important;
+        padding: 0.5rem!important;
+        font-size: 0.95rem!important;
+    }
+
+    .Section3,
+    cx-storefront main .landingTiles cx-media img {
+        width: 100%;
+    }
+
+    .Section3 app-home-mainsection {
+        flex-basis: 100%;
+        padding   : 0;
+    }
+
+    cx-storefront main .landingTiles cx-media,
+    cx-storefront main .landingTiles cx-media img {
+        overflow: visible;
+    }
+
+    cx-page-slot.BottomHeaderSlot {
+        display: none !important;
+    }
+
+    .mobilePageTitleContainer {
+        color    : $grey-color;
+        height   : 3rem;
+        font-size: $font-size-1;
+        position : relative;
+        z-index  : 1;
+
+        a {
+            z-index    : 100;
+            color      : $grey-color;
+            margin-left: 1rem;
+
+            &:visited {
+                color: $grey-color !important;
+            }
+        }
+
+        label {
+            margin-bottom: 0;
+            margin-left  : -3.15rem;
+        }
+    }
+
+    .mediaParentContainer {
+        margin-left : 0.25rem;
+        margin-right: 0.25rem;
+
+        h3 {
+            font-weight   : 600;
+            color         : $grey-color;
+            font-size     : 0.95rem !important;
+            padding-top   : 0.2rem;
+            padding-bottom: 0.6rem;
+        }
+
+        >div {
+            label {
+                font-size     : 1.15rem;
+                padding-top   : 0.2rem;
+                padding-bottom: 0.6rem;
+            }
+
+            margin: 0rem !important;
+
+            .imgWrapper {
+                flex  : 1 1 auto !important;
+                margin: 1rem 1rem imr !important;
+
+                img {
+                    width: 100%;
+                }
+
+                p {
+                    color         : $grey-color;
+                    text-align    : center;
+                    font-size     : 1.15rem !important;
+                    padding-bottom: 1rem !important;
+                }
+            }
+
+            hr {
+                display: block !important;
+            }
+        }
+    }
+
+    .mediaParentContainer>div .imgWrapper.whyFI-img {
+        width: 100%;
+    }
+
+    .cx-spinner {
+        cx-spinner .loader-container {
+            margin-top: 15rem;
+            width     : 4.5rem;
+            height    : 4.5rem;
+        }
+
+        .loader,
+        .loader::before {
+            width       : 4.5rem;
+            height      : 4.5rem;
+            border-width: 0.5rem;
+        }
+    }
+
+    .form-wrapper {
+        padding: 0 !important;
+    }
+
+    .alert {
+        padding-inline-end: 3rem !important;
+
+        .close {
+            right: 1rem !important;
+        }
+
+        .alert-icon+span {
+            font-size: 0.9rem !important;
+        }
+    }
+
+    .orderCalender ngb-datepicker {
+
+        .ngb-dp-day,
+        .ngb-dp-week-number,
+        .ngb-dp-weekday {
+            width : 2.8rem !important;
+            height: 2.8rem !important;
+        }
+    }
+}
+
+cx-product-grid-item cx-media.is-missing {
+    min-height: 214px !important;
+}
+
+.desclimarText {
+    font-size: 0.9rem;
+}
+
+.boldFontMessage {
+    @include font-MyriadReg();
+    font-weight: bold;
+}
+
+.addressText {
+    overflow  : hidden;
+    display   : block;
+    max-height: 4.4rem;
+}
+
+.reqDateErrorText {
+    color         : $red-color;
+    font-size     : 0.9rem;
+    text-transform: lowercase;
+
+    &::first-letter {
+        text-transform: uppercase;
+    }
+}
+
+.breadcrumb {
+    ul {
+        padding   : 0.625rem 0.9375rem;
+        list-style: none;
+
+        li {
+            display  : inline;
+            font-size: 1.125rem;
+
+            a {
+                font-size: 1.125rem;
+                color    : $breadcrumb-grey;
+            }
+
+            ::after {
+                padding: 0.5rem;
+                content: "\003E";
+            }
+
+            &:last-child {
+                ::after {
+                    content: "";
+                }
+
+                a {
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+}
+
+cx-breadcrumb {
+    padding         : 0.625rem 0.9375rem;
+    padding-left    : 0rem;
+    background-color: white !important;
+    width           : 39rem;
+    margin-left     : 0;
+    margin-right    : 4rem;
+    margin-top      : 1.5rem;
+    margin-bottom   : 1.5rem;
+    position        : relative;
+    left            : 2.7rem;
+    max-width       : 94%;
+
+    h1 {
+        display: none;
+    }
+
+    nav {
+        padding-left   : 4rem;
+        text-align     : left;
+        justify-content: left !important;
+
+        span {
+            a {
+                text-decoration: none;
+                font-size      : 1.125rem;
+                color          : $breadcrumb-grey;
+
+                &:hover {
+                    color: $dark-grey;
+                }
+            }
+
+            &:not(:last-child)::after {
+                content: "\003E" !important;
+            }
+
+            &:last-child {
+                font-weight: 600;
+            }
+        }
+    }
+}
+
+cx-page-layout.SearchResultsGridPageTemplate {
+    max-width: var(--cx-page-width-max);
+    margin   : auto;
+    display  : flex;
+}
+
+.productSearchBox .results {
+    @include font-MyriadReg();
+    box-shadow: 0rem 0.1rem 0.7rem #0000004d;
+}
+
+cx-pagination {
+    a {
+        @include font-MyriadReg();
+        border-radius: 0.43rem;
+        margin-left  : 0.45rem;
+        margin-right : 0.45rem;
+        color        : $grey-color;
+    }
+
+    a:first-child {
+        border-radius            : 2rem;
+        border-top-left-radius   : 2rem !important;
+        border-bottom-left-radius: 2rem !important;
+        border                   : 1px solid $dark-grey;
+        height                   : 1.8rem;
+        width                    : 1.8rem;
+        margin-top               : auto;
+        margin-bottom            : auto;
+        margin-right             : 1.5rem;
+        color                    : $dark-grey;
+        position                 : relative;
+        bottom                   : 4px;
+
+        &:disabled {
+            opacity: 0.8;
+        }
+
+        &:hover {
+            background-color: none;
+        }
+    }
+
+    a:last-child {
+        border-radius             : 2rem;
+        border-top-right-radius   : 2rem !important;
+        border-bottom-right-radius: 2rem !important;
+        height                    : 1.8rem;
+        width                     : 1.8rem;
+        margin                    : auto;
+        margin-left               : 1.5rem;
+        position                  : relative;
+        bottom                    : 4px;
+
+        &:disabled {
+            opacity: 0.8;
+        }
+
+        &:hover {
+            color           : $grey-color;
+            background-color: none !important;
+        }
+    }
+
+    a.current {
+        background-color: $dark-grey !important;
+    }
+
+    a.page {
+        background-color: white;
+        border          : 1px solid white !important;
+        border          : 0rem 1rem 0rem 1rem;
+        color           : $grey-color;
+
+        &:hover {
+            border: 1px solid $grey-color;
+        }
+    }
+
+    .pagination a {
+        border: 1px solid $dark-grey !important;
+    }
+}
+
+cx-pagination a.current+a:last-child {
+    border-inline-start: none;
+}
+
+cx-item-counter button {
+    font-size: 1.5rem !important;
+
+    &:hover {
+        color: black !important;
+    }
+}
+
+.ng-select.ng-select-single .ng-select-container {
+    height: 36px !important;
+}
+
+cx-item-counter:disabled,
+cx-item-counter button:disabled {
+    font-size: 1.5rem !important;
+    color    : $box-shadow-grey !important;
+
+    &:hover {
+        color: $box-shadow-grey !important;
+    }
+}
+
+cx-pagination a {
+    width : 35px !important;
+    height: 36px !important;
+
+    &:first-child {
+        margin-right: 1rem;
+        width       : 27px !important;
+        height      : 27px !important;
+        font-size   : 2.7rem;
+        border      : none;
+    }
+
+    &:last-child {
+        margin-left      : 1rem;
+        width            : 27px !important;
+        height           : 27px !important;
+        font-size        : 2.7rem;
+        border           : none;
+        border-inline-end: none !important;
+    }
+}
+
+// Generic Style for All Sub-Pages for Why-FI Screen
+.mediaParentContainer {
+    margin-left : 1.25rem;
+    margin-right: 1.25rem;
+
+    >div {
+        margin-left : 3.3rem;
+        margin-right: 2rem;
+
+        h3 {
+            font-weight   : 600;
+            color         : $grey-color;
+            font-size     : 1.15rem;
+            padding-top   : 1rem;
+            padding-bottom: 1rem;
+        }
+
+        label {
+            padding-top   : 1rem;
+            padding-bottom: 1rem;
+            color         : $grey-color;
+            font-size     : 1.1rem;
+            font-weight   : 600;
+            max-width     : 25rem;
+        }
+
+        .trainingVideosImg {
+            min-width: 27%;
+            max-width: 27%;
+
+            cx-media {
+                img {
+                    width: 100% !important;
+                }
+            }
+
+            a:hover {
+                text-decoration: none;
+            }
+
+            label {
+                cursor   : pointer;
+                max-width: 30rem;
+            }
+        }
+
+        .imgWrapper {
+            padding: 1rem 2rem 1rem 0rem;
+
+            p {
+                margin        : 0rem;
+                padding-top   : 1rem;
+                padding-bottom: 2rem;
+                font-size     : 1.1rem;
+                color         : $grey-color;
+                font-weight   : 600;
+            }
+
+            a:hover {
+                text-decoration: none;
+            }
+        }
+
+        .resourceSqrImageWrapper {
+            margin-right: 6rem;
+
+            label {
+                font-weight: 500;
+                max-width  : 15rem;
+
+                @media screen and (max-width: $mobileScreenPotrait) {
+                    max-width: fit-content;
+                }
+
+                word-spacing   : 2px;
+                cursor         : pointer;
+                text-decoration: none;
+            }
+        }
+
+        hr {
+            display: none;
+        }
+    }
+}
+
+:focus {
+    outline: none !important;
+}
+
+// Style for Cart and OrderSummary
+.show-menu,
+.orderSummaryView {
+
+    .cartHeading,
+    .cartButton,
+    .cartTable .heading,
+    .cartTable hr,
+    .quantity-section .cx-quantity,
+    .orderSummaryItemPrice {
+        display: none !important;
+    }
+
+    .content-container {
+        flex-direction: column;
+        margin-left   : 1rem;
+
+        .cx-quantity {
+            padding-left: 0;
+            display     : flex;
+            align-items : center;
+            margin      : 1rem 0;
+
+            div {
+                display: block !important;
+            }
+
+            .cx-value {
+                margin-left: 1rem;
+
+                cx-item-counter {
+                    max-height: 2.6rem;
+
+                    input {
+                        width: 3rem !important;
+                    }
+                }
+            }
+        }
+
+        .remove-link {
+            position: relative;
+            right   : 0;
+        }
+    }
+
+    .buttons-container .review-order {
+        display: none;
+    }
+
+    .items-col {
+        flex     : 0 0 100%;
+        max-width: 100%;
+    }
+
+    .cartItemList .cx-image-container {
+        min-width: 40%;
+    }
+
+    .page-wrapper {
+        margin-bottom: 0rem !important;
+
+        .cartTable {
+            margin-top: 0rem !important;
+        }
+
+        .cx-remove-btn {
+            justify-content: end;
+        }
+    }
+
+    .qty-label {
+        display: block;
+    }
+
+    .emptyCart a {
+        display: block;
+    }
+}
+
+.cartItemList .orderSummaryItemPrice {
+    display: none !important;
+}
+
+.orderCalender ngb-datepicker {
+
+    .ngb-dp-day,
+    .ngb-dp-week-number,
+    .ngb-dp-weekday {
+        width : 2.5rem !important;
+        height: 2.5rem !important;
+    }
+}
+
+.show-menu {
+    .desclimarText {
+        display: none;
+    }
+}
+
+.orderSummaryView {
+
+    .quantity-section .cx-quantity,
+    .orderSummaryItemPrice {
+        display: block !important;
+    }
+
+    .qty-label,
+    .desclimarText {
+        display: none;
+    }
+
+    .custom-container,
+    .col-md-9.items-col {
+        padding: 0 !important;
+    }
+
+    .cx-quantity.col-3 {
+        display: flex !important;
+    }
+}
+
+.orderBreadCrumb {
+    width        : 100%;
+    display      : block;
+    margin-bottom: 1.3rem;
+
+    a {
+        text-transform: capitalize;
+        color         : inherit;
+        padding       : 5px 5px;
+        font-size     : 1.125rem;
+        color         : #747881;
+
+        &:last-child {
+            font-weight: 600;
+        }
+
+        &:hover {
+            color: inherit;
+        }
+    }
+}
+
+app-customplaceorder {
+    position: relative;
+}
+
+.form-control:focus {
+    background-color: transparent !important;
+}
+
+.btn-light.bg-primary {
+    color           : #212529 !important;
+    background-color: #b7bcc4 !important;
+    border-color    : #b0b5be;
+}
+
+.qty-label {
+    display: none;
+}
+
+.cx-action-link {
+    color          : $black-color !important;
+    text-decoration: underline !important;
+
+    &:hover {
+        color          : $black-color !important;
+        text-decoration: underline !important;
+    }
+}
+
+.alert.alert-info {
+    position        : fixed;
+    width           : 100%;
+    background-color: #e7e7e7;
+}
+
+.capitalize {
+    text-transform: capitalize;
+}
+
+.form-control:disabled, .form-control[readonly] {
+    background-color: #fff !important;
+}
+
+.pageSortDropdown {
+    z-index: 1 !important;
+}
+
+@media (min-width: 768px) {
+
+    .modal-lg,
+    cx-anonymous-consent-dialog .cx-anonymous-consent-dialog {
+        max-width: 729px !important;
+        min-width: 729px !important;
+    }
+}
+
+@media screen and (min-width: $Largescreen-1600) {
+    cx-breadcrumb {
+        left: 4rem;
+    }
+}
+
+app-products {
+    .cx-page {
+        padding-bottom: 61px;
+    }
+}
+
+cx-product-grid-item .cx-product-image {
+    margin: 0 !important;
+}
+
+cx-global-message .alert.alert-danger {
+    display: none;
+}
+
+.LoginPageTemplate {
+    cx-global-message .alert.alert-danger {
+        display: block;
+        margin-top: 0.3rem;
+        padding-top: 1.3rem;
+    }
+}
+
+.serverErrorMsgText {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+/* Searchbox style */
+
+body.has-searchbox-results.searchbox-is-active .productSearchBox {
+    .results {
+        display: block;
+    }
+
+    // the searchbox requires an overlay over the page (except for the header)
+    // we do this with an overlay under the header, on top of the rest of the page
+    header {
+        position: relative;
+        z-index : 100;
+    }
+
+    cx-storefront {
+        &:before {
+            content : "";
+            position: fixed;
+            left    : 0;
+            top     : 0;
+            width   : 100%;
+            height  : 100%;
+            z-index : 10;
+
+            background: rgba(0, 0, 0, 0.5);
+        }
+    }
+
+    &:not(.searchbox-is-active) {
+        @media (max-width: 767.98px) {
+
+            // hide the input on mobile when there's no interaction with searchbox
+            .productSearchBox {
+                input {
+                    // we cannot use display:none, visible:hidden or opacity: 0
+                    // as this will no longer emit a focus event to the controller logic
+                    width  : 0;
+                    padding: 0;
+                }
+
+                cx-icon.reset {
+                    display: none;
+                }
+            }
+        }
+    }
+}
+
+.payment-success, .payment-failure {
+    margin-top: 1rem;
+    display: block;
+    font-size: 0.87rem;
+}
+
+button {
+    &.clear-button {
+        background: transparent;
+        border    : 0;
+    }
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+// payment iframe responce message styling
+body {
+    .paymeny-iframe {
+        .payment-failure {
+            color: $error-text-red-color;
+        }
+    }
+}
+
+//upgrade corrections
+ngb-modal-backdrop.modal-backdrop.fade {
+    opacity: 0.0;
+}
+
+ngb-modal-backdrop {
+    z-index: 1050 !important;
+}
+
+.btn-primary {
+    border: 0;
+}
+
+.btn{
+    font-weight: 100;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active {
+    color: #fff;
+    background-color: #fe5757;
+    border-color: #fe5757;
+}
+.btn-secondary {
+    color: #fff;
+    background-color: var(--cx-color-secondary);
+    border-color: var(--cx-color-secondary);
+    border-width: 0;
+}
+
+.btn-secondary:hover {
+    background-color: var(--cx-color-secondary);
+    border-color: var(--cx-color-secondary);
+    filter: brightness(calc(84 / 100));
+    color: #fff;
+}
+
+.btn-tertiary {
+    color: #000;
+    padding: 12px 0px;
+    background-color: var(--cx-color-transparent);
+    border-style: none;
+    font-size: var(--cx-font-size, 1rem);
+    text-decoration: underline;
+    width: auto;
+}
+
+.btn-tertiary:hover {
+    background-color: var(--cx-color-transparent);
+    color: #000;
+}
+// .modal-content {
+//     pointer-events: auto !important;
+// }
+
+// .modal-dialog {
+//     pointer-events: auto !important;
+// }
+
+
+cx-page-layout.MultiStepCheckoutSummaryPageTemplate {
+    max-width: var(--cx-page-width-max);
+    padding-top: 2rem;
+    padding-inline-end: 1.5rem;
+    padding-bottom: 0;
+    padding-inline-start: 1.5rem;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start;
+}
+
+cx-link a {
+    text-decoration: none;
+}

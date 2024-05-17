@@ -1,0 +1,3 @@
+<ng-container *ngIf="product$ | async as prodcut">
+  <app-potential-promotions [productCode]="prodcut?.code"></app-potential-promotions>
+</ng-container>

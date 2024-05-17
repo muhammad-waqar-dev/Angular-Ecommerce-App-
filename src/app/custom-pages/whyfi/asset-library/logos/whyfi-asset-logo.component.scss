@@ -1,0 +1,35 @@
+@import "../../../../shared/styles/variables.scss";
+.main-wrapper {
+    margin: 0 auto;
+    width: 95%;
+    .bold {
+        font-weight: bold;
+    }
+}
+::ng-deep .mediaParentContainer > div .imgWrapper img {
+    background-color: #fff;
+}
+::ng-deep .mediaParentContainer > div label {
+    font-weight: 400;
+    color: $heading-dark-grey;
+    font-size: 0.975rem;
+}
+::ng-deep .imgWrapper {
+    max-width: 25%;
+    text-align: justify;
+}
+.mediaParentContainer > div label {
+    max-width: 98%;
+}
+@media screen and (max-width: $screenMedium-1024) {
+    ::ng-deep .imgWrapper {
+        max-width: 100%;
+        text-align: justify;
+    }
+    ::ng-deep .mediaParentContainer > div .imgWrapper {
+        padding: 1rem 0 0 0;
+    }
+    ::ng-deep .main-wrapper {
+        width: 100%;
+    }
+}

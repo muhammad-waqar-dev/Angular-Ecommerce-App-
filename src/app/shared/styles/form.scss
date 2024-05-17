@@ -1,0 +1,335 @@
+@import "../../shared/styles/variables.scss";
+
+.form-control {
+    font-size: 0.91rem !important;
+    opacity: 0.9;
+}
+
+.searchformfld {
+    position: relative;
+    margin  : 5px 0px;
+
+    label {
+        position                  : absolute;
+        padding-left              : 10px;
+        top                       : 12px;
+        cursor                    : text;
+        color                     : $grey-color !important;
+        transition                : all 0.2s;
+        transition-timing-function: ease;
+        transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+        opacity                   : 0.9;
+        color                     : $grey-color;
+    }
+
+    input, .selectButton {
+        &:focus {
+            + {
+                label {
+                    opacity         : 1;
+                    transform       : scale(0.9) translateY(-100%) translateX(9px);
+                    color           : $placeholder-grey !important;
+                    background-color: $white-color;
+                    padding-right   : 9px;
+                }
+            }
+
+            outline-color: $heading-dark-grey;
+            color        : $grey-color;
+        }
+
+        &:not(:placeholder-shown) {
+            + {
+                label {
+                    opacity         : 1;
+                    transform       : scale(0.9) translateY(-110%) translateX(9px);
+                    color           : $placeholder-grey !important;
+                    background-color: $white-color;
+                    padding-right   : 9px;
+                }
+            }
+        }
+
+        width       : 100%;
+        padding-left: 10px;
+    }
+}
+
+.text-danger {
+    font-size    : 1rem;
+    margin-top   : 0.1rem;
+   // margin-bottom: 0.8rem;
+    display      : block;
+    padding-left : 0.3rem;
+    color        : #f23c2b !important;
+    border-radius: 0.3rem;
+}
+
+.submitBtn {
+    background-color: $dark-grey;
+    width           : 20rem;
+    color           : $white-color;
+
+    :disabled {
+        background-color: $medium-gray;
+    }
+}
+
+.memberSearch {
+    input {
+        height: 32px;
+        width : 14rem;
+    }
+}
+
+.input-group-append {
+    position: relative;
+
+    img {
+        position: absolute;
+        width   : 18px;
+        right   : 15px;
+        top     : 13px;
+    }
+}
+
+.datepicker-control {
+    max-width: 100%;
+}
+
+::ng-deep {
+    .delivery-sec .datepicker-control, .pickup-sec .datepicker-control {
+        height      : 48px !important;
+        cursor      : pointer;
+        padding-left: 10px;
+    }
+}
+
+.bg-primary,
+.bg-primary:hover {
+    background-color: $grey-color !important;
+}
+
+label {
+    color: $heading-dark-grey;
+}
+
+// Dropdpwn CSS
+.dropdown {
+    width    : 11rem;
+    top      : 0;
+    font-size: 0.9rem;
+
+    button {
+        border          : 1px solid $disabled-grey;
+        border-radius   : 4px;
+        background-color: $white-color;
+        color           : $heading-dark-grey;
+
+        .m-arrow {
+            img {
+                width   : 15px;
+                height  : 9px;
+                position: relative;
+                bottom  : 1px;
+            }
+        }
+    }
+
+    .navbarDropdownMenuLink {
+        width          : 100%;
+        display        : flex;
+        justify-content: space-between;
+        height         : 46px;
+        padding        : 10px;
+        &:disabled {
+            background: #e9ecef;
+        }
+    }
+
+    .dropdown-menu {
+        padding   : 0.4rem 0;
+        transform : translate(0px, 51px) !important;
+        border-top: none;
+        font-size : 0.9rem;
+        color     : $heading-dark-grey;
+
+        li {
+            width      : 17rem;
+            cursor     : pointer;
+            padding    : 0.2rem 0;
+            line-height: 23px;
+
+            &:hover {
+                background-color: $heading-grey;
+            }
+
+            label {
+                cursor: pointer;
+            }
+        }
+    }
+
+    .selectedText {
+        width        : 100%;
+        overflow     : hidden;
+        text-overflow: ellipsis;
+        white-space  : nowrap;
+        text-align   : left;
+    }
+
+    .selected {
+        background-color: #ecebea;
+        pointer-events  : none;
+    }
+}
+
+.existingAddress {
+    .dropdown {
+        .dropdown-menu {
+            li {
+                width: 42.7vw;
+            }
+        }
+    }
+}
+
+.formTextField {
+    margin-bottom: 2.1rem;
+    height: 47px;
+}
+
+.selectButton span {
+    text-transform: inherit !important;
+    color: #545859 !important;
+    opacity: 0.9;
+}
+
+.ReqTimeForm {
+    .dropdown {
+        .dropdown-menu {
+            li {
+                width: 17.3rem;
+            }
+        }
+    }
+}
+
+.m-arrow {
+    img {
+        &.invert {
+            transform: rotate(180deg);
+        }
+    }
+}
+
+.sortOption label,
+.sort-button span {
+    text-transform: capitalize;
+}
+
+.dropdown .dropdown-menu.countryDropdown {
+    padding: 0.4rem 0;
+    transform: translate(0px, 0px) !important;
+    border-top: none;
+    font-size: 0.9rem;
+    color: #595959;
+    li {
+        width: 36.3rem;
+        cursor: pointer;
+        padding: 0.2rem 0;
+        line-height: 23px;
+    }
+}
+
+.searchformfld.dropdown .dropdown-menu li label {
+    position: static;
+}
+
+body .dropdown .dropdown-menu.stateDropdown {
+    transform: translate(0px, 0px) !important;
+    li {
+        width: 100%;
+    }
+}
+
+.dropdown .dropdown-menu.reqDelTimeVal,
+.dropdown .dropdown-menu.deliveryAddressDropdown,
+.dropdown .dropdown-menu.countryDropdown,
+.dropdown .dropdown-menu.stateDropdown {
+    transform: translate(0px, 0px) !important;
+    inset: auto !important;
+    top: 3rem !important;
+    z-index: 1;
+}
+
+.form-control:disabled, .form-control[readonly],
+.dropdown .navbarDropdownMenuLink:disabled {
+    background-color: #fff !important;
+}
+
+@media screen and (max-width: $mobileScreenPotrait) {
+    .requiredDiv {
+        text-align  : left !important;
+        padding-left: 0rem;
+        color       : $grey-color;
+
+        label {
+            color: $grey-color;
+        }
+    }
+
+    .dropdown .dropdown-menu.reqDelTimeVal,
+    .dropdown .dropdown-menu.deliveryAddressDropdown,
+    .dropdown .dropdown-menu.countryDropdown,
+    .dropdown .dropdown-menu.stateDropdown {
+        transform: translate(0px, 0px) !important;
+        inset: auto !important;
+        top: 0rem !important;
+    }
+
+    .existingAddress, .reDelTime{ 
+        .user-form {
+            > a {
+                flex: 0 0 calc(50% - 8px);
+            }
+        }
+        .dropdown {
+            .dropdown-menu.deliveryAddressDropdown {
+                top: 0rem !important;
+            }
+        }
+    }
+
+    .existingAddress, .dropdown {
+        .dropdown {
+            .dropdown-menu {
+                li {
+                    width: 21.7rem;
+                }
+            }
+        }
+    }
+}
+
+.form-check input + .form-check-label {
+    font-size: 0.9375rem;
+}
+.form-check input[type="radio"]:checked::after {
+    background: $grey-color;
+}
+input[type="radio"]:checked {
+    border-color: $box-shadow-grey !important;
+    outline: none;
+}
+.form-check input[type="checkbox"]:checked {
+    background-color: white;
+    border-width: 2px;
+    border-color: $box-shadow-grey;
+    &::after {
+        border-color: $grey-color;
+    }
+}
+.form-check input[type=radio] {
+    outline: none;
+}

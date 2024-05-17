@@ -1,0 +1,9 @@
+<div *ngIf="component.data$ | async as data" class="landingTiles">
+    <a (click)="tileClicked(data)" [routerLink]="data.urlLink">
+        <cx-media [container]="data.media"></cx-media>
+    </a>
+</div>
+
+<div *ngIf="showInternalStaffPopupOnfirstLoad$ | async">
+    <app-internal-staff (result)="searchFormResult($event)"></app-internal-staff>
+</div>

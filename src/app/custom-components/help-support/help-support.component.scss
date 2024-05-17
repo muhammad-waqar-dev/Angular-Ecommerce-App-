@@ -1,0 +1,113 @@
+@import "../../../app/shared/styles/variables.scss";
+
+.contact-us-info {
+    img {
+        width: 27px;
+    }
+}
+
+.menuItemContainer {
+    ul {
+        width: 20.0rem;
+        border: 0px;
+        margin-top: -0.2rem !important;
+        transform: translate(-84.9%, 47px) !important;
+        padding-left: 1.3rem;
+        li {
+            margin-left: 0.2rem;
+            margin-right: 1.2rem;
+            @include font-MyriadReg();
+            color: $dark-grey;
+        }
+    }
+    .nav-link {
+        &.show {
+            background-color: white;
+            i {
+                color: white;
+            }
+            & .fa-question-circle:before {
+                color: black;
+            }
+        }
+    }
+    .fa-question-circle:before {
+        color: white;
+    }
+}
+
+.contactService,
+.contactText {
+    cursor: pointer;
+}
+
+.contactText a {
+    text-decoration: underline;
+}
+
+.marginLine {
+    margin-top: 0.4rem !important;
+    margin-bottom: 0.4rem !important;
+}
+
+@media screen and (max-width: $mobileScreenPotrait) {
+    hr {
+        width: 100%;
+        height: 0;
+        position: relative;
+        border-top: 1px solid #888888;
+        right: 0;
+    }
+    .menuItemContainer {
+        min-width: 1rem;
+        #navbarDropdownMenuLink {
+            padding: 0;
+        }
+        ul {
+            width: 21.7rem;
+            border: 0px;
+            margin-top: -2.3rem !important;
+            transform: translate(-61.4%, 24%) !important;
+            padding-left: 0.3rem;
+            padding-right: 0.3rem;
+            box-shadow: 0rem 0.1rem 0.7rem #0000004d;
+            li {
+                word-break: break-all;
+                width: 100%;
+            }
+        }
+    }
+    .menuItemContainer .fa-question-circle:before {
+        color: $grey-color;
+        font-size: 25px;
+        padding: 0px 0.6rem;
+        position: relative;
+        top: 1px;
+    }
+}
+
+.socialMediaIcons .fa {
+    font-family: "FontAwesome";
+}
+
+.socialMediaIcons {
+    display: flex;
+    justify-content: center;
+    .icons {
+        text-align: center;
+        background: #f3f3f3;
+        width: 180px;
+        padding: 5px 0;
+        a {
+            cursor: pointer;
+            padding-left: 15px;
+            font-size: 20px;
+            &:first-child {
+                padding-left: 0;
+            }
+            img {
+                width: 30px;
+            }
+        }
+    }
+}

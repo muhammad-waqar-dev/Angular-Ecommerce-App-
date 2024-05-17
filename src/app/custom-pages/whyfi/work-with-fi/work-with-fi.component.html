@@ -1,0 +1,155 @@
+<ng-container *ngIf="!(isLoading$ | async);else loading">
+    <div class="col form-wrapper mt-4 pl-0 pr-0" *ngIf="permissionAllowed && !isLoading;else permissionDeniedMessage">
+        <div *ngIf="isMobile" class="mobilePageTitleContainer d-flex flex-fill align-items-center mt-2 text-center">
+            <a [routerLink]="'/why-fi'"><i class="fa fa-chevron-left"></i></a>
+            <div class="flex-fill "><label>Working With FI</label></div>
+        </div>
+        <div class="col main-wrapper">
+            <form (ngSubmit)="submit(content)" [formGroup]="workWithFIForm" class="mt-1 " autocomplete="off">
+
+
+                <!-- about fletcher insulation section -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5 class="mb-md-0 mb-3 aboutFletcherText">About Fletcher Insulation</h5>
+                        <p class="mt-1 mb-0 blurbText">Fletcher Insulation is the leading provider of Insulation products and services for Australia; with a proud history of over 80 years, we have supplied and supported the local Australian Insulation Market with a product range developed for Australian conditions. Fletcher Insulation has supplied a number of household brands, including Pink Batts, Permastop and Sisalation and continues to release innovative insulation products to meet changing market and construction code requirements. We are also proud to serve our customers working in partnership to deliver building solutions, innovation and products that meet building codes and standards without compromise.
+                        </p>
+                    </div>
+                </div>
+                <!-- about fletcher insulation section -->
+
+                <hr class="d-flex mb-3 mt-md-3">
+                <!-- tell us your new product section -->
+                <div class="row">
+                    <div class="col-md-6 mb-4 pr-md-5">
+                        <h5>Tell us your new Product or Service idea</h5>
+                        <p class="mb-0">We would be pleased to receive any suggestion on any new products or services
+                            that we
+                            can help you with. Please enter your idea in the form below as we would love to hear from
+                            you.</p>
+
+                        <div class="row">
+                            <div class="col-md-12 mt-4">
+                                <div class="form-group">
+
+                                    <label for="market">Market</label>
+                                    <select class="form-control" formControlName="prodServiceIdea"
+                                        (change)="prodServiceInputVal()">
+                                        <option value="0" disabled>Select</option>
+                                        <option>Hardware Retail</option>
+                                        <option>Residential Building</option>
+                                        <option>Commercial Building</option>
+                                        <option>Commercial HVAC</option>
+                                        <option>Industrial</option>
+                                        <option>Other</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 mt-4">
+                                <div class="form-group searchformfld mobile-full-w">
+                                    <label for="indAcInfPhone">Briefly describe you idea</label>
+                                    <textarea class="form-control mobile-full-w" id="briefDesc" placeholder=" "
+                                        (change)="briefInputVal()" formControlName="briefDesc"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6 mb-md-4  d-flex align-items-center pl-md-5">
+                        <div class="mobile-full-w">
+                            <div class="btn-container mobile-full-w">
+                                <button [disabled]="!formValidationCheckIdea()" type="submit" (click)="ideaSubmit()"
+                                    class="btn btn-block font-weight-bold text-white submitBtn mobile-full-w">SUBMIT</button>
+                            </div>
+
+                            <div class="form-check">
+                                <label class="form-check-label mt-3">
+                                    <input type="checkbox" class="form-check-input  mt-0"
+                                        formControlName="serviceIdeaCheckbox" value="">I would like to be contacted
+                                </label>
+                            </div>
+                            <div class="col-md-12 d-flex justify-content-md-end p-0 mb-2  mt-4 justify-content-start">
+                                <p class="success-message" id="success-msg1">Message Submitted</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- tell us your new product section -->
+                <hr class="d-flex mb-3 mt-md-3">
+
+                <!-- catalyst for change section -->
+                <div class="row">
+                    <div class="col-md-6 mb-4 pr-md-5">
+                        <h5>Catalyst for change</h5>
+                        <p class="mb-0">Fletcher insulation represents the insulation industry on a number of working
+                            bodies and
+                            groups that influence Australian standards, building practices and National construction
+                            Codes. If
+                            you have some feedback that you would like us to take to make our industry better we would
+                            love to
+                            hear from you.</p>
+
+                        <p class="mt-3 mb-1">Please provide any suggestions or changes to standards or building
+                            practices you
+                            would like us to consider.</p>
+                        <div class="row">
+                            <div class="col-md-12 mt-1">
+                                <div class="form-group searchformfld">
+                                    <textarea class="form-control mobile-full-w" id="catalystForChange" placeholder=" "
+                                        formControlName="catalystForChange"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6 mb-4 d-flex align-items-center pl-md-5">
+                        <div class="mobile-full-w">
+                            <div class="btn-container mobile-full-w">
+                                <button [disabled]="!formValidationCheckCatalyst()" type="submit"
+                                    (click)="catalystSubmit()"
+                                    class="btn btn-block font-weight-bold text-white submitBtn mobile-full-w">SUBMIT</button>
+                            </div>
+
+                            <div class="form-check">
+                                <label class="form-check-label mt-3">
+                                    <input type="checkbox" class="form-check-input mt-0"
+                                        formControlName="catalystCheckbox">I would like to be contacted
+                                </label>
+                            </div>
+                            <div class="col-md-12 d-flex justify-content-md-end p-0 mb-2  mt-4 justify-content-start">
+                                <p class="success-message" id="success-msg2">Message Submitted</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- catalyst for change section -->
+            </form>
+
+            <ng-template #content let-modal>
+                <ng-container>
+                    <div class=" contactCSRForm modal-header modal-head container row mt-4 successHeading">
+                        <div class="col-lg-8 co-xs-12 col-sm-12 titleBottomStyle ">
+                            <h3>{{popupThankYouMessage.textThankHeading}}</h3>
+                        </div>
+                        <span class="closeIcon "><img src="assets/images/closegrey.svg" (click)="closePopup()"
+                                alt="Menu Icon" /></span>
+                    </div>
+                    <div class="modal-body ">
+                        <app-fi-confirmation-popup [isSuccess]="true"></app-fi-confirmation-popup>
+                    </div>
+                </ng-container>
+            </ng-template>
+        </div>
+    </div>
+</ng-container>
+<ng-template #permissionDeniedMessage>
+    <app-accesspermissionmessage></app-accesspermissionmessage>
+</ng-template>
+<ng-template #loading>
+    <div class="cx-spinner">
+        <cx-spinner></cx-spinner>
+    </div>
+</ng-template>

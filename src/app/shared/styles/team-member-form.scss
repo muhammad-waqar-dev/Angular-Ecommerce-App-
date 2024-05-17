@@ -1,0 +1,403 @@
+@import "./variables.scss";
+.email {
+    outline: none;
+}
+.w-60 {
+    width: 63%;
+}
+::ng-deep .addMemberForm {
+    .titleBottomStyle h3 {
+        margin-left: 1.7rem;
+    }
+
+    .titleBottomStyleSuccess {
+        padding-left: 1rem;
+        h3 {
+            margin-top: -1rem;
+        }
+    }
+
+    @include font-MyriadReg();
+    .modal-dialog {
+        .modal-content {
+            color: $grey-color;
+            border: 3rem solid rgba(84, 88, 89, 0.7);
+        }
+        .add-team-member-modal {
+            justify-content: left;
+            padding: 0;
+            .closeIcon {
+                position: absolute;
+                right: -1rem;
+                top: -2.3rem;
+                cursor: pointer;
+            }
+            h4 {
+                font-size: 1.325rem;
+                width: 100%;
+                margin-left: -1rem;
+            }
+        }
+        .modal-header {
+            border-bottom: 0 none;
+            height: auto !important;
+        }
+        h3 {
+            color: #595959;
+        }
+
+        .modal-footer {
+            border-top: 0 none;
+        }
+        img {
+            vertical-align: middle;
+            height: 0.8rem;
+            width: 0.8rem;
+            filter: invert(1);
+            border-style: none;
+            fill: grey;
+        }
+        .queryDescription {
+            color: #595959;
+        }
+        .modal-body {
+            > form {
+                > *input {
+                    color: $dark-grey;
+                    border: 1px solid $medium-gray;
+                    background-color: $white-color !important;
+                    z-index: 1;
+                    margin-bottom: 0;
+                    &:visited {
+                        background-color: $white-color;
+                    }
+                    &:focus {
+                        background-color: $white-color;
+                        box-shadow: none;
+                        outline-style: hidden !important;
+                        outline-color: transparent;
+                        border: 1px solid $medium-gray;
+                    }
+                    &:hover {
+                        background-color: $white-color;
+                        box-shadow: none;
+                    }
+                    &:disabled {
+                        color: $placeholder-grey;
+                    }
+                    &:-webkit-autofill {
+                        background-color: $white-color !important;
+                        box-shadow: none;
+                    }
+                    &:-webkit-internal-autofill-selected {
+                        background-color: $white-color !important;
+                        box-shadow: none;
+                    }
+                    &:-webkit-autofill,
+                    &:-webkit-autofill:hover,
+                    &:-webkit-autofill:focus,
+                    &:-webkit-autofill:active {
+                        background-color: $white-color !important;
+                        box-shadow: none;
+                    }
+                    &:disabled {
+                        opacity: 0.8;
+                        color: $placeholder-grey;
+                    }
+                }
+                input.ng-invalid.ng-touched,
+                input.error {
+                    border: 1px solid #d8d9de !important;
+                }
+                .fa_custom {
+                    color: $error-text-red-color;
+                    position: absolute;
+                    right: 1rem;
+                    top: 1rem;
+                    transform: scale(1.2);
+                }
+                .row {
+                    .form-group {
+                        position: relative;
+                        margin-bottom: 0.5rem !important;
+                        label {
+                            position: absolute;
+                            font-size: 0.875rem;
+                            color: $placeholder-grey;
+                            cursor: text;
+                            z-index: 0;
+                            transition: all 0.15s ease-in-out 0s;
+                            &.liftUp {
+                                top: 14px;
+                                left: 15px;
+                                color: $placeholder-grey;
+                                background-color: $white-color;
+                                top: -12px;
+                                padding: 0 2px;
+                                font-size: 0.875rem;
+                                transition: all 0.15s ease-in-out 0s;
+                            }
+                        }
+                    }
+                    > *p {
+                        margin-bottom: 0px;
+                        @include font-MyriadReg();
+                        font-size: 1rem;
+                        color: $dark-grey;
+                    }
+                    .submitBtn {
+                        background-color: $dark-grey;
+                        width: 20rem;
+                        color: $white-color;
+                        :disabled {
+                            color: $medium-gray;
+                        }
+                    }
+                    select {
+                        height: 40px;
+                        font-size: 0.875rem;
+                        color: $grey-color;
+                        border: 1px solid $medium-gray;
+                        outline: none;
+                        @include font-Arial();
+                        &:focus {
+                            background-color: white;
+                        }
+                        option {
+                            color: $grey-color;
+                            font-size: 1rem;
+                            @include font-Arial();
+                        }
+                    }
+
+                    > *textarea {
+                        background-color: white;
+                        color: $grey-color;
+                        outline: none;
+                    }
+
+                    .input-group {
+                        .dateContainer {
+                            justify-content: space-between;
+                            i {
+                                padding-top: 50%;
+                                padding-left: 50%;
+                            }
+                        }
+                    }
+                }
+                .custom-switch .custom-control-label::before {
+                    height: 1.44rem;
+                    width: 2.9rem;
+                    border: 1px solid #c8c9c7;
+                    border-radius: 1rem;
+                    cursor: pointer;
+                }
+                .custom-switch .custom-control-label::after {
+                    width: calc(1.5rem - 4px);
+                    height: calc(1.5rem - 4px);
+                    left: calc(-2.5rem + 2px);
+                    background-color: #adb5bd;
+                    border-radius: 14px;
+                }
+                .custom-switch .custom-control-input:checked ~ .custom-control-label::after {
+                    background-color: #fff;
+                    transform: translateX(1.9rem);
+                }
+                .custom-switch .custom-control-input:checked ~ .custom-control-label::after {
+                    background-color: #545859;
+                }
+                .custom-control-input:checked ~ .custom-control-label::before {
+                    border-color: grey;
+                    background-color: #fff;
+                }
+                .custom-control-input:focus ~ .custom-control-label::before {
+                    box-shadow: none;
+                }
+
+                .custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
+                    border-color: #adb5bd;
+                }
+            }
+        }
+    }
+    .addMemberForm .modal-dialog img {
+        width: 1rem;
+        height: 2rem;
+        filter: none;
+        margin: 0;
+        position: absolute;
+        left: 46%;
+        right: 50%;
+        z-index: 999;
+        bottom: 13.7rem;
+        cursor: pointer;
+    }
+}
+.datepicker-control::-webkit-input-placeholder { /* Edge */
+    color: #595959;
+  }
+  
+.datepicker-control:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #595959;
+  }
+  
+.datepicker-control::placeholder {
+    color: #595959;
+  }
+.successHeader {
+    color: #595959;
+    font-weight: bold;
+}
+
+
+.message {
+    color: $placeholder-grey;
+    padding: 3rem 3rem 0rem 3rem;
+}
+
+.messageThankYou {
+    color: $placeholder-grey;
+    padding: 1rem 3rem 8rem 3rem;
+}
+
+.requiredInput {
+    color: #595959;
+}
+
+.searchformfld {
+    position: relative;
+    margin: 5px 0px;
+}
+
+.searchformfld label {
+    position: absolute;
+    padding-left: 10px;
+    top: 9px;
+    cursor: text;
+    color: $grey-color !important;
+}
+
+.searchformfld input:focus + label,
+.searchformfld input:not(:placeholder-shown) + label {
+    opacity: 1;
+    transform: scale(0.9) translateY(-100%) translateX(9px);
+    color: $placeholder-grey !important;
+    background-color: $white-color;
+    padding-right: 9px;
+}
+
+.searchformfld input:focus {
+    border: 1px solid #595959;
+    outline-color: #595959;
+    color: $grey-color;
+}
+
+.searchformfld input {
+    width: 100%;
+    padding-left: 10px;
+}
+
+.searchformfld label {
+    transition: all 0.2s;
+    transition-timing-function: ease;
+    transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+    opacity: 0.9;
+    color: $grey-color;
+}
+
+.underline {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+::ng-deep  .datepicker-control {
+    height: 32px !important;
+    cursor: pointer;
+    caret-color: transparent;
+    max-width: 8rem;
+    padding-left: 5px;
+    font-size: 0.82rem;
+}
+::ng-deep .bg-primary, ::ng-deep .bg-primary:hover {
+    background-color: $grey-color !important;
+}
+::ng-deep .btn-link {
+    color: $grey-color !important;
+}
+::ng-deep .ngb-dp-navigation-chevron {
+    width: .55em !important;
+    height: .55em !important;
+}
+::ng-deep .ngb-dp-navigation-chevron:not(.right) {
+    margin-left: 0 !important;
+    margin-right: 1.15em !important;
+    margin-bottom: 0.55rem !important;
+}
+::ng-deep .right .ngb-dp-navigation-chevron {
+    margin-left: 1.55em !important;
+    margin-right: .25em !important;
+    margin-bottom: 0.6rem !important;
+}
+.input-group-append  img{
+    height: 2rem !important;
+    filter: none !important;
+    margin: 0 !important;
+    z-index: 999 !important;
+    cursor: pointer !important;
+    margin-left: -1.2rem !important;
+    position: absolute;
+    width: 15px !important;
+}
+::ng-deep .ngb-dp-arrow button:focus{
+    outline: 0 !important;
+    box-shadow: none !important;
+}
+
+.add-member-form {
+    margin-top: 0;
+}
+
+::ng-deep .addMemberForm .titleBottomStyle .removeHeading {
+    margin-left: 0.7rem !important;
+}
+
+@media not all and (min-resolution:.001dpcm){ @supports (-webkit-appearance:none){
+        ::ng-deep .dateContainer img{
+           height: 1.5rem !important;
+        }
+    }
+}
+
+@media screen and (max-width: $mobileScreenPotrait) {
+
+    ::ng-deep .add-team-member-modal {
+        margin: 0 auto;
+        padding: 0 !important;
+    }
+    ::ng-deep .addMemberForm {
+        .titleBottomStyle{
+            padding: 0 0 0 2.8rem
+        }
+        .titleBottomStyle {
+            border-bottom: 1px solid $medium-gray;
+            padding-left: 0 !important;
+        }
+
+        .thanks-text {
+            font-size: 1.375rem;
+        }
+
+        .requiredDiv {
+            text-align: left !important;
+            color: $grey-color;
+            label {
+                color: $grey-color;
+            }
+        }
+    }
+    ::ng-deep .add-member-form {
+        margin-top: 3rem;
+
+    }
+}

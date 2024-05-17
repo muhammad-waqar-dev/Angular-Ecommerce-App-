@@ -1,0 +1,109 @@
+<div *ngIf="!isHistoricData" class="list-row d-flex accountsCard">
+  <span class="checkbox-container"
+    ><a
+      class="d-flex checkbox-custom pointer"
+      (click)="onAccountSelect($event)"
+      [ngClass]="{ selected: account?.selected }"
+    ></a
+  ></span>
+  <span class="pl-md-0 pl-3">{{ account?.AccountingDocument }}</span>
+  <span>
+    <span
+      class="capitalize status"
+      *ngIf="account?.ClearingStatus !== 'Payment In-Progress'"
+      >{{ (account?.ClearingStatus == 1) ? 'Paid' : 'Outstanding' | lowercase
+    }}</span
+    >
+    <span class="status" *ngIf="account?.ClearingStatus === 'Payment In-Progress'"
+      >In Progress</span
+    >
+
+    <img
+      *ngIf="account?.ClearingStatus?.toLowerCase() === 'overdue'"
+      src="./assets/images/status-icons/active/invoice-overdue.svg"
+      class="mt-3 mb-3"
+      [ngClass]="isMobile ? 'mt-2 mb-2' : 'mt-3 mb-3'"
+    />
+
+    <img
+      *ngIf="account?.ClearingStatus?.toLowerCase() == 1"
+      src="./assets/images/status-icons/active/invoice-paid.svg"
+      class="mt-3 mb-3"
+      [ngClass]="isMobile ? 'mt-2 mb-2' : 'mt-3 mb-3'"
+    />
+
+    <img
+      *ngIf="account?.ClearingStatus?.toLowerCase() == 2"
+      src="./assets/images/status-icons/active/invoice-oustanding.svg"
+      class="mt-3 mb-3"
+      [ngClass]="isMobile ? 'mt-2 mb-2' : 'mt-3 mb-3'"
+    />
+
+    <img
+      *ngIf="account?.ClearingStatus?.toLowerCase() === 'disputed'"
+      src="./assets/images/status-icons/active/invoice-disputed.svg"
+      class="mt-3 mb-3"
+      [ngClass]="isMobile ? 'mt-2 mb-2' : 'mt-3 mb-3'"
+    />
+
+    <img
+      *ngIf="account?.ClearingStatus === 'Payment In-Progress'"
+      src="./assets/images/status-icons/active/invoice-inprogress.svg"
+      class="mt-3 mb-3"
+      [ngClass]="isMobile ? 'mt-2 mb-2' : 'mt-3 mb-3'"
+    />
+  </span>
+  <span
+    *ngIf="!isMobile && !isStringContains(account?.Description, 'Rebate')"
+    >{{ account?.InvoiceReference }}</span
+  >
+  <span *ngIf="!isMobile">{{ account?.DocumentDate }}</span>
+  <span class="list-amount">$ {{ account?.AmountInCompanyCodeCurrency }}</span>
+  <span class="nex-page"
+    ><i
+      (click)="navigateToDetailsPage(account)"
+      class="fa fa-lg fa-chevron-right"
+    ></i
+  ></span>
+</div>
+
+
+
+<div *ngIf="isHistoricData" class="list-row d-flex accountsCard">
+  <span class="checkbox-container"
+    ><a
+      class="d-flex checkbox-custom pointer"
+      (click)="onAccountSelect($event)"
+      [ngClass]="{ selected: account?.selected }"
+    ></a
+  ></span>
+  <span class="pl-md-0 pl-3">{{ account?.journalEntry }}</span>
+  <span *ngIf="!isHistoricData">
+    <span
+      class="capitalize status"
+      >{{ account?.clearingStatus | lowercase
+    }}</span
+    >
+
+    
+
+    <img
+      *ngIf="account?.ClearingStatus?.toLowerCase() == 2"
+      src="./assets/images/status-icons/active/invoice-oustanding.svg"
+      class="mt-3 mb-3"
+      [ngClass]="isMobile ? 'mt-2 mb-2' : 'mt-3 mb-3'"
+    />
+
+  </span>
+  <span
+    >{{ account?.reference }}</span
+  >
+  <span *ngIf="!isMobile">{{ account?.journalEntryDate?.value }}</span>
+  <span class="list-amount">$ {{ account?.amount }}</span>
+  <span class="nex-page"
+    ><i
+      (click)="navigateToDetailsPage(account)"
+      class="fa fa-lg fa-chevron-right"
+    ></i
+  ></span>
+</div>

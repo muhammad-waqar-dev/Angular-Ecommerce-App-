@@ -1,0 +1,54 @@
+@import "../../../shared/styles/variables.scss";
+
+.list-row {
+    border-bottom: 1px solid #c8c9c7;
+    padding: 2rem 0
+}
+.list-row span {
+    width: 24%;
+    display: flex;
+    align-items: center;
+    &.status {
+        width: 90px;
+        @media screen and (max-width: $mobileScreenPotrait) {
+            width: 70px;
+            min-width: 70px;
+        }
+    }
+}
+.address{
+    width: 30% !important;
+    padding-left: 21px;
+}
+.list-row .nex-page{
+    width: 5% !important;
+    justify-content: flex-end !important;
+    cursor: pointer;
+
+}
+img {
+    margin: 0 !important;
+}
+.list-row span img {
+    width: 3rem;
+    margin-left: 1rem !important;
+    @media screen and (max-width: $mobileScreenPotrait) {
+        width: 2.3rem;
+        margin-left: 0 !important;
+    }
+}
+.list-row {
+    align-items: center;
+}
+.quoteStatusText {
+    text-transform: capitalize;
+}
+@media screen and (max-width: $mobileScreenPotrait) {
+    .list-row span {
+        width: 32%;
+    }
+    .list-row .nex-page{
+        max-width: 4% !important;
+    }
+
+}

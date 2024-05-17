@@ -1,0 +1,143 @@
+<ng-template #loading>
+  <div class="cx-spinner w-100">
+    <cx-spinner></cx-spinner>
+  </div>
+</ng-template>
+<ng-container *ngIf="!(isLoading$ | async); else loading">
+  <ng-container *ngIf="creditDataCheck">
+    <div class="row mt-2 ml-md-1">
+      <div class="col-md-4 heading">
+        <h3>Payments Due</h3>
+      </div>
+      <div *ngIf="!isMobile" class="col-md-8 heading">
+        <h3>Credit Available</h3>
+      </div>
+    </div>
+    <div class="row mt-md-3 ml-md-1">
+      <div
+        class="col-md-4 payment-container"
+        [ngClass]="{ payValueEmpty: accountNumberEmptyVal }"
+      >
+        <div class="progress">
+          <div
+            class="progress-bar due-bg radiusPosition d-flex justify-content-end align-items-center"
+            role="progressbar"
+            aria-valuenow="15"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            [ngStyle]="{ width: +paymentDuePercent + '%' }"
+          ></div>
+          <div
+            class="progress-bar processing-bg radiusPosition d-flex justify-content-end align-items-center"
+            role="progressbar"
+            aria-valuenow="30"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            [ngStyle]="{
+              width: +paymentProcessing + '%',
+              left: +paymentDuePercent + '%'
+            }"
+          ></div>
+        </div>
+
+        <div class="mt-4">
+          <div class="d-flex align-items-center">
+            <div class="info-label paymentVal">
+              <span class="paymentLabel">Payments Due:</span>
+              <label>{{ paymentDuePercent }}%</label>
+            </div>
+            <span class="circle due-bg"></span>
+          </div>
+
+          <!-- <div class="d-flex mt-2 align-items-center">
+          <div class="info-label paymentVal"><span class="paymentLabel">Credit Limit Used:</span> <label>{{ paymentProcessing }}%</label></div>
+          <span class="circle processing-bg"></span>
+        </div> -->
+        </div>
+      </div>
+
+      <div
+        class="col-md-4 credit-container"
+        [ngClass]="{ credValueEmpty: accountNumberEmptyVal }"
+      >
+        <h3 *ngIf="isMobile">Credit Available</h3>
+        <div class="progress">
+          <div
+            class="progress-bar due-bg radiusPosition d-flex justify-content-end align-items-center"
+            role="progressbar"
+            aria-valuenow="15"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            [ngStyle]="{ width: +creditBalancePercent + '%' }"
+          ></div>
+          <div
+            class="progress-bar processing-bg radiusPosition d-flex justify-content-end align-items-center"
+            role="progressbar"
+            aria-valuenow="30"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            [ngStyle]="{
+              width: +creditProcessingPercent + '%',
+              left: +creditBalancePercent + '%'
+            }"
+          ></div>
+          <div
+            class="progress-bar credit-bg radiusPosition d-flex justify-content-end align-items-center"
+            role="progressbar"
+            [ngStyle]="{
+              width: +creditAvaliablePercent + '%',
+              left:
+                +creditProcessingPercent +
+                creditBalancePercent -
+                leftGrayOverlayValue +
+                '%'
+            }"
+            aria-valuenow="30"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          ></div>
+        </div>
+
+        <div class="mt-4">
+          <div class="d-flex align-items-center">
+            <div class="info-label">
+              <span class="creditLabel">Account Receivable:</span>
+              <span class="creditDisplayValue"
+                ><label>$</label
+                ><span>{{
+                  getFloatNumber(creditPaymentData?.AvailableCreditInvoices)
+                    | number : "1.2-2"
+                }}</span></span
+              >
+            </div>
+            <span class="circle due-bg"></span>
+          </div>
+
+          <div class="d-flex mt-2 align-items-center">
+            <div class="info-label">
+              <span class="creditLabel">Open Orders:</span>
+              <span class="creditDisplayValue"
+                ><label>$</label
+                ><span>{{ getOpenOrders() | number : "1.2-2" }}</span></span
+              >
+            </div>
+            <span class="circle processing-bg"></span>
+          </div>
+
+          <div class="d-flex mt-2 align-items-center">
+            <div class="info-label">
+              <span class="creditLabel">Available:</span>
+              <span class="creditDisplayValue"
+                ><label>$</label
+                ><span>{{
+                  getAvailableBalance() | number : "1.2-2"
+                }}</span></span
+              >
+            </div>
+            <span class="circle available-bg"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>
